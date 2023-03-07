@@ -51,7 +51,7 @@
             <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Orientation="Vertical" >
                 <Button Width="50" Height="30" Content="Authorization" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}" />
                 <Button Width="50" Height="30" Content="AdminView" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AdministationView}" />
-                <Button Content="Sign in" Width="50" Margin="0,200,0,0" Height="30"/>
+                <Button Content="Sign in" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}" Width="50" Margin="0,200,0,0" Height="30"/>
             </StackPanel>
         </Grid>
     </Grid>

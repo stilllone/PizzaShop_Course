@@ -1,5 +1,6 @@
 ﻿using PizzaShop_Course.DataProvider;
 using PizzaShop_Course.Model;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PizzaShop_Course.ViewModel.Administrator
@@ -114,6 +115,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
         public ICommand SaveCommand { get; }
         public ICommand UpdateCommand { get; }
         public ICommand DeleteCommand { get; }
+        public ICommand AuthorizeCommand { get; }
 
         public UserViewModel()
         {
@@ -122,6 +124,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
             SaveCommand = new RelayCommand(SaveUser);
             UpdateCommand = new RelayCommand(UpdateUser);
             DeleteCommand = new RelayCommand(DeleteUser);
+            AuthorizeCommand = new RelayCommand(AuthorizeUser);
         }
 
         private void SaveUser(object parameter)
@@ -139,5 +142,12 @@ namespace PizzaShop_Course.ViewModel.Administrator
             userDBConnection.DeleteUser(user.Id);
         }
 
+        private void AuthorizeUser(object parameter)
+        {
+            if (userDBConnection.AuthenticateUser(user.Login, user.Password) == null)
+            {
+                MessageBox.Show("Uncorrect input data");
+            }
+        }
     }
 }

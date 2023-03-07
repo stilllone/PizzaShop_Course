@@ -147,14 +147,14 @@
     <Compile Include="View\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Notification\ChoosePermision.xaml.cs">
-      <DependentUpon>ChoosePermision.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\PizzasView.xaml.cs">
       <DependentUpon>PizzasView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserInformationView.xaml.cs">
       <DependentUpon>UserInformationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserWindow.xaml.cs">
+      <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -192,15 +192,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Notification\ChoosePermision.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\PizzasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserInformationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

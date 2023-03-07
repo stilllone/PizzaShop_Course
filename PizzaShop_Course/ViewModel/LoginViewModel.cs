@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PizzaShop_Course.ViewModel
@@ -15,60 +16,60 @@ namespace PizzaShop_Course.ViewModel
     public class LoginViewModel : PropertyBase
     {
 
-        private string _username;
-        public string Username
+        private string login;
+        public string Login
         {
-            get { return _username; }
+            get { return login; }
             set
             {
-                _username = value;
-                OnPropertyChanged(nameof(Username));
+                login = value;
+                OnPropertyChanged(nameof(login));
             }
         }
 
-        private string _password;
+        private string password;
         public string Password
         {
-            get { return _password; }
+            get { return password; }
             set
             {
-                _password = value;
+                password = value;
                 OnPropertyChanged(nameof(Password));
             }
         }
 
-        private bool _isLoggedIn;
+        private bool isLoggedIn;
         public bool IsLoggedIn
         {
-            get { return _isLoggedIn; }
+            get { return isLoggedIn; }
             set
             {
-                _isLoggedIn = value;
+                isLoggedIn = value;
                 OnPropertyChanged(nameof(IsLoggedIn));
             }
         }
 
-        private ICommand _loginCommand;
+        private ICommand loginCommand;
         public ICommand LoginCommand
         {
             get
             {
-                if (_loginCommand == null)
+                if (loginCommand == null)
                 {
-                    _loginCommand = new RelayCommand(Login);
+                    loginCommand = new RelayCommand(UserLogin);
                 }
-                return _loginCommand;
+                return loginCommand;
             }
         }
 
-        private void Login(object parameter)
+        private void UserLogin(object parameter)
         {
             UserModel user = null;
             using (MySqlConnection connection = SqlDBConnection.GetDBConnection())
             {
                 connection.Open();
-                MySqlCommand command = new MySqlCommand("SELECT * FROM UserAccounts WHERE Username = @Username", connection);
-                command.Parameters.AddWithValue("@Username", Username);
+                MySqlCommand command = new MySqlCommand("SELECT * FROM UserAccounts WHERE login = @Login, password = @Password", connection);
+                command.Parameters.AddWithValue("@login", Login);
                 MySqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
@@ -86,14 +87,13 @@ namespace PizzaShop_Course.ViewModel
             }
 
             
-            if (user != null && PasswordHasher.VerifyPassword(Password, user.Password))
+            if (user != null)
             {
                 IsLoggedIn = true;
-                // Navigate to the mainview
             }
             else
             {
-                //error message
+                MessageBox.Show("Incorrect Login or Password");
             }
         }
 

@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PizzaShop_Course.View"
+             xmlns:adminvm="clr-namespace:PizzaShop_Course.ViewModel.Administrator"
              mc:Ignorable="d" 
              d:DesignHeight="359" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <adminvm:UserViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -14,9 +18,9 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Username:" Margin="182,109,549,-135"/>
-        <TextBox Grid.Row="0" Grid.Column="0" Width="200" Margin="244,113,294,-131"/>
+        <TextBox Grid.Row="0" Grid.Column="0"  Text="{Binding Login}" Width="200" Margin="244,113,294,-131"/>
         <Label Grid.Row="0" Grid.Column="0" Content="Password:" Margin="182,148,549,-174"/>
-        <PasswordBox Grid.Row="0" Grid.Column="0" Width="200" Margin="244,148,294,-174"/>
-        <Button Grid.Row="0" Grid.Column="0" Content="Login" Margin="325,210,375,-230" Click="Button_Click"/>
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Password}" Width="200" Margin="244,148,294,-174"/>
+        <Button Grid.Row="0" Grid.Column="0" Command="{Binding AuthorizeCommand}" Content="Login" Margin="325,210,375,-230"/>
     </Grid>
 </UserControl>

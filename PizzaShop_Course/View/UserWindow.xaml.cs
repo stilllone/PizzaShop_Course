@@ -10,28 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PizzaShop_Course.View.Notification
+namespace PizzaShop_Course.View
 {
     /// <summary>
-    /// Interaction logic for ChoosePermision.xaml
+    /// Interaction logic for UserWindow.xaml
     /// </summary>
-    public partial class ChoosePermision : Window
+    public partial class UserWindow : UserControl
     {
-        public ChoosePermision()
+        public UserWindow()
         {
             InitializeComponent();
-        }
-
-        private void AsUser(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AsAdmin(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -32,41 +32,36 @@ namespace PizzaShop_Course.DataProvider
                 command.Parameters.AddWithValue("@password", user.Password);
                 command.Parameters.AddWithValue("@email", user.Email);
                 command.ExecuteNonQuery();
+                connection.Close();
             }
         }
 
         public UserModel AuthenticateUser(string login, string password)
         {
-            using (var connection = _connection)
+            UserModel user = null;
+            using (MySqlConnection connection = SqlDBConnection.GetDBConnection())
             {
                 connection.Open();
-                var query = "SELECT * FROM users WHERE login=@login";
-                using (var command = new MySqlCommand(query, connection))
+                MySqlCommand command = new MySqlCommand("SELECT * FROM users WHERE login = @login AND password = @password", connection);
+                command.Parameters.AddWithValue("@Login", login);
+                command.Parameters.AddWithValue("@password", password);
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
                 {
-                    command.Parameters.AddWithValue("@login", login);
-                    using (var reader = command.ExecuteReader())
+                    user = new UserModel
                     {
-                        if (reader.Read())
-                        {
-                            var hashedPassword = reader.GetString("password");
-                            if (PasswordHasher.VerifyPassword(password, hashedPassword))
-                            {
-                                return new UserModel
-                                {
-                                    Id = reader.GetInt32("id"),
-                                    ChangeRoots = reader.GetBoolean("change_roots"),
-                                    FirstName = reader.GetString("first_name"),
-                                    LastName = reader.GetString("last_name"),
-                                    PhotoPath = (byte[])reader["photo"],
-                                    Login = reader.GetString("login"),
-                                    Password = hashedPassword,
-                                    Email = reader.GetString("email")
-                                };
-                            }
-                        }
-                    }
+                        Id = (int)reader["id"],
+                        FirstName = (string)reader["first_name"],
+                        LastName = (string)reader["last_name"],
+                        ChangeRoots = (bool)reader["change_roots"],
+                        Login = (string)reader["login"],
+                        Password = (string)reader["password"],
+                        Email = (string)reader["email"],
+                        PhotoPath = (byte[])reader["photo"]
+                    };
+                    connection.Close();
+                    return user;
                 }
-                connection.Close();
             }
             return null;
         }

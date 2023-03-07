@@ -1,4 +1,4 @@
-﻿using PizzaShop_Course.View.Notification;
+﻿
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,12 +12,6 @@ namespace PizzaShop_Course.View
         public AuthorizationView()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ChoosePermision ch = new ChoosePermision();
-            ch.Show();
         }
     }
 }
