@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="PizzaShop_Course.View.Administrator.AdministationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel.Administrator"
+             xmlns:local="clr-namespace:PizzaShop_Course.View.Administrator"
+             mc:Ignorable="d"
+             d:DesignHeight="359" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:UserViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <ScrollViewer  VerticalScrollBarVisibility="Auto" Background="#606060">
+            <StackPanel Margin="-200,0,0,0" Height="359" Width="310">
+                <Label  Content="Id:" />
+                <TextBox  Text="{Binding Id}" />
+                <Label  Content="Change Roots:" />
+                <CheckBox  IsChecked="{Binding ChangeRoots}" />
+                <Label  Content="First Name:" />
+                <TextBox  Text="{Binding FirstName}" />
+                <Label  Content="Last Name:" />
+                <TextBox  Text="{Binding LastName}" />
+                <Label  Content="Photo:" />
+                <Image  Source="{Binding Photo}" />
+                <Button  Width="90" Content="Select Photo" />
+                <Label  Content="Login:" />
+                <TextBox  Text="{Binding Login}" />
+                <Label  Content="Password:" />
+                <TextBox  Text="{Binding Password}" />
+                <Label  Content="Email:" />
+                <TextBox  Text="{Binding Email}" />
+                <WrapPanel Orientation="Horizontal">
+                    <Button Content="Create" Margin="10,10" Command="{Binding SaveCommand}" />
+                    <Button Content="Update" Margin="10,10" Command="{Binding UpdateCommand}"/>
+                    <Button Content="Delete" Margin="10,10" Command="{Binding DeleteCommand}"/>
+                </WrapPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+    <!--<Grid>
+        <StackPanel HorizontalAlignment="Left"  Margin="10,0,610,0">
+            <TextBlock Text="Add new Pizza" HorizontalAlignment="Center" FontSize="25"/>
+            <TextBlock Text="Name"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="Ingridients"/>
+            <TextBox Text="{Binding Ingridients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="Price"/>
+            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="PhotoPath"/>
+            <TextBox Text="{Binding PhotoPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="Mass"/>
+            <TextBox Text="{Binding Mass, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="Size"/>
+            <ComboBox ItemsSource="{Binding Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+
+            <Button Content="Add" Width="100" Margin="0,80"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Margin="310,0,310,0">
+            <TextBlock Text="Add new Drinks"  FontSize="25"/>
+            <TextBlock Text="Name"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="Price"/>
+            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="PhotoPath"/>
+            <TextBox Text="{Binding PhotoPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="Size"/>
+            <ComboBox ItemsSource="{Binding Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+
+            <Button Content="Add" Width="100" Margin="0,146"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" Margin="610,0,10,0">
+            <TextBlock Text="Delete User" HorizontalAlignment="Center" FontSize="25"/>
+            <TextBlock Text="Login"/>
+            <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <Button Content="Delete" Width="100" Margin="0,250"/>
+        </StackPanel>
+    </Grid>-->
+</UserControl>

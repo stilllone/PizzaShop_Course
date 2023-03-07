@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="PizzaShop_Course.View.UserInformationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PizzaShop_Course.View"
+             xmlns:model="clr-namespace:PizzaShop_Course.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="359" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <model:UserModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Image Source="{Binding Image}"/>
+        <StackPanel Margin="180,0,0,172" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <!--total spend, address some info-->
+            <Label Content="First Name"/>
+            <TextBlock Text="{Binding FirstName}"/>
+            <Label Content="Second Name"/>
+            <TextBlock Text="{Binding SecondName}"/>
+            <Label Content="Email"/>
+            <TextBlock Text="{Binding Email}"/>
+            <Label Content="City"/>
+            <TextBlock Text="{Binding City}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
