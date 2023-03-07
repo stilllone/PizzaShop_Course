@@ -42,8 +42,8 @@ namespace PizzaShop_Course.Model
             }
         }
 
-        private byte[] photopath = null;
-        public byte[] PhotoPath
+        private byte[]? photopath = null;
+        public byte[]? PhotoPath
         {
             get => photopath;
             set
@@ -75,8 +75,8 @@ namespace PizzaShop_Course.Model
             }
         }
 
-        private string email = null;
-        public string Email
+        private string? email;
+        public string? Email
         {
             get => email;
             set
@@ -96,36 +96,36 @@ namespace PizzaShop_Course.Model
                 OnPropertyChanged();
             }
         }
-        public UserModel Authenticate(string username, string password)
-        {
-            UserModel user = null;
-            string query = "SELECT * FROM users WHERE username = @username AND password = @password";
-            using (MySqlCommand cmd = new MySqlCommand(query, connection))
-            {
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
-                connection.Open();
-                using (MySqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        user = new UserModel
-                        {
-                            Id = reader.GetInt32("id"),
-                            ChangeRoots = reader.GetBoolean("change_roots"),
-                            FirstName = reader.GetString("first_name"),
-                            LastName = reader.GetString("last_name"),
-                            PhotoPath = (byte[])reader["photo"],
-                            Login = reader.GetString("login"),
-                            Password = reader.GetString("password"),
-                            Email = reader.GetString("email")
-                        };
-                        return user;
-                    }
-                }
-            }
-            return null;
-        }
+        //public UserModel Authenticate(string username, string password)
+        //{
+        //    UserModel user = null;
+        //    string query = "SELECT * FROM users WHERE username = @username AND password = @password";
+        //    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+        //    {
+        //        cmd.Parameters.AddWithValue("@username", username);
+        //        cmd.Parameters.AddWithValue("@password", password);
+        //        connection.Open();
+        //        using (MySqlDataReader reader = cmd.ExecuteReader())
+        //        {
+        //            if (reader.Read())
+        //            {
+        //                user = new UserModel
+        //                {
+        //                    Id = reader.GetInt32("id"),
+        //                    ChangeRoots = reader.GetBoolean("change_roots"),
+        //                    FirstName = reader.GetString("first_name"),
+        //                    LastName = reader.GetString("last_name"),
+        //                    PhotoPath = (byte[])reader["photo"],
+        //                    Login = reader.GetString("login"),
+        //                    Password = reader.GetString("password"),
+        //                    Email = reader.GetString("email")
+        //                };
+        //                return user;
+        //            }
+        //        }
+        //    }
+        //    return null;
+        //}
 
     }
 }

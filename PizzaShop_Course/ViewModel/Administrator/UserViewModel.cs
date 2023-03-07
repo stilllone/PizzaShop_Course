@@ -144,7 +144,8 @@ namespace PizzaShop_Course.ViewModel.Administrator
 
         private void AuthorizeUser(object parameter)
         {
-            if (userDBConnection.AuthenticateUser(user.Login, user.Password) == null)
+            var _user = userDBConnection.AuthenticateUser(user.Login, user.Password);
+            if (_user == null)
             {
                 MessageBox.Show("Uncorrect input data");
             }

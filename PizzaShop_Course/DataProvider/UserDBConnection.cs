@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System;
 
 namespace PizzaShop_Course.DataProvider
 {
@@ -21,15 +22,15 @@ namespace PizzaShop_Course.DataProvider
             using (var connection = _connection)
             {
                 connection.Open();
-                string query = "INSERT INTO users (change_roots, first_name, last_name, photo, login, password, email) " +
-                           "VALUES (@changeRoots, @firstName, @lastName, @photo, @login, @password, @email)";
+                string query = "INSERT INTO users (change_roots, first_name, last_name, photo, login, pass, email) " +
+                           "VALUES (@changeRoots, @firstName, @lastName, @photo, @login, @pass, @email)";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@changeRoots", user.ChangeRoots);
                 command.Parameters.AddWithValue("@firstName", user.FirstName);
                 command.Parameters.AddWithValue("@lastName", user.LastName);
                 command.Parameters.AddWithValue("@photo", user.PhotoPath);
                 command.Parameters.AddWithValue("@login", user.Login);
-                command.Parameters.AddWithValue("@password", user.Password);
+                command.Parameters.AddWithValue("@pass", user.Password);
                 command.Parameters.AddWithValue("@email", user.Email);
                 command.ExecuteNonQuery();
                 connection.Close();
@@ -42,9 +43,9 @@ namespace PizzaShop_Course.DataProvider
             using (MySqlConnection connection = SqlDBConnection.GetDBConnection())
             {
                 connection.Open();
-                MySqlCommand command = new MySqlCommand("SELECT * FROM users WHERE login = @login AND password = @password", connection);
-                command.Parameters.AddWithValue("@Login", login);
-                command.Parameters.AddWithValue("@password", password);
+                MySqlCommand command = new MySqlCommand("SELECT * FROM users WHERE login = @login AND pass = @pass", connection);
+                command.Parameters.AddWithValue("@login", login);
+                command.Parameters.AddWithValue("@pass", password);
                 MySqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
@@ -55,9 +56,9 @@ namespace PizzaShop_Course.DataProvider
                         LastName = (string)reader["last_name"],
                         ChangeRoots = (bool)reader["change_roots"],
                         Login = (string)reader["login"],
-                        Password = (string)reader["password"],
-                        Email = (string)reader["email"],
-                        PhotoPath = (byte[])reader["photo"]
+                        Password = (string)reader["pass"],
+                        Email = (reader["email"] == DBNull.Value) ? string.Empty : (string?)reader["email"],
+                        PhotoPath = (reader["photo"] == DBNull.Value) ? null : (byte[]?)reader["photo"]
                     };
                     connection.Close();
                     return user;
