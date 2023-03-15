@@ -4,22 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PizzaShop_Course.View"
-             xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel.Administrator"
+             xmlns:view="clr-namespace:PizzaShop_Course.View"
+             xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="67" d:DesignWidth="67">
     <UserControl.DataContext>
-        <vm:UserViewModel/>
+        <vm:MainViewModel/>
     </UserControl.DataContext>
-    <Grid>
-        <Button Width="67" Height="67" Command="{Binding NavigateCommand}" CommandParameter="{x:Type local:UserInformationView}">
-        <Button.Template>
-            <ControlTemplate TargetType="{x:Type Button}">
-                <Grid>
-                    <Ellipse Fill="{TemplateBinding Background}"/>
-                    <Image Source="{Binding Photo, RelativeSource={RelativeSource TemplatedParent}}"/>
-                </Grid>
-            </ControlTemplate>
-        </Button.Template>
+    <Button Width="67" Height="67" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:UserInformationView}">
+        <Image Source="{Binding User.Photo}"/>
     </Button>
-    </Grid>
 </UserControl>

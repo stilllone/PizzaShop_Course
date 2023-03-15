@@ -23,18 +23,8 @@ namespace PizzaShop_Course.View
     {
         public DrinksView()
         {
-            InitializeComponent(); InitializeComponent();
-            var products = GetProducts();
-            if (products.Count > 0)
-                ListViewProducts.ItemsSource = products;
+            InitializeComponent();
         }
 
-        private List<DrinksModel> GetProducts()
-        {
-            var products = new List<DrinksModel>();
-            products.Add(new DrinksModel());
-            return products;
-            
-        }
     }
 }

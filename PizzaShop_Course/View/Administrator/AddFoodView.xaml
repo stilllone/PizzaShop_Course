@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="PizzaShop_Course.View.Administrator.AddFoodView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PizzaShop_Course.View.Administrator"
+             xmlns:adminvm="clr-namespace:PizzaShop_Course.ViewModel.Administrator"
+             mc:Ignorable="d" 
+             d:DesignHeight="359" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <adminvm:AddFoodViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Left" Margin="150,0,0,0" Width="282">
+                <ComboBox Margin="0,20,0,0" ItemsSource="{Binding CBItems}" SelectedItem="{Binding CurrentItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Name: "/>
+                <TextBox Text="{Binding Name}"/>
+                <Label Content="Photo: "/>
+                <Button  Width="90" Height="25" Content="Select Photo" Command="{Binding SelectPhotoCommand}" />
+                <Label Content="Price: "/>
+                <TextBox Text="{Binding Price, Mode=TwoWay}" PreviewTextInput="Price_PreviewTextInput"/>
+                <Label Content="Size: "/>
+                <ComboBox ItemsSource="{Binding CBSize}" SelectedItem="{Binding Size, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Ingridients:"/>
+                <TextBox TextWrapping="Wrap" Text="{Binding Ingredients}" Visibility="{Binding ItemVisibility}"/>
+                <Label Content="Mass:" Visibility="{Binding ItemVisibility, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Text="{Binding Mass, Mode=TwoWay}" Visibility="{Binding ItemVisibility, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Add" Margin="0,10,0,0" Command="{Binding AddFood}" Width="90" Height="25"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

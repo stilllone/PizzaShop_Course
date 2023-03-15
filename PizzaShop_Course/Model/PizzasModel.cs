@@ -43,8 +43,8 @@ namespace PizzaShop_Course.Model
             }
         }
 
-        private PizzaSize size;
-        public PizzaSize Size
+        private string size;
+        public string Size
         {
             get => size;
             set
@@ -53,10 +53,6 @@ namespace PizzaShop_Course.Model
                 OnPropertyChanged();
             }
         }
-        public enum PizzaSize
-        {
-            small, middle, big
-        }
 
         private double price;
         public double Price
@@ -64,17 +60,18 @@ namespace PizzaShop_Course.Model
             get => price;
             set
             {
+                price = value;
                 OnPropertyChanged();
             }
         }
 
-        private string photopath;
-        public string PhotoPath
+        private byte[] photo;
+        public byte[] Photo
         {
-            get => photopath;
+            get => photo;
             set
             {
-                photopath = value;
+                photo = value;
                 OnPropertyChanged();
             }
         }
@@ -85,6 +82,7 @@ namespace PizzaShop_Course.Model
             get => mass;
             set
             {
+                mass = value;
                 OnPropertyChanged();
             }
         }

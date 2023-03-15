@@ -8,6 +8,6 @@ namespace PizzaShop_Course.Interfaces
         string FirstName { get; set; }
         string LastName { get; set; }
         bool ChangeRoots { get; set; }
-        byte[] PhotoPath { get; set; }
+        byte[] Photo { get; set; }
     }
 }

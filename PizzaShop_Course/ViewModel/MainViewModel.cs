@@ -1,24 +1,25 @@
 ﻿using PizzaShop_Course.DataProvider;
 using PizzaShop_Course.Model;
+using PizzaShop_Course.ViewModel.Administrator;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace PizzaShop_Course.ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : UserViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private Image userphoto;
-        public Image UserPhoto
+        private UserModel user;
+        public UserModel User
         {
-            get => userphoto;
+            get => user;
             set
             {
-                userphoto = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UserPhoto)));
+                if(user!=value)
+                user = value;
+                OnPropertyChanged(nameof(User));
             }
         }
 
@@ -26,7 +27,8 @@ namespace PizzaShop_Course.ViewModel
         {
             ToggleHamburgerCommand = new RelayCommand(param => IsHamburgerOpen = !IsHamburgerOpen);
             NavigateCommand = new RelayCommand<Type>(NavigateTo);
-            AddToBasketCommand = new RelayCommand(AddToBasket);
+            //AddToBasketCommand = new RelayCommand(AddToBasket);
+            User = UserViewModel.CurrentUser;
         }
         public ICommand ToggleHamburgerCommand { get; }
 
@@ -39,7 +41,7 @@ namespace PizzaShop_Course.ViewModel
                 if (_isHamburgerOpen != value)
                 {
                     _isHamburgerOpen = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsHamburgerOpen)));
+                    OnPropertyChanged(nameof(IsHamburgerOpen));
                 }
             }
         }
@@ -53,17 +55,17 @@ namespace PizzaShop_Course.ViewModel
                 if (_currentView != value)
                 {
                     _currentView = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentView)));
+                    OnPropertyChanged(nameof(CurrentView));
                 }
             }
         }
 
-        public ICommand NavigateCommand { get; }
+        public ICommand NavigateCommand { get; set; }
         public void Navigate(UserControl view)
         {
             CurrentView = view;
         }
-        private void NavigateTo(Type viewType)
+        public void NavigateTo(Type viewType)
         {
             UserControl view = (UserControl)Activator.CreateInstance(viewType);
             Navigate(view);
@@ -71,30 +73,27 @@ namespace PizzaShop_Course.ViewModel
 
 
         #region basket
-        private BasketModel _basket = new BasketModel();
-        public BasketModel Basket
-        {
-            get { return _basket; }
-            set
-            {
-                _basket = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Basket)));
-            }
-        }
 
-        public ICommand AddToBasketCommand { get; }
-        private void AddToBasket(object parameter)
-        {
-            if (parameter is PizzasModel item)
-            {
-                Basket.Items.Add(item);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Basket)));
-            }
-        }
+
+        //private ObservableCollection<BasketModel> _basket = new ObservableCollection<BasketModel>();
+        //public ObservableCollection<BasketModel> Basket
+        //{
+        //    get { return _basket; }
+        //    set
+        //    {
+        //        _basket = value;
+        //        OnPropertyChanged(nameof(Basket));
+        //    }
+        //}
+
+        //public ICommand AddToBasketCommand { get; }
+        //private void AddToBasket(object item)
+        //{
+        //    Basket.Items.Add(item);
+        //    OnPropertyChanged(nameof(Basket));
+        //}
         #endregion
         #region logout
-
-
 
         #endregion
     }

@@ -34,13 +34,13 @@ namespace PizzaShop_Course.Model.Customer
                 OnPropertyChanged();
             }
         }
-        private byte[] photopath;
-        public byte[] PhotoPath //INSERT INTO xx_BLOB(ID,IMAGE) VALUES(1, LOAD_FILE('E:/Images/xxx.png'));
+        private byte[] photo;
+        public byte[] Photo //INSERT INTO xx_BLOB(ID,IMAGE) VALUES(1, LOAD_FILE('E:/Images/xxx.png'));
         {
-            get => photopath;
+            get => photo;
             set
             {
-                photopath = value;
+                photo = value;
                 OnPropertyChanged();
             }
         }

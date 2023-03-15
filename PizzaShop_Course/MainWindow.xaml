@@ -22,19 +22,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="125"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Width="67" Height="67" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:UserInformationView}" Margin="15,4,15,4">
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid>
-                        <Ellipse Fill="{TemplateBinding Background}"/>
-                        <Image Source="{Binding UserPhoto, RelativeSource={RelativeSource TemplatedParent}}"/>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+        
+            <Image Width="67" Height="67" Source="{Binding User.Photo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <!--<Button Style="{Binding nothing}" Width="67" Height="67" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:UserInformationView}" Margin="15,4,15,4">
+            <Image Source="{Binding User.Photo}"/>
+        </Button>-->
         <view:NavigationBar Grid.Column="1" Grid.Row="0" Margin="0,5,35,20"/>
         <Grid Grid.ColumnSpan="2" Grid.Row="1">
             <ContentControl Content="{Binding CurrentView}"/>
@@ -45,13 +40,13 @@
         <Grid Panel.ZIndex="0" x:Name="HamburgerMenuPanel" Grid.Column="0" Grid.Row="1"
               Visibility="{Binding IsHamburgerOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Orientation="Vertical" >
-                <Button Width="50" Height="30" Content="Authorization" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}" />
-                <Button Width="50" Height="30" Content="AdminView" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AdministationView}" />
-                <Button Content="Sign in" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}" Width="50" Margin="0,200,0,0" Height="30"/>
+                <Button Width="70" Height="30" Content="Authorization"  Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}" />
+                <Button Width="70" Height="30" Content="AdminView" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AdministationView}" />
+                <Button Width="70" Height="30" Content="Add" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AddFoodView}" />
+                <Button Content="{Binding ButtonContent}" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}" Width="50" Margin="0,200,0,0" Height="30"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -41,8 +41,8 @@ namespace PizzaShop_Course.Model
             }
         }
 
-        private string photo;
-        public string Photo
+        private byte[] photo;
+        public byte[] Photo
         {
             get => photo;
             set
@@ -51,13 +51,9 @@ namespace PizzaShop_Course.Model
                 OnPropertyChanged();
             }
         }
-        public enum DrinkSize
-        {
-            little, small, middle
-        }
 
-        private DrinkSize size;
-        public DrinkSize Size
+        private string size;
+        public string Size
         {
             get => size;
             set

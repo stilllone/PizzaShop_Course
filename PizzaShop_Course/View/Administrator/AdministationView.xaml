@@ -11,25 +11,28 @@
         <vm:UserViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <ScrollViewer  VerticalScrollBarVisibility="Auto" Background="#606060">
-            <StackPanel Margin="-200,0,0,0" Height="359" Width="310">
+        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Type local:AddFoodView}"/>
+        <ScrollViewer  VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Left" Margin="150,0,0,0" Width="310">
                 <Label  Content="Id:" />
                 <TextBox  Text="{Binding Id}" />
                 <Label  Content="Change Roots:" />
-                <CheckBox  IsChecked="{Binding ChangeRoots}" />
+                <CheckBox IsChecked="{Binding ChangeRoots}" />
                 <Label  Content="First Name:" />
                 <TextBox  Text="{Binding FirstName}" />
                 <Label  Content="Last Name:" />
                 <TextBox  Text="{Binding LastName}" />
                 <Label  Content="Photo:" />
-                <Image  Source="{Binding Photo}" />
-                <Button  Width="90" Content="Select Photo" />
+                <Image  Source="{Binding Photo}" Height="100" />
+                <Button  Width="90" Content="Select Photo" Command="{Binding SelectPhotoCommand}" />
                 <Label  Content="Login:" />
                 <TextBox  Text="{Binding Login}" />
                 <Label  Content="Password:" />
                 <TextBox  Text="{Binding Password}" />
                 <Label  Content="Email:" />
                 <TextBox  Text="{Binding Email}" />
+                <Label  Content="Phone number:" />
+                <TextBox  Text="{Binding Number}" />
                 <WrapPanel Orientation="Horizontal">
                     <Button Content="Create" Margin="10,10" Command="{Binding SaveCommand}" />
                     <Button Content="Update" Margin="10,10" Command="{Binding UpdateCommand}"/>

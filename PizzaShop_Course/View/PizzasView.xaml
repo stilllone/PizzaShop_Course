@@ -4,10 +4,51 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PizzaShop_Course.View"
+             xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="359" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:PizzasViewModel/>
+    </UserControl.DataContext>
     <Grid>
-        <ListBox Background="#606060" Margin="66,0,0,0">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Pizzas" Margin="10" FontSize="22" FontWeight="Medium"/>
+                <StackPanel Margin="20,0">
+                    <ItemsControl x:Name="ListViewProducts" ItemsSource="{Binding Pizzas}" Height="340">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="10" Width="130" Height="300">
+                                    <StackPanel>
+                                        <Border Width="100" Height="100" CornerRadius="5" Margin="5">
+                                            <Border.Effect>
+                                                <DropShadowEffect ShadowDepth="1"/>
+                                            </Border.Effect>
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{Binding Photo}"/>
+                                            </Border.Background>
+                                        </Border>
+                                        <Label Content="{Binding Name}"/>
+                                        <TextBlock TextWrapping="Wrap" Margin="5,0,0,0" Text="{Binding Ingredients}" Height="Auto"/>
+                                        <Label Content="Size: "/>
+                                        <ComboBox ItemsSource="{Binding Size}" Width="80"/>
+                                        <Label Content="{Binding Price}"/>
+                                        <Button Content="Add" Command="{Binding AddToBasket}" Height="25" Width="80"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        <!--<ListBox Background="#606060" Margin="66,0,0,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid >
@@ -22,7 +63,7 @@
                         <Label Content="{Binding Name}"/>
                         <Image Source="{Binding Image}"/>
                         <Label Content="{Binding Price}"/>
-                        <Label Content="{Binding Ingredients}"/><!--add split and set auto-->
+                        <TextBlock TextWrapping="Wrap" Text="{Binding Ingredients}"/>--><!--add split and set auto--><!--
                         <Label Content="Size: "/>
                         <ComboBox ItemsSource="{Binding Size}"/>
                         <Button />
@@ -30,6 +71,6 @@
 
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+        </ListBox>-->
     </Grid>
 </UserControl>

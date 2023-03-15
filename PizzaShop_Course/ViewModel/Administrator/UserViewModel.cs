@@ -1,7 +1,14 @@
-﻿using PizzaShop_Course.DataProvider;
+﻿using Microsoft.Win32;
+using PizzaShop_Course.DataProvider;
 using PizzaShop_Course.Model;
 using System.Windows;
+using PizzaShop_Course.ViewModel.Administrator;
+using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.IO;
+using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace PizzaShop_Course.ViewModel.Administrator
 {
@@ -9,6 +16,28 @@ namespace PizzaShop_Course.ViewModel.Administrator
     {
         private UserDBConnection userDBConnection;
         private UserModel user;
+
+        private static UserModel currentUser;
+        public static UserModel CurrentUser
+        {
+            get => currentUser;
+            set
+            {
+                if (currentUser != value)
+                    currentUser = value;
+                OnGlobalPropertyChanged(nameof(CurrentUser));
+            }
+        }
+        private static bool isAuthorized = false;
+        public static bool IsAuthorized
+        {
+            get => isAuthorized;
+            set
+            {
+                isAuthorized = value;
+                OnGlobalPropertyChanged(nameof(isAuthorized));
+            }
+        }
         public int Id
         {
             get { return user.Id; }
@@ -18,6 +47,18 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 {
                     user.Id = value;
                     OnPropertyChanged(nameof(Id));
+                }
+            }
+        }
+        public string Number
+        {
+            get { return user.Number; }
+            set
+            {
+                if (user.Number != value)
+                {
+                    user.Number = value;
+                    OnPropertyChanged(nameof(Number));
                 }
             }
         }
@@ -63,12 +104,12 @@ namespace PizzaShop_Course.ViewModel.Administrator
 
         public byte[] Photo
         {
-            get { return user.PhotoPath; }
+            get { return user.Photo; }
             set
             {
-                if (user.PhotoPath != value)
+                if (user.Photo != value)
                 {
-                    user.PhotoPath = value;
+                    user.Photo = value;
                     OnPropertyChanged(nameof(Photo));
                 }
             }
@@ -112,10 +153,35 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 }
             }
         }
+        private string buttonContent;
+        public string ButtonContent
+        {
+            get => buttonContent;
+            set
+            {
+                if (IsAuthorized == true)
+                    buttonContent = "Log In";
+                else
+                    buttonContent = "Log Out";
+            }
+        }
+        private ICommand authorizeCommand;
+        public ICommand AuthorizeCommand 
+        { 
+            get => authorizeCommand;
+            set 
+            {
+                if (isAuthorized == false)
+                    authorizeCommand = new RelayCommand(AuthorizeUser);
+                else
+                    authorizeCommand = new RelayCommand(LogOut);
+            }
+        }
+
         public ICommand SaveCommand { get; }
         public ICommand UpdateCommand { get; }
         public ICommand DeleteCommand { get; }
-        public ICommand AuthorizeCommand { get; }
+        public ICommand SelectPhotoCommand { get; set; }
 
         public UserViewModel()
         {
@@ -125,8 +191,8 @@ namespace PizzaShop_Course.ViewModel.Administrator
             UpdateCommand = new RelayCommand(UpdateUser);
             DeleteCommand = new RelayCommand(DeleteUser);
             AuthorizeCommand = new RelayCommand(AuthorizeUser);
+            SelectPhotoCommand = new RelayCommand(SelectPhoto);
         }
-
         private void SaveUser(object parameter)
         {
             userDBConnection.CreateUser(user);
@@ -144,11 +210,26 @@ namespace PizzaShop_Course.ViewModel.Administrator
 
         private void AuthorizeUser(object parameter)
         {
-            var _user = userDBConnection.AuthenticateUser(user.Login, user.Password);
-            if (_user == null)
+            CurrentUser = userDBConnection.AuthenticateUser(user.Login, user.Password);
+            if (CurrentUser == null)
             {
                 MessageBox.Show("Uncorrect input data");
+                IsAuthorized = false;
             }
+            else
+                IsAuthorized = true;
+        }
+        private void SelectPhoto(object parameter)
+        {
+            var openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Photo = File.ReadAllBytes(openFileDialog.FileName);
+            }
+        }
+        private void LogOut(object parameter)
+        {
+            CurrentUser = null;
         }
     }
 }

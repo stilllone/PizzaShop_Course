@@ -4,24 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PizzaShop_Course.View"
+             xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel.Administrator"
              xmlns:model="clr-namespace:PizzaShop_Course.Model"
              mc:Ignorable="d" 
              d:DesignHeight="359" d:DesignWidth="800">
     <UserControl.DataContext>
-        <model:UserModel/>
+        <vm:UserViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Image Source="{Binding Image}"/>
-        <StackPanel Margin="180,0,0,172" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Image Source="{Binding CurrentUser.Photo}" Height="90" Width="90" Margin="175,26,535,243"/>
+        <StackPanel Margin="167,124,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
             <!--total spend, address some info-->
             <Label Content="First Name"/>
-            <TextBlock Text="{Binding FirstName}"/>
+            <TextBlock Text="{Binding CurrentUser.FirstName}"/>
             <Label Content="Second Name"/>
-            <TextBlock Text="{Binding SecondName}"/>
+            <TextBlock Text="{Binding CurrentUser.LastName}"/>
             <Label Content="Email"/>
-            <TextBlock Text="{Binding Email}"/>
+            <TextBlock Text="{Binding CurrentUser.Email}"/>
             <Label Content="City"/>
-            <TextBlock Text="{Binding City}"/>
+            <TextBlock Text="{Binding CurrentUser.Id}"/>
         </StackPanel>
     </Grid>
 </UserControl>

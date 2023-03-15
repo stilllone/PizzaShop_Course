@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PizzaShop_Course.ViewModel.Administrator;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,5 +14,12 @@ namespace PizzaShop_Course
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+
+        private static event PropertyChangedEventHandler GlobalPropertyChanged = delegate { }; //update static property
+        protected static void OnGlobalPropertyChanged(string propertyName)
+        {
+            GlobalPropertyChanged(typeof(UserViewModel), new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

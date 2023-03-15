@@ -16,7 +16,7 @@ namespace PizzaShop_Course.Model
             set
             {
                 changeRoots = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(ChangeRoots));
             }
         }
 
@@ -27,7 +27,7 @@ namespace PizzaShop_Course.Model
             set
             {
                 firstName = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(FirstName));
             }
         }
 
@@ -38,18 +38,18 @@ namespace PizzaShop_Course.Model
             set
             {
                 lastName = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(LastName));
             }
         }
 
-        private byte[]? photopath = null;
-        public byte[]? PhotoPath
+        private byte[]? photo = null;
+        public byte[]? Photo
         {
-            get => photopath;
+            get => photo;
             set
             {
-                photopath = value;
-                OnPropertyChanged();
+                photo = value;
+                OnPropertyChanged(nameof(Photo));
             }
         }
 
@@ -60,7 +60,7 @@ namespace PizzaShop_Course.Model
             set
             {
                 login = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Login));
             }
         }
 
@@ -71,7 +71,7 @@ namespace PizzaShop_Course.Model
             set
             {
                 password = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Password));
             }
         }
 
@@ -82,7 +82,18 @@ namespace PizzaShop_Course.Model
             set
             {
                 email = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Email));
+            }
+        }
+
+        private string number;
+        public string Number
+        {
+            get => number;
+            set
+            {
+                number = value;
+                OnPropertyChanged(nameof(Number));
             }
         }
 
@@ -93,7 +104,7 @@ namespace PizzaShop_Course.Model
             set
             {
                 id = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Id));
             }
         }
         //public UserModel Authenticate(string username, string password)

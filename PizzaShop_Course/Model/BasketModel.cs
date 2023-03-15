@@ -9,16 +9,25 @@ namespace PizzaShop_Course.Model
 {
     public class BasketModel : PropertyBase
     {
-        public ObservableCollection<PizzasModel> Items { get; set; }
-        //public double TotalPrice => Items.Sum(item => item.Price);
-        private double totalprice;
-        public double TotalPrice
+        private PizzasModel pizzas;
+        public PizzasModel Pizzas 
         {
-            get => totalprice;
+            get => pizzas;
             set
             {
-                totalprice = Items.Sum(item => item.Price);
-                OnPropertyChanged();
+                pizzas = value;
+                OnPropertyChanged(nameof(Pizzas));
+            }
+        }
+
+        private DrinksModel drinks;
+        public DrinksModel Drinks 
+        {
+            get => drinks;
+            set
+            {
+                drinks = value;
+                OnPropertyChanged(nameof(Drinks));
             }
         }
     }
