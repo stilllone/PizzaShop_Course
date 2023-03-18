@@ -4,34 +4,54 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PizzaShop_Course.View.Customer"
-             mc:Ignorable="d"
-             d:DesignHeight="359" d:DesignWidth="800">
-    <Grid>
-        <ListBox Background="#606060" Margin="0,0,0,87" ItemsSource="{Binding Items}">
+             xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel"
+             mc:Ignorable="d" Height="359" MinWidth="130">
+    <UserControl.DataContext>
+        <vm:BasketViewModel/>
+    </UserControl.DataContext>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20 0">
+            <ItemsControl x:Name="ListViewProducts" ItemsSource="{Binding OrderItems}" Height="309">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="10" Width="130" Height="220">
+                            <StackPanel>
+                                <Border Width="100" Height="100" CornerRadius="5" Margin="5">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="1"/>
+                                    </Border.Effect>
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding ItemPhoto}"/>
+                                    </Border.Background>
+                                </Border>
+                                <Label Content="{Binding ItemName}"/>
+                                <Label Content="{Binding Price}"/>
+                                <Label Content="{Binding ItemSize}"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+    <!--<Grid>
+        <ListBox Background="#606060" Margin="0,0,0,87" ItemsSource="{Binding OrderItems}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="300"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Label Content="{Binding Name}"/>
-                        <Image Source="{Binding Image}"/>
+                    <Grid>
+                        <Label Content="{Binding ItemName}"/>
+                        <Image Source="{Binding ItemPhoto}"/>
                         <Label Content="{Binding Price}"/>
-                        <Label Content="{Binding Ingredients}"/>
-                        <!--add split and set auto-->
-                        <Label Content="Size: "/>
-                        <ComboBox ItemsSource="{Binding Size}"/>
+                        <Label Content="{Binding ItemSize}"/>
                         <Button />
                     </Grid>
-
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Order" Width="100" HorizontalAlignment="Center" Margin="350,287,350,22" />
-    </Grid>
+    </Grid>-->
 </UserControl>

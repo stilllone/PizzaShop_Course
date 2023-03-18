@@ -20,8 +20,6 @@
                 <Button  Width="90" Height="25" Content="Select Photo" Command="{Binding SelectPhotoCommand}" />
                 <Label Content="Price: "/>
                 <TextBox Text="{Binding Price, Mode=TwoWay}" PreviewTextInput="Price_PreviewTextInput"/>
-                <Label Content="Size: "/>
-                <ComboBox ItemsSource="{Binding CBSize}" SelectedItem="{Binding Size, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Ingridients:"/>
                 <TextBox TextWrapping="Wrap" Text="{Binding Ingredients}" Visibility="{Binding ItemVisibility}"/>
                 <Label Content="Mass:" Visibility="{Binding ItemVisibility, UpdateSourceTrigger=PropertyChanged}"/>

@@ -70,11 +70,14 @@ namespace PizzaShop_Course.ViewModel.Administrator
             {
                 PizzasModel pizza = new PizzasModel() { Name = name, Ingredients = ingridients, Size = size, Price = price, Mass = mass, Photo = photo };
                 pizzasDB.CreatePizza(pizza);
+                Name = null; Ingredients = null; Size = null; Price = 0; Mass = 0; Photo = null;
+
             }
             else if (CurrentItem == FoodItems.Drink)
             {
                 DrinksModel drink = new DrinksModel() { Name = name, Photo = photo, Price = price, Size = size };
                 drinksDB.CreateDrinks(drink);
+                Name = null; Ingredients = null; Size = null; Price = 0; Mass = 0; Photo = null;
             }
         }
         //private void AddPizzaToDB(object parameter)

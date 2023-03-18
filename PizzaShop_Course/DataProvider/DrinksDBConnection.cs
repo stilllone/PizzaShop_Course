@@ -39,7 +39,6 @@ namespace PizzaShop_Course.DataProvider
                         Name = reader.GetString("food_name"),
                         Photo = photoBytes,
                         Price = reader.GetDouble("price"),
-                        Size = reader.GetString("size"),
                         
                     });
                 }
@@ -51,13 +50,12 @@ namespace PizzaShop_Course.DataProvider
         {
             var connection = _connection;
             connection.Open();
-            string query = "INSERT INTO drinks (food_name, price, photo, size) " +
-                           "VALUES (@name, @price, @photo, @size)";
+            string query = "INSERT INTO drinks (food_name, price, photo) " +
+                           "VALUES (@name, @price, @photo)";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@name", drink.Name);
             command.Parameters.AddWithValue("@price", Math.Round(drink.Price, 2));
             command.Parameters.Add("@photo", MySqlDbType.Blob).Value = drink.Photo;
-            command.Parameters.AddWithValue("@size", drink.Size);
             command.ExecuteNonQuery();
             connection.Close();
         }

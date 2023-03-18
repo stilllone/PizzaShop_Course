@@ -34,11 +34,11 @@
                                             </Border.Background>
                                         </Border>
                                         <Label Content="{Binding Name}"/>
-                                        <TextBlock TextWrapping="Wrap" Margin="5,0,0,0" Text="{Binding Ingredients}" Height="Auto"/>
+                                        <TextBlock TextWrapping="Wrap" Margin="5,0,0,0" Text="{Binding Ingredients}"  Height="Auto"/>
                                         <Label Content="Size: "/>
-                                        <ComboBox ItemsSource="{Binding Size}" Width="80"/>
+                                        <ComboBox ItemsSource="{Binding PizzaSize}" SelectedItem="{Binding Size}" Width="80"/>
                                         <Label Content="{Binding Price}"/>
-                                        <Button Content="Add" Command="{Binding AddToBasket}" Height="25" Width="80"/>
+                                        <Button Content="Add" Command="{Binding AddDrinksToBasket}" Height="25" Width="80"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>

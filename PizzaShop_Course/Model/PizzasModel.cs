@@ -1,4 +1,5 @@
 ﻿using PizzaShop_Course.Interfaces;
+using PizzaShop_Course.Interfaces.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace PizzaShop_Course.Model
             set
             {
                 size = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Size));
             }
         }
 
@@ -86,6 +87,10 @@ namespace PizzaShop_Course.Model
                 OnPropertyChanged();
             }
         }
-        
+        public FoodSize[] PizzaSize
+        {
+            get { return (FoodSize[])Enum.GetValues(typeof(FoodSize)); }
+        }
+
     }
 }

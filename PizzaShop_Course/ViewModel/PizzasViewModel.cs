@@ -15,7 +15,7 @@ namespace PizzaShop_Course.ViewModel
         public PizzasViewModel()
         {
             PizzasDBConnection pizzasDBConnection = new PizzasDBConnection();
-            pizzas = pizzasDBConnection.GetPizzas();
+            Pizzas = pizzasDBConnection.GetPizzas();
             AddPizzasToBasket = new RelayCommand(AddPizza);
             DeletePizzaFromBasket = new RelayCommand(DeletePizza);
         } 

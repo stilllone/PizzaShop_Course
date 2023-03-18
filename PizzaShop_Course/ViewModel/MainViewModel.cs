@@ -22,7 +22,16 @@ namespace PizzaShop_Course.ViewModel
                 OnPropertyChanged(nameof(User));
             }
         }
-
+        private bool isLoggedIn = UserViewModel.IsAuthorized;
+        public bool IsLoggedIn
+        {
+            get => isLoggedIn;
+            set
+            {
+                isLoggedIn = value;
+                OnPropertyChanged(nameof(IsAuthorized));
+            }
+        }
         public MainViewModel()
         {
             ToggleHamburgerCommand = new RelayCommand(param => IsHamburgerOpen = !IsHamburgerOpen);
@@ -75,23 +84,16 @@ namespace PizzaShop_Course.ViewModel
         #region basket
 
 
-        //private ObservableCollection<BasketModel> _basket = new ObservableCollection<BasketModel>();
-        //public ObservableCollection<BasketModel> Basket
-        //{
-        //    get { return _basket; }
-        //    set
-        //    {
-        //        _basket = value;
-        //        OnPropertyChanged(nameof(Basket));
-        //    }
-        //}
+        public string BasketTotalPrice
+        {
+            get => BasketViewModel.TotalPrice;
+            set
+            {
+                BasketViewModel.TotalPrice = value;
+                OnPropertyChanged(nameof(BasketTotalPrice));
+            }
 
-        //public ICommand AddToBasketCommand { get; }
-        //private void AddToBasket(object item)
-        //{
-        //    Basket.Items.Add(item);
-        //    OnPropertyChanged(nameof(Basket));
-        //}
+        }
         #endregion
         #region logout
 

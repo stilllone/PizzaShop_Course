@@ -31,21 +31,18 @@ namespace PizzaShop_Course.DataProvider
             command.Parameters.AddWithValue("@CustomerPhone", order.CustomerPhone);
             command.Parameters.AddWithValue("@OrderDate", order.OrderDate);
 
-            int orderId = Convert.ToInt32(command.ExecuteScalar());
-
             foreach (var orderItem in orderItems)
             {
-                command.CommandText = @"INSERT INTO order_items (order_id, item_id, item_name, item_price, item_quantity)
-                                            VALUES (@OrderId, @ItemId, @ItemName, @ItemPrice, @ItemQuantity)";
-                command.Parameters.AddWithValue("@OrderId", orderId);
+                command.CommandText = @"INSERT INTO order_items (item_id, item_name, item_price, item_size)
+                                            VALUES (@ItemId, @ItemName, @ItemPrice, @ItemSize)";
                 command.Parameters.AddWithValue("@ItemId", orderItem.ItemId);
                 command.Parameters.AddWithValue("@ItemName", orderItem.ItemName);
                 command.Parameters.AddWithValue("@ItemPrice", orderItem.ItemPrice);
-                command.Parameters.AddWithValue("@ItemQuantity", orderItem.ItemQuantity);
-
+                command.Parameters.AddWithValue("@ItemSize", orderItem.ItemSize);
                 command.ExecuteNonQuery();
                 command.Parameters.Clear();
             }
+            connection.Close();
         }
     }
 }

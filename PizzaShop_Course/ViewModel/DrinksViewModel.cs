@@ -1,8 +1,10 @@
 ﻿using PizzaShop_Course.DataProvider;
+using PizzaShop_Course.Interfaces.Enums;
 using PizzaShop_Course.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -18,11 +20,10 @@ namespace PizzaShop_Course.ViewModel
         public DrinksViewModel()
         {
             DrinksDBConnection drinksModel = new DrinksDBConnection();
-            drinks = drinksModel.GetDrinks();
-            AddDrinksToBasket = new RelayCommand(AddDrinks);
-            DeleteDrinksFromBasket = new RelayCommand(DeleteDrinks);
+            Drinks = drinksModel.GetDrinks();
+            //AddDrinksToBasket = new RelayCommand(AddDrinks);
+            //DeleteDrinksFromBasket = new RelayCommand(DeleteDrinks);
         }
-
         //#region prop
         //public int Id
         //{
@@ -82,16 +83,17 @@ namespace PizzaShop_Course.ViewModel
                 OnPropertyChanged(nameof(Drinks));
             }
         }
-        public ICommand AddDrinksToBasket { get; }
-        public ICommand DeleteDrinksFromBasket { get; }
+        //public ICommand AddDrinksToBasket { get; }
+        //public ICommand DeleteDrinksFromBasket { get; }
 
-        private void AddDrinks(object drinks)
-        {
-            BasketViewModel.OrderItems.Add(item: (BasketItemModel)drinks);
-        }
-        private void DeleteDrinks(object drinks)
-        {
-            BasketViewModel.OrderItems.Remove(item: (BasketItemModel)drinks);
-        }
+        //private void AddDrinks(object drinks)
+        //{
+        //    BasketViewModel.OrderItems.Add(item: (BasketItemModel)drinks);
+        //    Debug.WriteLine(BasketViewModel.OrderItems.Count);
+        //}
+        //private void DeleteDrinks(object drinks)
+        //{
+        //    BasketViewModel.OrderItems.Remove(item: (BasketItemModel)drinks);
+        //}
     }
 }

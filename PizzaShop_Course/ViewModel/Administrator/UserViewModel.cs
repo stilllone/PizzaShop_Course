@@ -15,16 +15,15 @@ namespace PizzaShop_Course.ViewModel.Administrator
     public class UserViewModel : PropertyBase
     {
         private UserDBConnection userDBConnection;
-        private UserModel user;
+        private static UserModel user;
 
-        private static UserModel currentUser;
         public static UserModel CurrentUser
         {
-            get => currentUser;
+            get => user;
             set
             {
-                if (currentUser != value)
-                    currentUser = value;
+                if (user != value)
+                    user = value;
                 OnGlobalPropertyChanged(nameof(CurrentUser));
             }
         }
@@ -185,7 +184,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
 
         public UserViewModel()
         {
-            this.userDBConnection = new UserDBConnection();
+            userDBConnection = new UserDBConnection();
             user = new UserModel();
             SaveCommand = new RelayCommand(SaveUser);
             UpdateCommand = new RelayCommand(UpdateUser);
@@ -210,11 +209,11 @@ namespace PizzaShop_Course.ViewModel.Administrator
 
         private void AuthorizeUser(object parameter)
         {
-            CurrentUser = userDBConnection.AuthenticateUser(user.Login, user.Password);
-            if (CurrentUser == null)
+            user = userDBConnection.AuthenticateUser(user.Login, user.Password);
+            if (user == null)
             {
-                MessageBox.Show("Uncorrect input data");
                 IsAuthorized = false;
+                MessageBox.Show("Uncorrect input data");
             }
             else
                 IsAuthorized = true;
@@ -229,7 +228,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
         }
         private void LogOut(object parameter)
         {
-            CurrentUser = null;
+            user = null;
         }
     }
 }

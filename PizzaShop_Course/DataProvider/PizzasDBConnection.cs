@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using PizzaShop_Course.Interfaces.Enums;
 using PizzaShop_Course.Model;
 using System;
 using System.Collections.Generic;
@@ -40,8 +41,7 @@ namespace PizzaShop_Course.DataProvider
                         Ingredients = reader.GetString("ingridients"),
                         Mass = reader.GetInt32("mass"),
                         Photo = photoBytes,
-                        Price = (double)reader.GetDouble("price"),
-                        Size = reader.GetString("size"),
+                        Price = (double)reader.GetDouble("price")
                     });
                 }
                 reader.Close();
@@ -52,8 +52,8 @@ namespace PizzaShop_Course.DataProvider
         {
             var connection = _connection;
             connection.Open();
-            string query = "INSERT INTO pizzas (food_name, ingridients, size, price, photo, mass) " +
-               "VALUES (@name, @ingridients, @size, @price, @photo, @mass)";
+            string query = "INSERT INTO pizzas (food_name, ingridients, price, photo, mass) " +
+               "VALUES (@name, @ingridients, @price, @photo, @mass)";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@name", pizza.Name);
             command.Parameters.AddWithValue("@ingridients", pizza.Ingredients);

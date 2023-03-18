@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace PizzaShop_Course.Model
 {
-    public abstract class BasketItemModel
+    public class BasketItemModel
     {
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int ItemId { get; set; }
+        public byte[] ItemPhoto { get; set; }
         public string ItemName { get; set; }
-        public decimal ItemPrice { get; set; }
-        public int ItemQuantity { get; set; }
+        public double ItemPrice { get; set; }
+        public string ItemSize { get; set; }
     }
 }
