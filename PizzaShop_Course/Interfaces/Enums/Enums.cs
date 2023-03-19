@@ -14,4 +14,8 @@ namespace PizzaShop_Course.Interfaces.Enums
     {
         Drink, Pizza
     }
+    public enum Towns
+    {
+        Kharkiv, Kiyv
+    }
 }

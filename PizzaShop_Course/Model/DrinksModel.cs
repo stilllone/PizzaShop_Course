@@ -15,12 +15,6 @@ namespace PizzaShop_Course.Model
 {
     public class DrinksModel : PropertyBase, IFood
     {
-
-        public DrinksModel()
-        { 
-            AddDrinksToBasket = new RelayCommand(AddDrinks);
-            DeleteDrinksFromBasket = new RelayCommand(DeleteDrinks);
-        }
         private int id;
         public int Id
         {
@@ -78,8 +72,13 @@ namespace PizzaShop_Course.Model
             get { return (FoodSize[])Enum.GetValues(typeof(FoodSize)); }
         }
         //Commands (idk how else)
-        public ICommand AddDrinksToBasket { get; }
-        public ICommand DeleteDrinksFromBasket { get; }
+        public ICommand AddDrinksToBasket { get => new RelayCommand(AddDrinks);
+            set 
+            {
+                AddDrinksToBasket?.Execute(value);
+            }
+                }
+        public ICommand DeleteDrinksFromBasket { get => new RelayCommand(DeleteDrinks); }
 
         private void AddDrinks(object drinks)
         {

@@ -4,25 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PizzaShop_Course.View.Customer"
-             xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel"
+             xmlns:cvm="clr-namespace:PizzaShop_Course.ViewModel.Customer"
              mc:Ignorable="d"
-             d:DesignHeight="359" d:DesignWidth="800">
+             Height="359" Width="800">
     <UserControl.DataContext>
-        <vm:BasketViewModel/>
+        <cvm:OrderViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <StackPanel Margin="112,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="359">
+        <StackPanel Margin="112,0,0,0" VerticalAlignment="Center"  HorizontalAlignment="Left" Height="359">
             <Label Content="City"/>
-            <ComboBox Width="91"/>
+            <ComboBox Width="91" ItemsSource="{Binding Cities}" SelectedItem="{Binding City}"/>
             <Label Content="Street"/>
-            <TextBox/>
+            <TextBox Text="{Binding Street}"/>
             <Label Content="Entrance"/>
-            <TextBox/>
+            <TextBox Text="{Binding Entrance}"/>
             <Label Content="Flat"/>
-            <TextBox/>
+            <TextBox Text="{Binding Flat}"/>
             <Label Content="Floor"/>
-            <TextBox/>
-            <Button Content="Finally Order" Height="40" Width="93" Margin="0,30,0,0"/>
+            <TextBox Text="{Binding Floor}"/>
+            <Button Content="Finally Order" Height="40" Width="93" Command="{Binding AddOrderCommand}" Margin="0,30,0,0"/>
         </StackPanel>
         <local:BasketView Margin="311,0,0,0"/>
     </Grid>

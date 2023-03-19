@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace PizzaShop_Course.Model
 {
-    public class OrderModel
+    public class OrderModel : PropertyBase
     {
         public int Id { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public int Entrance { get; set; }
+        public int Flat { get; set; }
+        public int Floor { get; set; }
+        public string Name { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public string CustomerPhone { get; set; }
