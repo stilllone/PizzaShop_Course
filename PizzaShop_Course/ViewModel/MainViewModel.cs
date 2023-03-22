@@ -1,26 +1,79 @@
 ﻿using PizzaShop_Course.DataProvider;
 using PizzaShop_Course.Model;
+using PizzaShop_Course.View;
 using PizzaShop_Course.ViewModel.Administrator;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace PizzaShop_Course.ViewModel
 {
-    public class MainViewModel : UserViewModel
+    public class MainViewModel : PropertyBase
     {
+        public MainViewModel()
+        {
+            ToggleHamburgerCommand = new RelayCommand(param => IsHamburgerOpen = !IsHamburgerOpen);
+            User = UserViewModel.CurrentUser;
+            BasketViewModel.OrderItems.CollectionChanged += OrderItems_CollectionChanged;
+            UserViewModel.UserChanged += OnUserChanged;
+        }
+        private void OrderItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice);
+            }
+        }
+        private void OnUserChanged(object sender, UserModel newUser)
+        {
+            User = UserViewModel.CurrentUser;
+            IsLoggedIn = UserViewModel.IsAuthorized;
+        }
         private UserModel user;
         public UserModel User
         {
             get => user;
             set
             {
-                if(user!=value)
-                user = value;
-                OnPropertyChanged(nameof(User));
+                if (user != value)
+                {
+                    user = value;
+                    OnPropertyChanged(nameof(User));
+
+                    if (user != null && user.Photo != null)
+                    {
+                        var imageSource = new BitmapImage();
+                        using (var stream = new MemoryStream(user.Photo))
+                        {
+                            imageSource.BeginInit();
+                            imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                            imageSource.StreamSource = stream;
+                            imageSource.EndInit();
+                        }
+                        userPhoto = imageSource;
+                        OnPropertyChanged(nameof(UserPhoto));
+                    }
+                    else
+                    {
+                        userPhoto = null;
+                        OnPropertyChanged(nameof(UserPhoto));
+                    }
+                }
             }
+        }
+
+        private ImageSource userPhoto;
+        public ImageSource UserPhoto
+        {
+            get => userPhoto;
         }
         private bool isLoggedIn = UserViewModel.IsAuthorized;
         public bool IsLoggedIn
@@ -29,16 +82,13 @@ namespace PizzaShop_Course.ViewModel
             set
             {
                 isLoggedIn = value;
-                OnPropertyChanged(nameof(IsAuthorized));
+                UserControl us = new UserInformationView();
+                Navigate(us);
+                Debug.WriteLine("IsLoggedIn Changed");
+                OnPropertyChanged(nameof(IsLoggedIn));
             }
         }
-        public MainViewModel()
-        {
-            ToggleHamburgerCommand = new RelayCommand(param => IsHamburgerOpen = !IsHamburgerOpen);
-            NavigateCommand = new RelayCommand<Type>(NavigateTo);
-            //AddToBasketCommand = new RelayCommand(AddToBasket);
-            User = UserViewModel.CurrentUser;
-        }
+        
         public ICommand ToggleHamburgerCommand { get; }
 
         private bool _isHamburgerOpen;
@@ -69,7 +119,7 @@ namespace PizzaShop_Course.ViewModel
             }
         }
 
-        public ICommand NavigateCommand { get; set; }
+        public ICommand NavigateCommand { get => new RelayCommand<Type>(NavigateTo); }
         public void Navigate(UserControl view)
         {
             CurrentView = view;
@@ -82,18 +132,17 @@ namespace PizzaShop_Course.ViewModel
 
 
         #region basket
-
-
-        public string BasketTotalPrice
+        private double baskettotalprice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice);
+        public double BasketTotalPrice
         {
-            get => BasketViewModel.TotalPrice;
+            get => baskettotalprice;
             set
             {
-                BasketViewModel.TotalPrice = value;
-                OnPropertyChanged(nameof(BasketTotalPrice));
+                baskettotalprice = value;
+                OnPropertyChanged(nameof(baskettotalprice));
             }
-
         }
+        
         #endregion
         #region logout
 

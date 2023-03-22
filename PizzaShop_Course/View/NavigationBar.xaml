@@ -6,11 +6,10 @@
              xmlns:customerV="clr-namespace:PizzaShop_Course.View.Customer"
              xmlns:local="clr-namespace:PizzaShop_Course.View" xmlns:viewmodel="clr-namespace:PizzaShop_Course.ViewModel"
              mc:Ignorable="d" Height="50" Width="Auto">
-
     <WrapPanel Orientation="Horizontal" ItemHeight="50" ItemWidth="100" Width="500">
         <Button Content="Drinks" Command="{Binding NavigateCommand}" CommandParameter="{x:Type local:DrinksView}"/>
         <Button Content="Pizzas" Command="{Binding NavigateCommand}" CommandParameter="{x:Type local:PizzasView}" Margin="30,0,-30,0"/>
         <Button Content="OrderView" Command="{Binding NavigateCommand}" CommandParameter="{x:Type customerV:OrderView}" Margin="60,0,-60,0"/>
-        <Button Content="{Binding BasketTotalPrice}" Command="{Binding NavigateCommand}" CommandParameter="{x:Type customerV:BasketView}" Margin="0,0,-300,0" Width="100" />
+        <Button Content="{Binding BasketTotalPrice, UpdateSourceTrigger=PropertyChanged}" Command="{Binding NavigateCommand}" CommandParameter="{x:Type customerV:BasketView}" Margin="0,0,-300,0" Width="100"/>
     </WrapPanel>
 </UserControl>

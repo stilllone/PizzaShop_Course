@@ -5,7 +5,9 @@ using PizzaShop_Course.ViewModel.Administrator;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -14,34 +16,37 @@ namespace PizzaShop_Course.ViewModel
 {
     public class BasketViewModel : PropertyBase
     {
-        //public BasketViewModel()
-        //{
-        //    AddOrderCommand = new RelayCommand(AddOrder);
-        //}
+        
         public BasketViewModel()
-        { }
+        {
+            
+        }
+        public ICommand Delete
+        {
+            get => new RelayCommand(DeleteItem);
+            set
+            {
+                Delete?.Execute(value);
+            }
+        }
+        private void DeleteItem(object item)
+        {
+            var itemToDelete = item as BasketItemModel;
+            if (itemToDelete != null)
+            {
+                OrderItems.Remove(itemToDelete);
+            }
+            Debug.WriteLine(OrderItems.Count);
+        }
         public static ObservableCollection<BasketItemModel> orderItems = new ObservableCollection<BasketItemModel>();
         public static ObservableCollection<BasketItemModel> OrderItems
         {
-            get => orderItems;
+            get { return orderItems; }
             set
             {
                 orderItems = value;
-                OnGlobalPropertyChanged(nameof(OrderItems));
-            }
-        }
-
-
-
-        private static string totalprice = OrderItems.Sum(item => item.ItemPrice).ToString();
-        public static string TotalPrice
-        {
-            get => totalprice;
-            set
-            {
-                if (totalprice != value)
-                    totalprice = value;
-                OnGlobalPropertyChanged(nameof(TotalPrice));
+                Debug.WriteLine("OrderItems changed");
+                OnGlobalPropertyChanged(nameof(OrderItems));            
             }
         }
     }

@@ -15,7 +15,7 @@
             <StackPanel>
                 <TextBlock Text="Pizzas" Margin="10" FontSize="22" FontWeight="Medium"/>
                 <StackPanel Margin="20,0">
-                    <ItemsControl x:Name="ListViewProducts" ItemsSource="{Binding Pizzas}" Height="340">
+                    <ItemsControl x:Name="ListViewProducts" ItemsSource="{Binding Pizzas}" Height="309">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel/>
@@ -36,14 +36,13 @@
                                         <Label Content="{Binding Name}"/>
                                         <TextBlock TextWrapping="Wrap" Margin="5,0,0,0" Text="{Binding Ingredients}"  Height="Auto"/>
                                         <Label Content="Size: "/>
-                                        <ComboBox ItemsSource="{Binding PizzaSize}" SelectedItem="{Binding Size}" Width="80"/>
+                                        <ComboBox ItemsSource="{Binding PizzaSize}" SelectedIndex="0" SelectedItem="{Binding Size}" Width="80"/>
                                         <Label Content="{Binding Price}"/>
                                         <Button Content="Add" Command="{Binding AddDrinksToBasket}" Height="25" Width="80"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                        
                     </ItemsControl>
                 </StackPanel>
             </StackPanel>

@@ -19,7 +19,7 @@ namespace PizzaShop_Course
         private static event PropertyChangedEventHandler GlobalPropertyChanged = delegate { }; //update static property
         protected static void OnGlobalPropertyChanged(string propertyName)
         {
-            GlobalPropertyChanged(typeof(UserViewModel), new PropertyChangedEventArgs(propertyName));
+            GlobalPropertyChanged(null, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

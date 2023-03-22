@@ -34,7 +34,7 @@
             <Setter Property="Padding" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
+                    <ControlTemplate TargetType="Button">
                         <Grid x:Name="grid">
                             <Border x:Name="border" CornerRadius="8" BorderBrush="LightGray" BorderThickness="2">
                                 <Border.Background>
@@ -74,7 +74,7 @@
                                 </Setter>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" TargetName="border" Value="#FF33962B"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="white"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Opacity" TargetName="grid" Value="0.25"/>

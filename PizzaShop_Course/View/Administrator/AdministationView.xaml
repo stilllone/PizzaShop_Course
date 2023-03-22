@@ -11,7 +11,6 @@
         <vm:UserViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Type local:AddFoodView}"/>
         <ScrollViewer  VerticalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment="Left" Margin="150,0,0,0" Width="310">
                 <Label  Content="Id:" />
@@ -33,7 +32,7 @@
                 <TextBox  Text="{Binding Email}" />
                 <Label  Content="Phone number:" />
                 <TextBox  Text="{Binding Number}" />
-                <WrapPanel Orientation="Horizontal">
+                <WrapPanel ItemWidth="60" Orientation="Horizontal">
                     <Button Content="Create" Margin="10,10" Command="{Binding SaveCommand}" />
                     <Button Content="Update" Margin="10,10" Command="{Binding UpdateCommand}"/>
                     <Button Content="Delete" Margin="10,10" Command="{Binding DeleteCommand}"/>
@@ -41,45 +40,4 @@
             </StackPanel>
         </ScrollViewer>
     </Grid>
-    <!--<Grid>
-        <StackPanel HorizontalAlignment="Left"  Margin="10,0,610,0">
-            <TextBlock Text="Add new Pizza" HorizontalAlignment="Center" FontSize="25"/>
-            <TextBlock Text="Name"/>
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <TextBlock Text="Ingridients"/>
-            <TextBox Text="{Binding Ingridients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <TextBlock Text="Price"/>
-            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <TextBlock Text="PhotoPath"/>
-            <TextBox Text="{Binding PhotoPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <TextBlock Text="Mass"/>
-            <TextBox Text="{Binding Mass, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <TextBlock Text="Size"/>
-            <ComboBox ItemsSource="{Binding Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-
-
-            <Button Content="Add" Width="100" Margin="0,80"/>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Center" Margin="310,0,310,0">
-            <TextBlock Text="Add new Drinks"  FontSize="25"/>
-            <TextBlock Text="Name"/>
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <TextBlock Text="Price"/>
-            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <TextBlock Text="PhotoPath"/>
-            <TextBox Text="{Binding PhotoPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <TextBlock Text="Size"/>
-            <ComboBox ItemsSource="{Binding Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-
-
-            <Button Content="Add" Width="100" Margin="0,146"/>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Right" Margin="610,0,10,0">
-            <TextBlock Text="Delete User" HorizontalAlignment="Center" FontSize="25"/>
-            <TextBlock Text="Login"/>
-            <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-
-            <Button Content="Delete" Width="100" Margin="0,250"/>
-        </StackPanel>
-    </Grid>-->
 </UserControl>

@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -72,14 +73,14 @@ namespace PizzaShop_Course.Model
             get { return (FoodSize[])Enum.GetValues(typeof(FoodSize)); }
         }
         //Commands (idk how else)
-        public ICommand AddDrinksToBasket { get => new RelayCommand(AddDrinks);
-            set 
+        public ICommand AddDrinksToBasket
+        {
+            get => new RelayCommand(AddDrinks);
+            set
             {
                 AddDrinksToBasket?.Execute(value);
             }
-                }
-        public ICommand DeleteDrinksFromBasket { get => new RelayCommand(DeleteDrinks); }
-
+        }
         private void AddDrinks(object drinks)
         {
             BasketViewModel.OrderItems.Add(new BasketItemModel()
@@ -89,21 +90,10 @@ namespace PizzaShop_Course.Model
                 ItemPrice = this.price,
                 ItemSize = this.size,
                 ItemPhoto = this.photo
-            }) ;
-            Debug.WriteLine(BasketViewModel.OrderItems.Count);
-        }
-        private void DeleteDrinks(object drinks)
-        {
-            BasketViewModel.OrderItems.Remove(new BasketItemModel()
-            {
-                Id = this.id,
-                ItemId = this.id,
-                ItemName = this.name,
-                ItemPrice = this.price,
-                ItemSize = this.size,
-                ItemPhoto = this.photo
             });
+            OnGlobalPropertyChanged(nameof(BasketViewModel.OrderItems));
             Debug.WriteLine(BasketViewModel.OrderItems.Count);
         }
+        
     }
 }

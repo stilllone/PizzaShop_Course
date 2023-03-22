@@ -25,8 +25,9 @@
                                     </Border.Background>
                                 </Border>
                                 <Label Content="{Binding ItemName}"/>
-                                <Label Content="{Binding Price}"/>
+                                <Label Content="{Binding ItemPrice}"/>
                                 <Label Content="{Binding ItemSize}"/>
+                                <Button Content="Delete" Command="{Binding DataContext.Delete, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
@@ -39,19 +40,4 @@
             </ItemsControl>
         </StackPanel>
     </ScrollViewer>
-    <!--<Grid>
-        <ListBox Background="#606060" Margin="0,0,0,87" ItemsSource="{Binding OrderItems}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Label Content="{Binding ItemName}"/>
-                        <Image Source="{Binding ItemPhoto}"/>
-                        <Label Content="{Binding Price}"/>
-                        <Label Content="{Binding ItemSize}"/>
-                        <Button />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </Grid>-->
 </UserControl>

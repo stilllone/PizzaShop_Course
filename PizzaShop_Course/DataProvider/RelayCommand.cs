@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +13,9 @@ namespace PizzaShop_Course.DataProvider
         private readonly Action<object> _execute;
         private readonly Predicate<object> _canExecute;
 
-        public RelayCommand() : this(null, null)
-        {
-        }
+        //public RelayCommand() : this(null, null)
+        //{
+        //}
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
         {
@@ -58,7 +59,10 @@ namespace PizzaShop_Course.DataProvider
 
         public void Execute(object parameter)
         {
-            _execute((T)parameter);
+            if (parameter is T typedParameter)
+            {
+                _execute(typedParameter);
+            }
         }
 
         public void RaiseCanExecuteChanged()

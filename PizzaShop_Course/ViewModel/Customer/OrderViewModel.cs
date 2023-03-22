@@ -5,6 +5,7 @@ using PizzaShop_Course.ViewModel.Administrator;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,12 @@ namespace PizzaShop_Course.ViewModel.Customer
         }
         private void AddOrder(object parameter)
         {
-            if (BasketNullable() != false)
+            if (UserViewModel.CurrentUser == null)
+            {
+                MessageBox.Show("You need to authorize");
+            }
+            else if (BasketNullable() != true)
+            {
                 try
                 {
                     order = new OrderModel()
@@ -39,28 +45,46 @@ namespace PizzaShop_Course.ViewModel.Customer
                         CustomerName = $"{UserViewModel.CurrentUser.FirstName}  {UserViewModel.CurrentUser}",
                         CustomerEmail = UserViewModel.CurrentUser.Email,
                         CustomerPhone = UserViewModel.CurrentUser.Number,
-
+                        CustomerId = UserViewModel.CurrentUser.Id,
+                        TotalPrice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice),
+                        City = this.city,
+                        Street = this.street,
+                        Entrance = (int)this.entrance,
+                        Flat = (int)this.flat,
+                        Floor = (int)this.floor,
+                        HouseNumber = this.house
                     };
                     BasketDBConnection dataAccessLayer = new BasketDBConnection();
                     dataAccessLayer.AddOrder(order, BasketViewModel.OrderItems);
                     MessageBox.Show("Order added successfully!");
-                    order = new OrderModel();
-                    BasketViewModel.OrderItems = new ObservableCollection<BasketItemModel>();
-                    OnPropertyChanged(nameof(Order));
+                    ClearItems();
                 }
                 catch (Exception ex)
                 {
+                    Debug.WriteLine($"Exeption: {ex}");
                     MessageBox.Show("Something went wrong");
                 }
+            }
             else
                 MessageBox.Show("You have no items in basket");
         }
         private bool BasketNullable()
         {
             if (BasketViewModel.OrderItems.Count != 0)
-                return true;
-            else
                 return false;
+            else
+                return true;
+        }
+        private void ClearItems()
+        {
+            order = new OrderModel();
+            BasketViewModel.OrderItems.Clear();
+            city = null;
+            street = null;
+            entrance = null;
+            house = null;
+            flat = null;
+            floor = null;
         }
         #region prop
         public Towns[] Cities
@@ -87,8 +111,8 @@ namespace PizzaShop_Course.ViewModel.Customer
                 OnPropertyChanged(nameof(Street));
             }
         }
-        private int entrance;
-        public int Entrance
+        private int? entrance;
+        public int? Entrance
         {
             get => entrance;
             set
@@ -97,8 +121,18 @@ namespace PizzaShop_Course.ViewModel.Customer
                 OnPropertyChanged(nameof(Entrance));
             }
         }
-        private int flat;
-        public int Flat
+        private string house = null;
+        public string House
+        {
+            get => house;
+            set
+            {
+                house = value;
+                OnPropertyChanged(nameof(House));
+            }
+        }
+        private int? flat;
+        public int? Flat
         {
             get => flat;
             set
@@ -107,8 +141,8 @@ namespace PizzaShop_Course.ViewModel.Customer
                 OnPropertyChanged(nameof(Entrance));
             }
         }
-        private int floor;
-        public int Floor
+        private int? floor;
+        public int? Floor
         {
             get => floor;
             set

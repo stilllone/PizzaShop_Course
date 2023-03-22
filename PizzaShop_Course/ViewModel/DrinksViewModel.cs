@@ -83,17 +83,5 @@ namespace PizzaShop_Course.ViewModel
                 OnPropertyChanged(nameof(Drinks));
             }
         }
-        //public ICommand AddDrinksToBasket { get; }
-        //public ICommand DeleteDrinksFromBasket { get; }
-
-        //private void AddDrinks(object drinks)
-        //{
-        //    BasketViewModel.OrderItems.Add(item: (BasketItemModel)drinks);
-        //    Debug.WriteLine(BasketViewModel.OrderItems.Count);
-        //}
-        //private void DeleteDrinks(object drinks)
-        //{
-        //    BasketViewModel.OrderItems.Remove(item: (BasketItemModel)drinks);
-        //}
     }
 }
