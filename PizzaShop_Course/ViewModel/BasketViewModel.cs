@@ -17,10 +17,6 @@ namespace PizzaShop_Course.ViewModel
     public class BasketViewModel : PropertyBase
     {
         
-        public BasketViewModel()
-        {
-            
-        }
         public ICommand Delete
         {
             get => new RelayCommand(DeleteItem);

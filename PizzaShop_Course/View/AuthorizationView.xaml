@@ -18,10 +18,11 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Username:" Margin="182,109,549,-135"/>
-        <TextBox Grid.Row="0" Grid.Column="0"  Text="{Binding Login}" Width="200" Margin="244,113,294,-131"/>
-        <Label Grid.Row="0" Grid.Column="0" Content="Password:" Margin="182,148,549,-174"/>
-        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Password}" Width="200" Margin="244,148,294,-174"/>
-        <Button Grid.Row="0" Grid.Column="0" Command="{Binding AuthorizeCommand}" Content="Login" Margin="325,210,375,-230"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Login:" Margin="194,109,537,-135"/>
+        <TextBox Grid.Row="0" Grid.Column="0"  Text="{Binding Login}" Width="200" Margin="275,110,325,-128"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Password:" Margin="194,154,537,-180"/>
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Password}" Width="200" Margin="275,145,325,-171"/>
+        <Button Grid.Row="0" Grid.Column="0" Command="{Binding AuthorizeCommand}" Content="Login" Margin="375,205,325,-225"/>
+        <Button Content="Register" Command="{Binding CreateRegistrationWindowCommand}" Height="20" Width="100" Margin="261,205,439,-225"/>
     </Grid>
 </UserControl>

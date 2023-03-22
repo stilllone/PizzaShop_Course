@@ -6,22 +6,24 @@
              xmlns:local="clr-namespace:PizzaShop_Course.View"
              xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel.Administrator"
              xmlns:model="clr-namespace:PizzaShop_Course.Model"
+             xmlns:vc="clr-namespace:PizzaShop_Course.ViewConverters"
              mc:Ignorable="d" 
              d:DesignHeight="359" d:DesignWidth="800">
     <UserControl.DataContext>
         <vm:UserViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Image Source="{Binding Photo}" Height="90" Width="90" Margin="149,44,561,225"/>
-        <StackPanel Margin="141,138,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Label Content="First Name"/>
-            <TextBlock Text="{Binding FirstName}"/>
-            <Label Content="Second Name"/>
-            <TextBlock Text="{Binding LastName}"/>
-            <Label Content="Email"/>
-            <TextBlock Text="{Binding Email}"/>
-            <Label Content="Number"/>
-            <TextBlock Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"/>
+        <Image x:Name="imageControl" Source="{Binding CurrentUser.Photo}" VerticalAlignment="Top" Height="90" Width="90" Margin="149,44,561,225"/>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="149,135,0,0">
+            <Label Content="First Name" />
+            <TextBlock Text="{Binding CurrentUser.FirstName}" Margin="5,0" />
+            <Label Content="Second Name" />
+            <TextBlock Text="{Binding CurrentUser.LastName}" Margin="5 0" />
+            <Label Content="Email" />
+            <TextBlock Text="{Binding CurrentUser.Email}" Margin="5 0" />
+            <Label Content="Number" />
+            <TextBlock Text="{Binding CurrentUser.Number}" Margin="5 0" />
         </StackPanel>
+        <Button Content="Log Out" Command="{Binding LogOutCommand}" Width="70" Height="30" Margin="600,270,0,0" HorizontalAlignment="Left"/>
     </Grid>
 </UserControl>

@@ -24,6 +24,7 @@ namespace PizzaShop_Course.ViewModel
             User = UserViewModel.CurrentUser;
             BasketViewModel.OrderItems.CollectionChanged += OrderItems_CollectionChanged;
             UserViewModel.UserChanged += OnUserChanged;
+            UserViewModel.AuthorizeChanged += OnAuthorizeChanged;
         }
         private void OrderItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -35,6 +36,9 @@ namespace PizzaShop_Course.ViewModel
         private void OnUserChanged(object sender, UserModel newUser)
         {
             User = UserViewModel.CurrentUser;
+        }
+        private void OnAuthorizeChanged(object sender, bool newAuthorize)
+        {
             IsLoggedIn = UserViewModel.IsAuthorized;
         }
         private UserModel user;
@@ -83,8 +87,16 @@ namespace PizzaShop_Course.ViewModel
             {
                 isLoggedIn = value;
                 UserControl us = new UserInformationView();
-                Navigate(us);
-                Debug.WriteLine("IsLoggedIn Changed");
+                if (isLoggedIn == true)
+                {
+                    Navigate(us);
+                }
+                else
+                {
+                    UserControl pizzaView = new PizzasView();
+                    Navigate(pizzaView);
+                }
+                Debug.WriteLine("IsLoggedIn Changed: " + isLoggedIn);
                 OnPropertyChanged(nameof(IsLoggedIn));
             }
         }
@@ -120,11 +132,11 @@ namespace PizzaShop_Course.ViewModel
         }
 
         public ICommand NavigateCommand { get => new RelayCommand<Type>(NavigateTo); }
-        public void Navigate(UserControl view)
+        private void Navigate(UserControl view)
         {
             CurrentView = view;
         }
-        public void NavigateTo(Type viewType)
+        private void NavigateTo(Type viewType)
         {
             UserControl view = (UserControl)Activator.CreateInstance(viewType);
             Navigate(view);

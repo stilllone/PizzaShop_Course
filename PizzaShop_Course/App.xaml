@@ -85,8 +85,7 @@
             </Setter>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
-                    <Setter Property="Command" Value="{Binding LogoutCommand}"/>
-                    <Setter Property="Content" Value="Log Out"/>
+                    <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
                     <Setter Property="Command" Value="{Binding NavigateCommand}"/>

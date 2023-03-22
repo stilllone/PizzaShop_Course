@@ -12,6 +12,6 @@
         <vm:MainViewModel/>
     </UserControl.DataContext>
     <Button Width="67" Height="67" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:UserInformationView}">
-        <Image Source="{Binding User.Photo}"/>
+        <Image Source="{Binding UserPhoto}"/>
     </Button>
 </UserControl>

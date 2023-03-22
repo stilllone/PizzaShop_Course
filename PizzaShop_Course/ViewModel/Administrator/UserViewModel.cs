@@ -13,6 +13,7 @@ using System.Diagnostics;
 using PizzaShop_Course.View;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using PizzaShop_Course.View.Customer;
 
 namespace PizzaShop_Course.ViewModel.Administrator
 {
@@ -24,16 +25,17 @@ namespace PizzaShop_Course.ViewModel.Administrator
         
         public delegate void UserChangedEventHandler(object sender, UserModel newUser);
         public static event UserChangedEventHandler UserChanged;
-      
+        public delegate void AuthorizeInfChangedEventHandler(object sender, bool newStatus);
+        public static event AuthorizeInfChangedEventHandler AuthorizeChanged;
+
         public UserViewModel()
         {
             userDBConnection = new UserDBConnection();
-            user = new UserModel();
-            AuthorizeCommand = new RelayCommand<Type>(AuthorizeUser);
+            User = CurrentUser;
         }
 
         #region property
-        private static UserModel user;
+        private static UserModel user = new UserModel();
         public UserModel User
         {
             get => user;
@@ -79,13 +81,14 @@ namespace PizzaShop_Course.ViewModel.Administrator
         {
             get => userPhoto;
         }
-        private static bool isAuthorized = false;
+        private static bool isAuthorized;
         public static bool IsAuthorized
         {
             get => isAuthorized;
             set
             {
                 isAuthorized = value;
+                AuthorizeChanged?.Invoke(null, isAuthorized);
                 OnGlobalPropertyChanged(nameof(isAuthorized));
             }
         }
@@ -204,29 +207,14 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 }
             }
         }
-       
-        #endregion 
-        private ICommand authorizeCommand;
-        public ICommand AuthorizeCommand
-        { 
-            get => authorizeCommand;
-            set
-            {
-                if (isAuthorized == false)
-                {
-                    authorizeCommand = new RelayCommand(AuthorizeUser);
-                    OnPropertyChanged(nameof(AuthorizeCommand));
-                }
-                else
-                {
-                    authorizeCommand = new RelayCommand(LogOut);
-                    OnPropertyChanged(nameof(AuthorizeCommand));
-                }
-            }
-        }
+
+        #endregion
+        public ICommand AuthorizeCommand => new RelayCommand(AuthorizeUser);
+        public ICommand LogOutCommand => new RelayCommand(LogOut);
         private void AuthorizeUser(object parameter)
         {
             CurrentUser = userDBConnection.AuthenticateUser(user.Login, user.Password);
+            user = CurrentUser; 
             if (user == null)
             {
                 IsAuthorized = false;
@@ -236,12 +224,17 @@ namespace PizzaShop_Course.ViewModel.Administrator
             {
                 IsAuthorized = true;
             }
+            OnPropertyChanged(nameof(IsAuthorized));
+            OnPropertyChanged(nameof(AuthorizeCommand));
             OnPropertyChanged(nameof(CurrentUser));
         }
         public ICommand SaveCommand { get => new RelayCommand(SaveUser); }
         public ICommand UpdateCommand { get => new RelayCommand(UpdateUser); }
         public ICommand DeleteCommand { get => new RelayCommand(DeleteUser); }
         public ICommand SelectPhotoCommand { get => new RelayCommand(SelectPhoto); }
+        public ICommand CreateRegistrationWindowCommand { get => new RelayCommand(CreateRegistrationWindow); }
+        public ICommand CreateUserAndAuthorizeCommand { get => new RelayCommand<object>(CreateAndAuthorize); }
+
 
         private void SaveUser(object parameter)
         {
@@ -257,7 +250,6 @@ namespace PizzaShop_Course.ViewModel.Administrator
         {
             userDBConnection.DeleteUser(user.Id);
         }
-
         
         private void SelectPhoto(object parameter)
         {
@@ -269,7 +261,39 @@ namespace PizzaShop_Course.ViewModel.Administrator
         }
         private void LogOut(object parameter)
         {
-            user = null;
+            CurrentUser = null;
+            user = CurrentUser;
+            IsAuthorized = false;
+        }
+        private void CreateRegistrationWindow(object parameter)
+        {
+            Window regWindow = new UserCreateView();
+            regWindow.ShowDialog();
+            CreateUserAndAuthorizeCommand.Execute(regWindow);
+        }
+        private void CreateAndAuthorize(object parameter)
+        {
+            try
+            {
+                SaveUser(user);
+                AuthorizeUser(null);
+                var result = MessageBox.Show("Congratulations, you are registered", "Registration Successful", MessageBoxButton.OK);
+                {
+                    if (result == MessageBoxResult.OK)
+                    {
+                        var regWindow = parameter as Window;
+                        if (regWindow != null)
+                        {
+                            regWindow.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong, try later");
+                Debug.WriteLine(ex);
+            }
         }
     }
 }
