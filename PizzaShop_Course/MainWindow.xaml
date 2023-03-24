@@ -9,7 +9,7 @@
         xmlns:viewmodel="clr-namespace:PizzaShop_Course.ViewModel"
         xmlns:viewAdmin="clr-namespace:PizzaShop_Course.View.Administrator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" MinHeight="450" MinWidth="815" Height="450" Width="815">
     <Window.Resources>
         <viewconverters:ButtonVisibilityConverter x:Key="ButtonVisibilityConverter"/>
     </Window.Resources>
@@ -24,33 +24,32 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="125"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="675"/>
         </Grid.ColumnDefinitions>
 
-        
-        <Button Width="67" Height="67" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:UserInformationView}" Margin="15,4,15,4">
+        <view:UserWindow/>
+        <!--<Button Width="67" Height="67" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:UserInformationView}" Margin="15,4,15,4">
             <Image Source="{Binding UserPhoto}"/>
-        </Button>
-        <view:NavigationBar Grid.Column="1" Grid.Row="0" Margin="0,13,35,12"/>
+        </Button>-->
+        <view:NavigationBar HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="0,13,35,12"/>
         <Grid Grid.ColumnSpan="2" Grid.Row="1">
+            <Image Style="{StaticResource BackgroundImage}"/>
             <ContentControl Content="{Binding CurrentView}"/>
         </Grid>
         <Button Panel.ZIndex="1" Content="☰" x:Name="HamburgerButton" Height="30" Width="30"  Margin="0,13,2,0" VerticalAlignment="Top"
                 Command="{Binding ToggleHamburgerCommand}" Grid.Column="1" HorizontalAlignment="Right"/>
 
-        <Grid Panel.ZIndex="0" x:Name="HamburgerMenuPanel" Grid.Column="0" Grid.Row="1"
+        <Border Panel.ZIndex="0" Style="{StaticResource NavMenu}" x:Name="HamburgerMenuPanel" Grid.Column="0" Grid.Row="1"
               Visibility="{Binding IsHamburgerOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Orientation="Vertical" >
+
+            <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Orientation="Vertical" >
                 <Button Width="70" Height="30" Content="AdminView" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AdministationView}"
                         Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
                 <Button Width="70" Height="30" Content="Add" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AddFoodView}"
                         Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
-                <Button Style="{StaticResource AuthorizationButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}"
-                        Width="50" Margin="0,200,0,0" Height="30"/>
+                <Button  Style="{StaticResource AuthorizationButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}"
+                        Width="70" Margin="0 200 0 0" Height="30"/>
             </StackPanel>
-        </Grid>
+        </Border>
     </Grid>
 </Window>

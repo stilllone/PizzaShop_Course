@@ -24,5 +24,6 @@ namespace PizzaShop_Course.View
         {
             InitializeComponent();
         }
+
     }
 }

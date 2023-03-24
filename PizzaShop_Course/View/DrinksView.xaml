@@ -15,7 +15,8 @@
             <StackPanel>
                 <TextBlock Text="Drinks" Margin="10" FontSize="22" FontWeight="Medium"/>
                 <StackPanel Margin="20 0">
-                    <ItemsControl x:Name="ListViewProducts" ItemsSource="{Binding Drinks}" Height="309">
+                    <ItemsControl ItemsSource="{Binding Drinks}" Height="309">
+                        
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Margin="10" Width="130" BorderBrush="White" Height="220">

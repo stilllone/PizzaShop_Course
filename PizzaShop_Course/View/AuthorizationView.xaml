@@ -12,17 +12,12 @@
         <adminvm:UserViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Login:" Margin="194,109,537,-135"/>
-        <TextBox Grid.Row="0" Grid.Column="0"  Text="{Binding Login}" Width="200" Margin="275,110,325,-128"/>
-        <Label Grid.Row="0" Grid.Column="0" Content="Password:" Margin="194,154,537,-180"/>
-        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Password}" Width="200" Margin="275,145,325,-171"/>
-        <Button Grid.Row="0" Grid.Column="0" Command="{Binding AuthorizeCommand}" Content="Login" Margin="375,205,325,-225"/>
-        <Button Content="Register" Command="{Binding CreateRegistrationWindowCommand}" Height="20" Width="100" Margin="261,205,439,-225"/>
+        <Image Style="{StaticResource BackgroundImage}"/>
+        <Label VerticalAlignment="Top" Content="Login:" Width="70" Height="30" Margin="193,99,537,0"/>
+        <TextBox VerticalAlignment="Top" Text="{Binding Login}" Height="20" Width="200" Margin="275,104,325,0"/>
+        <Label VerticalAlignment="Top" Content="Password:" Width="70" Height="30" Margin="193,145,537,0"/>
+        <TextBox VerticalAlignment="Top" Text="{Binding Password}" Width="200" Height="20" Margin="275,150,325,0"/>
+        <Button VerticalAlignment="Top" Command="{Binding AuthorizeCommand}" Content="Login" Height="20" Width="100" Margin="375,202,325,0"/>
+        <Button VerticalAlignment="Top" Content="Register" Command="{Binding CreateRegistrationWindowCommand}" Height="20" Width="100" Margin="261,202,439,0" />
     </Grid>
 </UserControl>

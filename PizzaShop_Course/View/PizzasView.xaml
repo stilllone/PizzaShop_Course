@@ -11,8 +11,11 @@
         <vm:PizzasViewModel/>
     </UserControl.DataContext>
     <Grid>
+        
         <ScrollViewer VerticalScrollBarVisibility="Auto">
+            
             <StackPanel>
+                
                 <TextBlock Text="Pizzas" Margin="10" FontSize="22" FontWeight="Medium"/>
                 <StackPanel Margin="20,0">
                     <ItemsControl x:Name="ListViewProducts" ItemsSource="{Binding Pizzas}" Height="309">
@@ -38,7 +41,7 @@
                                         <Label Content="Size: "/>
                                         <ComboBox ItemsSource="{Binding PizzaSize}" SelectedIndex="0" SelectedItem="{Binding Size}" Width="80"/>
                                         <Label Content="{Binding Price}"/>
-                                        <Button Content="Add" Command="{Binding AddDrinksToBasket}" Height="25" Width="80"/>
+                                        <Button Content="Add" Command="{Binding AddPizzaToBasket}" Height="25" Width="80"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -47,29 +50,5 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <!--<ListBox Background="#606060" Margin="66,0,0,0">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="300"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Label Content="{Binding Name}"/>
-                        <Image Source="{Binding Image}"/>
-                        <Label Content="{Binding Price}"/>
-                        <TextBlock TextWrapping="Wrap" Text="{Binding Ingredients}"/>--><!--add split and set auto--><!--
-                        <Label Content="Size: "/>
-                        <ComboBox ItemsSource="{Binding Size}"/>
-                        <Button />
-                    </Grid>
-
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
     </Grid>
 </UserControl>

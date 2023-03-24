@@ -8,10 +8,10 @@
              xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="67" d:DesignWidth="67">
-    <UserControl.DataContext>
-        <vm:MainViewModel/>
-    </UserControl.DataContext>
-    <Button Width="67" Height="67" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:UserInformationView}">
-        <Image Source="{Binding UserPhoto}"/>
+
+    <Button Style="{StaticResource UserBtn}" Width="67" Height="67" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:UserInformationView}">
+        <StackPanel>
+            <Image Source="{Binding UserPhoto}"/>
+        </StackPanel>
     </Button>
 </UserControl>

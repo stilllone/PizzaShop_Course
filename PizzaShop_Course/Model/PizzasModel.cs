@@ -1,11 +1,15 @@
-﻿using PizzaShop_Course.Interfaces;
+﻿using PizzaShop_Course.DataProvider;
+using PizzaShop_Course.Interfaces;
 using PizzaShop_Course.Interfaces.Enums;
+using PizzaShop_Course.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PizzaShop_Course.Model
 {
@@ -90,6 +94,28 @@ namespace PizzaShop_Course.Model
         public FoodSize[] PizzaSize
         {
             get { return (FoodSize[])Enum.GetValues(typeof(FoodSize)); }
+        }
+
+        public ICommand AddPizzaToBasket
+        {
+            get => new RelayCommand(AddDrinks);
+            set
+            {
+                AddPizzaToBasket?.Execute(value);
+            }
+        }
+        private void AddDrinks(object drinks)
+        {
+            BasketViewModel.OrderItems.Add(new BasketItemModel()
+            {
+                ItemId = this.id,
+                ItemName = this.name,
+                ItemPrice = this.price,
+                ItemSize = this.size,
+                ItemPhoto = this.photo
+            });
+            OnGlobalPropertyChanged(nameof(BasketViewModel.OrderItems));
+            Debug.WriteLine(BasketViewModel.OrderItems.Count);
         }
 
     }

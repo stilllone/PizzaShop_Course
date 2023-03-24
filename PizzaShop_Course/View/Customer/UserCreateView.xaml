@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:PizzaShop_Course.View.Customer"
         xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel.Administrator"
         mc:Ignorable="d"
-        Height="450" Width="800">
+        Height="359" Width="800">
     <Window.DataContext>
         <vm:UserViewModel/>
     </Window.DataContext>
+
     <ScrollViewer  VerticalScrollBarVisibility="Auto">
         <StackPanel HorizontalAlignment="Left" Margin="150,0,0,0" Width="310">
             <Label  Content="Id:" />
@@ -29,6 +30,7 @@
             <Label  Content="Phone number:" />
             <TextBox  Text="{Binding Number}" />
             <Button Content="Create" Margin="10,10" Command="{Binding CreateUserAndAuthorizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
-        </StackPanel>
+         </StackPanel>
+        
     </ScrollViewer>
 </Window>

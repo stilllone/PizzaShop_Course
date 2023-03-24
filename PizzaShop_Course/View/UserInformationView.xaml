@@ -13,17 +13,18 @@
         <vm:UserViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Image x:Name="imageControl" Source="{Binding CurrentUser.Photo}" VerticalAlignment="Top" Height="90" Width="90" Margin="149,44,561,225"/>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="149,135,0,0">
-            <Label Content="First Name" />
-            <TextBlock Text="{Binding CurrentUser.FirstName}" Margin="5,0" />
-            <Label Content="Second Name" />
-            <TextBlock Text="{Binding CurrentUser.LastName}" Margin="5 0" />
-            <Label Content="Email" />
-            <TextBlock Text="{Binding CurrentUser.Email}" Margin="5 0" />
-            <Label Content="Number" />
-            <TextBlock Text="{Binding CurrentUser.Number}" Margin="5 0" />
+        <Image Style="{StaticResource BackgroundImage}"/>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,74,0,0">
+            <Label Content="First Name"/>
+            <TextBox Text="{Binding CurrentUser.FirstName}" IsReadOnly="True" Margin="5,0"/>
+            <Label Content="Second Name"/>
+            <TextBox Text="{Binding CurrentUser.LastName}" IsReadOnly="True" Margin="5 0"/>
+            <Label Content="Email"/>
+            <TextBox Text="{Binding CurrentUser.Email}" IsReadOnly="True" Margin="5 0"/>
+            <Label Content="Number"/>
+            <TextBox Text="{Binding CurrentUser.Number}" IsReadOnly="True" Margin="5 0"/>
         </StackPanel>
         <Button Content="Log Out" Command="{Binding LogOutCommand}" Width="70" Height="30" Margin="600,270,0,0" HorizontalAlignment="Left"/>
+        <Button Width="70" Height="30" Content="Edit" Command="{Binding UpdateCommand}" HorizontalAlignment="Left" Margin="500,270,0,0"/>
     </Grid>
 </UserControl>

@@ -14,9 +14,9 @@ namespace PizzaShop_Course.DataProvider
         private readonly Action<object> _execute;
         private readonly Predicate<object> _canExecute;
 
-        //public RelayCommand() : this(null, null)
-        //{
-        //}
+        public RelayCommand() : this(null, null)
+        {
+        }
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
         {

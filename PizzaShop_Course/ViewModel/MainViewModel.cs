@@ -117,7 +117,7 @@ namespace PizzaShop_Course.ViewModel
             }
         }
 
-        private UserControl _currentView;
+        private UserControl _currentView = new PizzasView();
         public UserControl CurrentView
         {
             get { return _currentView; }

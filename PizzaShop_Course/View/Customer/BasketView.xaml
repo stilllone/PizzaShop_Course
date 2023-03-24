@@ -9,7 +9,7 @@
     <UserControl.DataContext>
         <vm:BasketViewModel/>
     </UserControl.DataContext>
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer Background="Transparent" VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="20 0">
             <ItemsControl ItemsSource="{Binding OrderItems}" Height="309">
                 <ItemsControl.ItemTemplate>
