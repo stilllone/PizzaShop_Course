@@ -21,8 +21,6 @@ namespace PizzaShop_Course.ViewModel.Administrator
     public class UserViewModel : PropertyBase
     {
         private UserDBConnection userDBConnection;
-        
-        
         public delegate void UserChangedEventHandler(object sender, UserModel newUser);
         public static event UserChangedEventHandler UserChanged;
         public delegate void AuthorizeInfChangedEventHandler(object sender, bool newStatus);
@@ -74,6 +72,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
             {
                 user = value;
                 UserChanged?.Invoke(null, user);
+                Debug.WriteLine("User changed, " + CurrentUser.FirstName);
             }
         }
         private ImageSource userPhoto;

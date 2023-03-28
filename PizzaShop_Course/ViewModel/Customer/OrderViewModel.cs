@@ -16,9 +16,6 @@ namespace PizzaShop_Course.ViewModel.Customer
 {
     public class OrderViewModel : PropertyBase
     {
-        public OrderViewModel()
-        {
-        }
         public ICommand AddOrderCommand { get => new RelayCommand(AddOrder); }
         private OrderModel order;
         public OrderModel Order
@@ -34,9 +31,9 @@ namespace PizzaShop_Course.ViewModel.Customer
         {
             if (UserViewModel.CurrentUser == null)
             {
-                MessageBox.Show("You need to authorize");
+                SendMessage("You need to authorize");
             }
-            else if (BasketNullable() != true)
+            else if (BasketNullable() != true && UserViewModel.CurrentUser != null)
             {
                 try
                 {
@@ -62,11 +59,11 @@ namespace PizzaShop_Course.ViewModel.Customer
                 catch (Exception ex)
                 {
                     Debug.WriteLine($"Exeption: {ex}");
-                    MessageBox.Show("Something went wrong");
+                    SendMessage("Something went wrong");
                 }
             }
             else
-                MessageBox.Show("You have no items in basket");
+                SendMessage("You have no items in basket");
         }
         private bool BasketNullable()
         {
@@ -85,6 +82,10 @@ namespace PizzaShop_Course.ViewModel.Customer
             house = null;
             flat = null;
             floor = null;
+        }
+        public void SendMessage(string message)
+        {
+            EventAggregator.Instance.NotificationEvent.Publish(message);
         }
         #region prop
         public Towns[] Cities

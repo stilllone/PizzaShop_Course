@@ -1,4 +1,5 @@
-﻿using PizzaShop_Course.DataProvider;
+﻿using CommonServiceLocator;
+using PizzaShop_Course.DataProvider;
 using PizzaShop_Course.Model;
 using PizzaShop_Course.View;
 using PizzaShop_Course.ViewModel.Administrator;
@@ -9,15 +10,19 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace PizzaShop_Course.ViewModel
 {
     public class MainViewModel : PropertyBase
     {
+        
         public MainViewModel()
         {
             ToggleHamburgerCommand = new RelayCommand(param => IsHamburgerOpen = !IsHamburgerOpen);
@@ -25,7 +30,9 @@ namespace PizzaShop_Course.ViewModel
             BasketViewModel.OrderItems.CollectionChanged += OrderItems_CollectionChanged;
             UserViewModel.UserChanged += OnUserChanged;
             UserViewModel.AuthorizeChanged += OnAuthorizeChanged;
+            EventAggregator.Instance.NotificationEvent.Subscribe(ShowNotification);
         }
+        
         private void OrderItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Remove)
@@ -154,9 +161,64 @@ namespace PizzaShop_Course.ViewModel
                 OnPropertyChanged(nameof(baskettotalprice));
             }
         }
-        
+
         #endregion
-        #region logout
+        #region popup
+        //private static bool _isNotificationPopupOpen;
+        //public bool IsNotificationPopupOpen
+        //{
+        //    get => _isNotificationPopupOpen;
+        //    set
+        //    {
+        //        _isNotificationPopupOpen = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+
+        //private static string _notificationText;
+        //public string NotificationText
+        //{
+        //    get => _notificationText;
+        //    set
+        //    {
+        //        _notificationText = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+        private UserControl notificationView;
+        public UserControl NotificationView 
+        {
+            get => notificationView;
+            set
+            {
+                notificationView = value;
+                OnPropertyChanged(nameof(notificationView));
+                Debug.WriteLine("NotificationView Changed");
+            }
+        }
+        private void ShowNotification(string message)
+        {
+            var notificationView = new Notification();
+            var notificationViewModel = new NotificationViewModel();
+            notificationViewModel.SetNotificationText(message);
+            notificationView.DataContext = notificationViewModel;
+            NotificationView = notificationView;
+        }
+
+        //private bool _isVisible;
+        //public bool IsVisible
+        //{
+        //    get { return _isVisible; }
+        //    set
+        //    {
+        //        if (_isVisible != value)
+        //        {
+        //            _isVisible = value;
+        //            OnPropertyChanged(nameof(IsVisible));
+        //            Debug.WriteLine(IsVisible);
+        //        }
+        //    }
+        //}
 
         #endregion
     }

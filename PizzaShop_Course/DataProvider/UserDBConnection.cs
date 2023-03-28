@@ -12,7 +12,6 @@ namespace PizzaShop_Course.DataProvider
     public class UserDBConnection
     {
         private readonly MySqlConnection _connection;
-
         public UserDBConnection()
         {
             _connection = SqlDBConnection.GetDBConnection();

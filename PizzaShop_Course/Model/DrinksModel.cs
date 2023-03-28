@@ -4,8 +4,10 @@ using PizzaShop_Course.Interfaces.Enums;
 using PizzaShop_Course.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,7 +16,7 @@ using System.Windows.Input;
 
 namespace PizzaShop_Course.Model
 {
-    public class DrinksModel : PropertyBase, IFood
+    public class DrinksModel : AbsFood
     {
         private int id;
         public int Id
@@ -94,6 +96,13 @@ namespace PizzaShop_Course.Model
             OnGlobalPropertyChanged(nameof(BasketViewModel.OrderItems));
             Debug.WriteLine(BasketViewModel.OrderItems.Count);
         }
-        
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        private static event PropertyChangedEventHandler GlobalPropertyChanged = delegate { }; //update static property
+        protected static void OnGlobalPropertyChanged(string propertyName)
+        {
+            GlobalPropertyChanged(null, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
