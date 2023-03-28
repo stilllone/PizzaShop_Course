@@ -100,29 +100,39 @@ namespace PizzaShop_Course.Model
 
         public ICommand AddPizzaToBasket
         {
-            get => new RelayCommand(AddDrinks);
+            get => new RelayCommand(AddPizza);
             set
             {
                 AddPizzaToBasket?.Execute(value);
             }
         }
-        private void AddDrinks(object drinks)
+        private void AddPizza(object drinks)
         {
-            BasketViewModel.OrderItems.Add(new BasketItemModel()
+            var newItem = new BasketItemModel()
             {
                 ItemId = this.id,
                 ItemName = this.name,
                 ItemPrice = this.price,
                 ItemSize = this.size,
-                ItemPhoto = this.photo
-            });
+                ItemPhoto = this.photo,
+                ItemCount = 1
+            };
+            var existingItem = BasketViewModel.OrderItems.FirstOrDefault(item =>
+                item.ItemName == newItem.ItemName && item.ItemSize == newItem.ItemSize);
+            if (existingItem != null)
+            {
+                existingItem.ItemCount++;
+            }
+            else
+            {
+                BasketViewModel.OrderItems.Add(newItem);
+            }
             OnGlobalPropertyChanged(nameof(BasketViewModel.OrderItems));
-            Debug.WriteLine(BasketViewModel.OrderItems.Count);
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        private static event PropertyChangedEventHandler GlobalPropertyChanged = delegate { }; //update static property
+        private static event PropertyChangedEventHandler GlobalPropertyChanged = delegate { };
         protected static void OnGlobalPropertyChanged(string propertyName)
         {
             GlobalPropertyChanged(null, new PropertyChangedEventArgs(propertyName));

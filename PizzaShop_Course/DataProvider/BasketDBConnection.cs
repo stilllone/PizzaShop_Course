@@ -46,12 +46,13 @@ namespace PizzaShop_Course.DataProvider
 
             foreach (var orderItem in orderItems)
             {
-                command.CommandText = @"INSERT INTO order_items (order_id,item_id, item_name, item_price, item_size)
-                                            VALUES (@OrderId, @ItemId, @ItemName, @ItemPrice, @ItemSize )";
+                command.CommandText = @"INSERT INTO order_items (order_id,item_id, item_name, item_price, item_size, item_count)
+                                            VALUES (@OrderId, @ItemId, @ItemName, @ItemPrice, @ItemSize, @ItemCount )";
                 command.Parameters.AddWithValue("@ItemId", orderItem.ItemId);
                 command.Parameters.AddWithValue("@ItemName", orderItem.ItemName);
                 command.Parameters.AddWithValue("@ItemPrice", orderItem.ItemPrice);
                 command.Parameters.AddWithValue("@ItemSize", orderItem.ItemSize);
+                command.Parameters.AddWithValue("@ItemCount", orderItem.ItemCount);
                 command.Parameters.AddWithValue("@OrderId", orderId);
                 command.ExecuteNonQuery();
                 command.Parameters.Clear();

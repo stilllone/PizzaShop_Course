@@ -32,13 +32,40 @@ namespace PizzaShop_Course.ViewModel
             UserViewModel.AuthorizeChanged += OnAuthorizeChanged;
             EventAggregator.Instance.NotificationEvent.Subscribe(ShowNotification);
         }
-        
+        private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(BasketItemModel.ItemPrice) || e.PropertyName == nameof(BasketItemModel.ItemCount))
+            {
+                BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice * item.ItemCount);
+            }
+        }
         private void OrderItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Remove)
+            if (e.NewItems != null)
             {
-                BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice);
+                foreach (var item in e.NewItems.OfType<BasketItemModel>())
+                {
+                    item.PropertyChanged += Item_PropertyChanged;
+                }
             }
+
+            if (e.OldItems != null)
+            {
+                foreach (var item in e.OldItems.OfType<BasketItemModel>())
+                {
+                    item.PropertyChanged -= Item_PropertyChanged;
+                }
+            }
+            if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Remove || e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice * item.ItemCount);
+            }
+
+            RecalculateBasketTotalPrice();
+        }
+        private void RecalculateBasketTotalPrice()
+        {
+            BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => (item.ItemPrice * item.ItemCount));
         }
         private void OnUserChanged(object sender, UserModel newUser)
         {
@@ -164,27 +191,7 @@ namespace PizzaShop_Course.ViewModel
 
         #endregion
         #region popup
-        //private static bool _isNotificationPopupOpen;
-        //public bool IsNotificationPopupOpen
-        //{
-        //    get => _isNotificationPopupOpen;
-        //    set
-        //    {
-        //        _isNotificationPopupOpen = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        //private static string _notificationText;
-        //public string NotificationText
-        //{
-        //    get => _notificationText;
-        //    set
-        //    {
-        //        _notificationText = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        
         private UserControl notificationView;
         public UserControl NotificationView 
         {
@@ -204,22 +211,6 @@ namespace PizzaShop_Course.ViewModel
             notificationView.DataContext = notificationViewModel;
             NotificationView = notificationView;
         }
-
-        //private bool _isVisible;
-        //public bool IsVisible
-        //{
-        //    get { return _isVisible; }
-        //    set
-        //    {
-        //        if (_isVisible != value)
-        //        {
-        //            _isVisible = value;
-        //            OnPropertyChanged(nameof(IsVisible));
-        //            Debug.WriteLine(IsVisible);
-        //        }
-        //    }
-        //}
-
         #endregion
     }
 }

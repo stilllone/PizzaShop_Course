@@ -85,16 +85,26 @@ namespace PizzaShop_Course.Model
         }
         private void AddDrinks(object drinks)
         {
-            BasketViewModel.OrderItems.Add(new BasketItemModel()
+            var newItem = new BasketItemModel()
             {
                 ItemId = this.id,
                 ItemName = this.name,
                 ItemPrice = this.price,
                 ItemSize = this.size,
-                ItemPhoto = this.photo
-            });
+                ItemPhoto = this.photo,
+                ItemCount = 1
+            };
+            var existingItem = BasketViewModel.OrderItems.FirstOrDefault(item =>
+                item.ItemName == newItem.ItemName && item.ItemSize == newItem.ItemSize);
+            if (existingItem != null)
+            {
+                existingItem.ItemCount++;
+            }
+            else
+            {
+                BasketViewModel.OrderItems.Add(newItem);
+            }
             OnGlobalPropertyChanged(nameof(BasketViewModel.OrderItems));
-            Debug.WriteLine(BasketViewModel.OrderItems.Count);
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

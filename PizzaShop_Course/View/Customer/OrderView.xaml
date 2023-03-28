@@ -11,8 +11,8 @@
         <cvm:OrderViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Image Style="{StaticResource BackgroundImage}"/>
-        <local:BasketView Margin="440,0,0,0"/>
+        
+        
         <StackPanel Margin="112,0,0,0" VerticalAlignment="Center"  HorizontalAlignment="Left" Height="359">
             <Label Content="City"/>
             <ComboBox Width="91" ItemsSource="{Binding Cities}" SelectedItem="{Binding City}"/>
@@ -29,6 +29,6 @@
             
             <Button Content="Finally Order" Height="40" Width="93" Command="{Binding AddOrderCommand}" Margin="0,30,0,0"/>
         </StackPanel>
-        
+        <local:BasketView Panel.ZIndex="0" Margin="440,0,0,0"/>
     </Grid>
 </UserControl>

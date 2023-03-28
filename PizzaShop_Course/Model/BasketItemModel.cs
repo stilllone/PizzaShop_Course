@@ -6,14 +6,37 @@ using System.Threading.Tasks;
 
 namespace PizzaShop_Course.Model
 {
-    public class BasketItemModel
+    public class BasketItemModel : PropertyBase
     {
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int ItemId { get; set; }
         public byte[] ItemPhoto { get; set; }
         public string ItemName { get; set; }
-        public double ItemPrice { get; set; }
+
+        private double itemPrice;
+        public double ItemPrice
+        {
+            get { return itemPrice; }
+            set
+            {
+                if (itemPrice != value)
+                {
+                    itemPrice = value;
+                    OnPropertyChanged(nameof(ItemPrice));
+                }
+            }
+        }
         public string ItemSize { get; set; }
+        private int itemCount;
+        public int ItemCount 
+        {
+            get => itemCount;
+            set 
+            {
+                itemCount = value;
+                OnPropertyChanged(nameof(ItemCount));
+            }
+        }
     }
 }
