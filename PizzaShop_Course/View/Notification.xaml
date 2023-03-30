@@ -7,11 +7,8 @@
              xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel"
              xmlns:local="clr-namespace:PizzaShop_Course.View"
              mc:Ignorable="d">
-    <!--<UserControl.Resources>
-        <viewconverters:NotifyToVisibleConverter x:Key="NotifyVisibilityConverter"/>
-    </UserControl.Resources>-->
-    <Grid Background="Blue" Height="20" Width="200">
-        <Grid.Triggers>
+    <Border Background="#FFFFF7" Height="20" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Width="170">
+        <Border.Triggers>
             <EventTrigger RoutedEvent="Loaded">
                 <BeginStoryboard>
                     <Storyboard>
@@ -20,7 +17,7 @@
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
-        </Grid.Triggers>
+        </Border.Triggers>
         <TextBlock Text="{Binding NotificationText}" />
-    </Grid>
+    </Border>
 </UserControl>

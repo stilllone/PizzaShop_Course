@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace PizzaShop_Course
+namespace PizzaShop_Course.ViewConverters
 {
     public class MarginConverter : IMultiValueConverter
     {
@@ -17,7 +17,6 @@ namespace PizzaShop_Course
             {
                 return DependencyProperty.UnsetValue;
             }
-
             var margin = (Thickness)values[0];
             var width = (double)values[1];
             return new Thickness(margin.Left, margin.Top, margin.Right, 0);

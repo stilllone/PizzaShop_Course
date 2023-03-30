@@ -20,9 +20,9 @@
             <Label Content="Second Name"/>
             <TextBox Text="{Binding CurrentUser.LastName}" Margin="5 0"/>
             <Label Content="Email"/>
-            <TextBox Text="{Binding CurrentUser.Email}" Margin="5 0"/>
+            <TextBox Text="{Binding CurrentUser.Email}" TextChanged="EmailTextBox_TextChanged" Margin="5 0"/>
             <Label Content="Number"/>
-            <TextBox Text="{Binding CurrentUser.Number}" Margin="5 0"/>
+            <TextBox Text="{Binding CurrentUser.Number}" MaxLength="13" TextChanged="PhoneTextBox_TextChanged" Margin="5 0"/>
             <Label Content="Photo"/>
             <TextBlock Text="{Binding PhotoPath}"/>
             <Button Content="Select Photo" Command="{Binding SelectPhotoCommand}" Width="120" Height="30" />

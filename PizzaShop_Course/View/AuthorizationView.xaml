@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:view="clr-namespace:PizzaShop_Course.View"
              xmlns:local="clr-namespace:PizzaShop_Course.View"
              xmlns:adminvm="clr-namespace:PizzaShop_Course.ViewModel.Administrator"
              mc:Ignorable="d" 
@@ -12,12 +11,12 @@
         <adminvm:UserViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Image Style="{StaticResource BackgroundImage}"/>
+        <Image Style="{StaticResource BackgroundImage}" Margin="443,0,0,0"/>
         <Label VerticalAlignment="Top" Content="Login:" Width="70" Height="30" Margin="193,99,537,0"/>
-        <TextBox VerticalAlignment="Top" Text="{Binding Login}" Height="20" Width="200" Margin="275,104,325,0"/>
+        <TextBox VerticalAlignment="Top" Text="{Binding Login}" Height="20" Width="200" Margin="275,103,325,0"/>
         <Label VerticalAlignment="Top" Content="Password:" Width="70" Height="30" Margin="193,145,537,0"/>
-        <TextBox VerticalAlignment="Top" Text="{Binding Password}" Width="200" Height="20" Margin="275,150,325,0"/>
-        <Button VerticalAlignment="Top" Command="{Binding AuthorizeCommand}" Content="Login" Height="20" Width="100" Margin="375,202,325,0"/>
-        <Button VerticalAlignment="Top" Content="Register" Command="{Binding CreateRegistrationWindowCommand}" Height="20" Width="100" Margin="261,202,439,0" />
+        <TextBox VerticalAlignment="Top" Text="{Binding Password}" Width="200" Height="20" Margin="275,149,325,0"/>
+        <Button VerticalAlignment="Top" Command="{Binding AuthorizeCommand}" Content="Login" Height="25" Width="100" Margin="375,202,325,0"/>
+        <Button VerticalAlignment="Top" Content="Register" Command="{Binding CreateRegistrationWindowCommand}" Height="25" Width="100" Margin="261,202,439,0" />
     </Grid>
 </UserControl>

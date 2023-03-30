@@ -13,6 +13,12 @@
             <Setter Property="FontStyle" Value="Italic"/>
             <Setter Property="FontFamily" Value="Californian FB"/>
         </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#D22B2B"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="FontFamily" Value="Californian FB"/>
+        </Style>
         <Style TargetType="ScrollViewer">
             <Setter Property="Background" Value="#FFFFF7"/>
         </Style>
@@ -241,7 +247,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
 
-        <Style TargetType="TextBox">
+        <Style TargetType="{x:Type TextBox}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="LightGray"/>
             <Setter Property="BorderThickness" Value="0,0,0,1"/>
