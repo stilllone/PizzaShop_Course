@@ -4,11 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzaShop_Course.View.Customer"
-        xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel.Administrator"
+        xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel.Customer"
         mc:Ignorable="d"
         Height="359" Width="800">
     <Window.DataContext>
-        <vm:UserViewModel/>
+        <vm:UserRegistrationViewModel/>
     </Window.DataContext>
 
     <ScrollViewer  VerticalScrollBarVisibility="Auto">
@@ -26,9 +26,9 @@
             <Label  Content="Password:" />
             <TextBox  Text="{Binding Password}" />
             <Label  Content="Email:" />
-            <TextBox  Text="{Binding Email}" />
+            <TextBox  Text="{Binding Email}" TextChanged="EmailTextBox_TextChanged" />
             <Label  Content="Phone number:" />
-            <TextBox  Text="{Binding Number}" />
+            <TextBox  Text="{Binding Number}" TextChanged="PhoneTextBox_TextChanged" MaxLength="13"/>
             <Button Content="Create" Margin="10,10" Command="{Binding CreateUserAndAuthorizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
          </StackPanel>
         

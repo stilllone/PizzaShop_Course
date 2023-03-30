@@ -1,7 +1,12 @@
 ﻿using MySql.Data.MySqlClient;
 using PizzaShop_Course.DataProvider;
 using PizzaShop_Course.Interfaces;
+using PizzaShop_Course.ViewModel.Administrator;
+using System;
 using System.Data.Common;
+using System.IO;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace PizzaShop_Course.Model
 {

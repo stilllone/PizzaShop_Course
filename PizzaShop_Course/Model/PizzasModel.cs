@@ -15,7 +15,7 @@ using System.Windows.Input;
 
 namespace PizzaShop_Course.Model
 {
-    public class PizzasModel : AbsFood
+    public class PizzasModel : AbsFood, INotifyPropertyChanged
     {
         private int id;
         public int Id
@@ -53,10 +53,25 @@ namespace PizzaShop_Course.Model
         private string size;
         public string Size
         {
-            get => size;
+            get { return size; }
             set
             {
                 size = value;
+                if (size == FoodSize.little.ToString())
+                {
+                    Price = Price;
+                    OnPropertyChanged(nameof(Price));
+                }
+                else if (Size == FoodSize.small.ToString())
+                {
+                    Price *= 1.15;
+                    OnPropertyChanged(nameof(Price));
+                }
+                else
+                {
+                    Price *= 1.25;
+                    OnPropertyChanged(nameof(Price));
+                }
                 OnPropertyChanged(nameof(Size));
             }
         }
@@ -68,7 +83,7 @@ namespace PizzaShop_Course.Model
             set
             {
                 price = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Price));
             }
         }
 

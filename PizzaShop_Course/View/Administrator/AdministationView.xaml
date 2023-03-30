@@ -29,9 +29,9 @@
                 <Label  Content="Password:" />
                 <TextBox  Text="{Binding Password}" />
                 <Label  Content="Email:" />
-                <TextBox  Text="{Binding Email}" />
+                <TextBox  Text="{Binding Email}" TextChanged="EmailTextBox_TextChanged" />
                 <Label  Content="Phone number:" />
-                <TextBox  Text="{Binding Number}" />
+                <TextBox  Text="{Binding Number}" TextChanged="PhoneTextBox_TextChanged" MaxLength="13" />
                 <WrapPanel ItemWidth="60" Orientation="Horizontal">
                     <Button Content="Create" Margin="10,10" Command="{Binding SaveCommand}" />
                     <Button Content="Update" Margin="10,10" Command="{Binding UpdateCommand}"/>

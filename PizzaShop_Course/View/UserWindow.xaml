@@ -11,7 +11,7 @@
 
     <Button Style="{StaticResource UserBtn}" Width="67" Height="67" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:UserInformationView}">
         <StackPanel>
-            <Image Source="{Binding UserPhoto}"/>
+            <Image Source="{Binding UserPhoto, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
     </Button>
 </UserControl>

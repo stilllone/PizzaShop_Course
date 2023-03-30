@@ -14,6 +14,8 @@ using PizzaShop_Course.View;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using PizzaShop_Course.View.Customer;
+using System.ComponentModel.DataAnnotations;
+using PizzaShop_Course.ViewModel.Validation;
 
 namespace PizzaShop_Course.ViewModel.Administrator
 {
@@ -30,9 +32,31 @@ namespace PizzaShop_Course.ViewModel.Administrator
         {
             userDBConnection = new UserDBConnection();
             User = CurrentUser;
+            CurrentUser.PropertyChanged += OnCurrentUserPropertyChanged;
         }
-
         #region property
+        private void OnCurrentUserPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(UserModel.Photo))
+            {
+                if (CurrentUser != null && CurrentUser.Photo != null)
+                {
+                    var imageSource = new BitmapImage();
+                    using (var stream = new MemoryStream(CurrentUser.Photo))
+                    {
+                        imageSource.BeginInit();
+                        imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                        imageSource.StreamSource = stream;
+                        imageSource.EndInit();
+                    }
+                    UserPhoto = imageSource;
+                }
+                else
+                {
+                    UserPhoto = null;
+                }
+            }
+        }
         private static UserModel user = new UserModel();
         public UserModel User
         {
@@ -79,6 +103,11 @@ namespace PizzaShop_Course.ViewModel.Administrator
         public ImageSource UserPhoto
         {
             get => userPhoto;
+            set
+            {
+                userPhoto = value;
+                OnPropertyChanged(nameof(UserPhoto));
+            }
         }
         private static bool isAuthorized;
         public static bool IsAuthorized
@@ -193,7 +222,8 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 }
             }
         }
-
+        [Required(ErrorMessage = "Email is required.")]
+        [CustomValidation(typeof(EmailValidation), "IsValid", ErrorMessage = "Email is not valid.")]
         public string Email
         {
             get { return user.Email; }
@@ -206,8 +236,19 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 }
             }
         }
+        private string photopath;
+        public string PhotoPath
+        {
+            get => photopath;
+            set
+            {
+                photopath = value;
+                OnPropertyChanged(nameof(PhotoPath));
+            }
+        }
 
         #endregion
+        #region command
         public ICommand AuthorizeCommand => new RelayCommand(AuthorizeUser);
         public ICommand LogOutCommand => new RelayCommand(LogOut);
         private void AuthorizeUser(object parameter)
@@ -217,7 +258,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
             if (user == null)
             {
                 IsAuthorized = false;
-                MessageBox.Show("Uncorrect input data");
+                EventAggregator.Instance.NotificationEvent.Publish("Uncorrect input data");
             }
             else
             {
@@ -232,7 +273,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
         public ICommand DeleteCommand { get => new RelayCommand(DeleteUser); }
         public ICommand SelectPhotoCommand { get => new RelayCommand(SelectPhoto); }
         public ICommand CreateRegistrationWindowCommand { get => new RelayCommand(CreateRegistrationWindow); }
-        public ICommand CreateUserAndAuthorizeCommand { get => new RelayCommand<object>(CreateAndAuthorize); }
+        //public ICommand CreateUserAndAuthorizeCommand { get => new RelayCommand<object>(CreateAndAuthorize); }
 
 
         private void SaveUser(object parameter)
@@ -242,8 +283,12 @@ namespace PizzaShop_Course.ViewModel.Administrator
 
         private void UpdateUser(object parameter)
         {
-            userDBConnection.UpdateUser(user);
+            if (CurrentUser.ChangeRoots == true)
+                userDBConnection.UpdateUser(user);
+            else
+                userDBConnection.UpdateByUser(user);
         }
+        
 
         private void DeleteUser(object parameter)
         {
@@ -256,6 +301,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
             if (openFileDialog.ShowDialog() == true)
             {
                 Photo = File.ReadAllBytes(openFileDialog.FileName);
+                PhotoPath = openFileDialog.FileName;
             }
         }
         private void LogOut(object parameter)
@@ -268,31 +314,31 @@ namespace PizzaShop_Course.ViewModel.Administrator
         {
             Window regWindow = new UserCreateView();
             regWindow.ShowDialog();
-            CreateUserAndAuthorizeCommand.Execute(regWindow);
         }
-        private void CreateAndAuthorize(object parameter)
-        {
-            try
-            {
-                SaveUser(user);
-                AuthorizeUser(null);
-                var result = MessageBox.Show("Congratulations, you are registered", "Registration Successful", MessageBoxButton.OK);
-                {
-                    if (result == MessageBoxResult.OK)
-                    {
-                        var regWindow = parameter as Window;
-                        if (regWindow != null)
-                        {
-                            regWindow.Close();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Something went wrong, try later");
-                Debug.WriteLine(ex);
-            }
-        }
+        //private void CreateAndAuthorize(object parameter)
+        //{
+        //    try
+        //    {
+        //        SaveUser(user);
+        //        AuthorizeUser(null);
+        //        var result = MessageBox.Show("Congratulations, you are registered", "Registration Successful", MessageBoxButton.OK);
+        //        {
+        //            if (result == MessageBoxResult.OK)
+        //            {
+        //                var regWindow = parameter as Window;
+        //                if (regWindow != null)
+        //                {
+        //                    regWindow.Close();
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        EventAggregator.Instance.NotificationEvent.Publish("Something went wrong, try later");
+        //        Debug.WriteLine(ex);
+        //    }
+        //}
+        #endregion
     }
 }

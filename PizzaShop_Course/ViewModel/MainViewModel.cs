@@ -32,49 +32,8 @@ namespace PizzaShop_Course.ViewModel
             UserViewModel.AuthorizeChanged += OnAuthorizeChanged;
             EventAggregator.Instance.NotificationEvent.Subscribe(ShowNotification);
         }
-        private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(BasketItemModel.ItemPrice) || e.PropertyName == nameof(BasketItemModel.ItemCount))
-            {
-                BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice * item.ItemCount);
-            }
-        }
-        private void OrderItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.NewItems != null)
-            {
-                foreach (var item in e.NewItems.OfType<BasketItemModel>())
-                {
-                    item.PropertyChanged += Item_PropertyChanged;
-                }
-            }
-
-            if (e.OldItems != null)
-            {
-                foreach (var item in e.OldItems.OfType<BasketItemModel>())
-                {
-                    item.PropertyChanged -= Item_PropertyChanged;
-                }
-            }
-            if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Remove || e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice * item.ItemCount);
-            }
-
-            RecalculateBasketTotalPrice();
-        }
-        private void RecalculateBasketTotalPrice()
-        {
-            BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => (item.ItemPrice * item.ItemCount));
-        }
-        private void OnUserChanged(object sender, UserModel newUser)
-        {
-            User = UserViewModel.CurrentUser;
-        }
-        private void OnAuthorizeChanged(object sender, bool newAuthorize)
-        {
-            IsLoggedIn = UserViewModel.IsAuthorized;
-        }
+        
+       
         private UserModel user;
         public UserModel User
         {
@@ -112,6 +71,11 @@ namespace PizzaShop_Course.ViewModel
         public ImageSource UserPhoto
         {
             get => userPhoto;
+            set
+            {
+                userPhoto = value;
+                OnPropertyChanged(nameof(UserPhoto));
+            }
         }
         private bool isLoggedIn = UserViewModel.IsAuthorized;
         public bool IsLoggedIn
@@ -133,8 +97,16 @@ namespace PizzaShop_Course.ViewModel
                 Debug.WriteLine("IsLoggedIn Changed: " + isLoggedIn);
                 OnPropertyChanged(nameof(IsLoggedIn));
             }
+        } 
+        private void OnUserChanged(object sender, UserModel newUser)
+        {
+            User = UserViewModel.CurrentUser;
         }
-        
+        private void OnAuthorizeChanged(object sender, bool newAuthorize)
+        {
+            IsLoggedIn = UserViewModel.IsAuthorized;
+        }
+        #region commands
         public ICommand ToggleHamburgerCommand { get; }
 
         private bool _isHamburgerOpen;
@@ -175,7 +147,7 @@ namespace PizzaShop_Course.ViewModel
             UserControl view = (UserControl)Activator.CreateInstance(viewType);
             Navigate(view);
         }
-
+        #endregion
 
         #region basket
         private double baskettotalprice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice);
@@ -188,10 +160,44 @@ namespace PizzaShop_Course.ViewModel
                 OnPropertyChanged(nameof(baskettotalprice));
             }
         }
+        private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(BasketItemModel.ItemPrice) || e.PropertyName == nameof(BasketItemModel.ItemCount))
+            {
+                BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice * item.ItemCount);
+            }
+        }
+        private void OrderItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (var item in e.NewItems.OfType<BasketItemModel>())
+                {
+                    item.PropertyChanged += Item_PropertyChanged;
+                }
+            }
 
+            if (e.OldItems != null)
+            {
+                foreach (var item in e.OldItems.OfType<BasketItemModel>())
+                {
+                    item.PropertyChanged -= Item_PropertyChanged;
+                }
+            }
+            if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Remove || e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => item.ItemPrice * item.ItemCount);
+            }
+
+            RecalculateBasketTotalPrice();
+        }
+        private void RecalculateBasketTotalPrice()
+        {
+            BasketTotalPrice = BasketViewModel.OrderItems.Sum(item => (item.ItemPrice * item.ItemCount));
+        }
         #endregion
         #region popup
-        
+
         private UserControl notificationView;
         public UserControl NotificationView 
         {

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System;
+using System.Diagnostics;
 
 namespace PizzaShop_Course.DataProvider
 {
@@ -31,13 +32,26 @@ namespace PizzaShop_Course.DataProvider
             command.Parameters.AddWithValue("@pass", user.Password);
             command.Parameters.AddWithValue("@email", user.Email);
             command.Parameters.AddWithValue("@phone", user.Number);
-            command.ExecuteNonQuery();
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062) 
+                {
+                    EventAggregator.Instance.NotificationEvent.Publish("Login already exists");
+                }
+                else
+                {
+                    Debug.WriteLine("Sql exception: ", ex);
+                }
+            }
             connection.Close();
         }
 
         public UserModel AuthenticateUser(string login, string password)
         {
-            UserModel user = null;
             var connection = SqlDBConnection.GetDBConnection();
             connection.Open();
             MySqlCommand command = new MySqlCommand("SELECT * FROM users WHERE login = @login AND pass = @pass", connection);
@@ -46,7 +60,7 @@ namespace PizzaShop_Course.DataProvider
             MySqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                user = new UserModel
+                UserModel user = new UserModel
                 {
                     Id = (int)reader["id"],
                     FirstName = (string)reader["first_name"],
@@ -56,33 +70,16 @@ namespace PizzaShop_Course.DataProvider
                     Password = (string)reader["pass"],
                     Email = (reader["email"] == DBNull.Value) ? string.Empty : (string?)reader["email"],
                     Photo = (reader["photo"] == DBNull.Value) ? null : (byte[]?)reader["photo"],
-                    Number = (string)reader["phone_number"]
+                    Number = Convert.IsDBNull(reader["phone_number"]) ? string.Empty : (string)reader["phone_number"]
                 };
                 connection.Close();
                 return user;
             }
             return null;
         }
-        //public void AddUser(UserModel user)
-        //{
-        //    using (var connection = _connection)
-        //    {
-        //        connection.Open();
-        //        var query = "INSERT INTO users (change_roots, first_name, last_name, photo, login, password, email) VALUES (@ChangeRoots, @FirstName, @LastName, @Photo, @Login, @Password, @Email)";
-        //        MySqlCommand command = new MySqlCommand(query, connection);
-        //        command.Parameters.AddWithValue("@change_roots", user.ChangeRoots);
-        //        command.Parameters.AddWithValue("@first_name", user.FirstName);
-        //        command.Parameters.AddWithValue("@last_name", user.LastName);
-        //        command.Parameters.AddWithValue("@photo", user.Photo);
-        //        command.Parameters.AddWithValue("@login", user.Login);
-        //        command.Parameters.AddWithValue("@password", user.Password);
-        //        command.Parameters.AddWithValue("@email", user.Email);
-        //        command.ExecuteNonQuery();
-        //    }
-        //}
         public void DeleteUser(int id)
         {
-            var connection = _connection;
+            var connection = SqlDBConnection.GetDBConnection();
             string query = "DELETE FROM users WHERE id=@id";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@id", id);
@@ -90,18 +87,37 @@ namespace PizzaShop_Course.DataProvider
         }
         public void UpdateUser(UserModel user)
         {
-            var connection = _connection;
-                var query = "UPDATE users SET change_roots = @ChangeRoots, first_name = @FirstName, last_name = @LastName, photo = @Photo, password = @Password, email = @Email WHERE id = @Id";
+            var connection = SqlDBConnection.GetDBConnection();
+            connection.Open();
+            var query = "UPDATE users SET change_roots = @change_roots, first_name = @first_name, last_name = @last_name, photo = @photo, pass = @password, email = @email, phone_number = @phone WHERE id = @id";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@change_roots", user.ChangeRoots);
             command.Parameters.AddWithValue("@first_name", user.FirstName);
             command.Parameters.AddWithValue("@last_name", user.LastName);
             command.Parameters.AddWithValue("@photo", user.Photo);
-            command.Parameters.AddWithValue("@login", user.Login);
             command.Parameters.AddWithValue("@password", user.Password);
             command.Parameters.AddWithValue("@email", user.Email);
             command.Parameters.AddWithValue("@phone", user.Number);
+            command.Parameters.AddWithValue("@id", user.Id);
             command.ExecuteNonQuery();
+            connection.Close();
+        }
+        public void UpdateByUser(UserModel user)
+        {
+            var connection = SqlDBConnection.GetDBConnection();
+            connection.Open();
+            var query = "UPDATE users SET first_name = @first_name, last_name = @last_name, photo = @photo, pass = @password, email = @email, phone_number = @phone WHERE id = @id";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@change_roots", user.ChangeRoots);
+            command.Parameters.AddWithValue("@first_name", user.FirstName);
+            command.Parameters.AddWithValue("@last_name", user.LastName);
+            command.Parameters.AddWithValue("@photo", user.Photo);
+            command.Parameters.AddWithValue("@password", user.Password);
+            command.Parameters.AddWithValue("@email", user.Email);
+            command.Parameters.AddWithValue("@phone", user.Number);
+            command.Parameters.AddWithValue("@id", user.Id);
+            command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }
