@@ -32,7 +32,7 @@
                                         <TextBlock Text="{Binding Name}" Margin="5,0,0,0" Height="Auto" TextWrapping="Wrap"/>
                                         <ComboBox ItemsSource="{Binding DrinksSize}" SelectedIndex="0" SelectedItem="{Binding Size}"/>
                                         <TextBlock Text="{Binding Price}"/>
-                                        <Button Content="Add" Command="{Binding AddDrinksToBasket}" Height="50"/>
+                                        <Button Content="Add" Command="{Binding DataContext.AddDrinksToBasket, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Drink, UpdateSourceTrigger=PropertyChanged}"  Width="110"  Height="25"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>

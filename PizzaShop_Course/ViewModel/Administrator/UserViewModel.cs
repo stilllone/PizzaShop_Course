@@ -273,8 +273,6 @@ namespace PizzaShop_Course.ViewModel.Administrator
         public ICommand DeleteCommand { get => new RelayCommand(DeleteUser); }
         public ICommand SelectPhotoCommand { get => new RelayCommand(SelectPhoto); }
         public ICommand CreateRegistrationWindowCommand { get => new RelayCommand(CreateRegistrationWindow); }
-        //public ICommand CreateUserAndAuthorizeCommand { get => new RelayCommand<object>(CreateAndAuthorize); }
-
 
         private void SaveUser(object parameter)
         {
@@ -315,30 +313,6 @@ namespace PizzaShop_Course.ViewModel.Administrator
             Window regWindow = new UserCreateView();
             regWindow.ShowDialog();
         }
-        //private void CreateAndAuthorize(object parameter)
-        //{
-        //    try
-        //    {
-        //        SaveUser(user);
-        //        AuthorizeUser(null);
-        //        var result = MessageBox.Show("Congratulations, you are registered", "Registration Successful", MessageBoxButton.OK);
-        //        {
-        //            if (result == MessageBoxResult.OK)
-        //            {
-        //                var regWindow = parameter as Window;
-        //                if (regWindow != null)
-        //                {
-        //                    regWindow.Close();
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        EventAggregator.Instance.NotificationEvent.Publish("Something went wrong, try later");
-        //        Debug.WriteLine(ex);
-        //    }
-        //}
         #endregion
     }
 }

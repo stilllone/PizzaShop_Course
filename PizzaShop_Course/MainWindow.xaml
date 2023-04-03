@@ -12,7 +12,6 @@
         Title="MainWindow" MinHeight="450" MinWidth="815" Height="450" Width="815">
     <Window.Resources>
         <viewconverters:ButtonVisibilityConverter x:Key="ButtonVisibilityConverter"/>
-        <viewconverters:NotifyToVisibleConverter x:Key="NotifyVisibilityConverter"/>
     </Window.Resources>
     <Window.DataContext>
         <viewmodel:MainViewModel/>

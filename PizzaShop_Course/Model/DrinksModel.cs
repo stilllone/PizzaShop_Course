@@ -18,6 +18,26 @@ namespace PizzaShop_Course.Model
 {
     public class DrinksModel : AbsFood, INotifyPropertyChanged
     {
+        
+        private DrinksModel drink;
+        public DrinksModel Drink
+        {
+            get => drink = new DrinksModel()
+            {
+                Id = this.Id,
+                Name = this.Name,
+                Size = this.Size,
+                Price = this.Price,
+                Photo = this.Photo
+            };
+            set
+            {
+                if (drink != value)
+                    drink = value;
+                OnPropertyChanged(nameof(Drink));
+            }
+        }
+        
         private int id;
         public int Id
         {
@@ -38,14 +58,21 @@ namespace PizzaShop_Course.Model
                 OnPropertyChanged();
             }
         }
+        
         private double price;
+        private double firstValueOfPrice;
         public double Price
         {
             get => price;
             set
             {
+                
                 price = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Price));
+                if (firstValueOfPrice == 0)
+                {
+                    firstValueOfPrice = price;
+                }
             }
         }
 
@@ -69,17 +96,17 @@ namespace PizzaShop_Course.Model
                 size = value;
                 if (size == FoodSize.little.ToString())
                 {
-                    Price = Price;
+                    Price = firstValueOfPrice;
                     OnPropertyChanged(nameof(Price));
                 }
                 else if (Size == FoodSize.small.ToString())
                 {
-                    Price *= 1.15;
+                    Price = firstValueOfPrice * 1.15;
                     OnPropertyChanged(nameof(Price));
                 }
                 else
                 {
-                    Price *= 1.25;
+                    Price = firstValueOfPrice * 1.25;
                     OnPropertyChanged(nameof(Price));
                 }
                 OnPropertyChanged(nameof(Size));
@@ -89,41 +116,17 @@ namespace PizzaShop_Course.Model
         {
             get { return (FoodSize[])Enum.GetValues(typeof(FoodSize)); }
         }
-        //Commands (idk how else)
-        public ICommand AddDrinksToBasket
-        {
-            get => new RelayCommand(AddDrinks);
-            set
-            {
-                AddDrinksToBasket?.Execute(value);
-            }
-        }
-        private void AddDrinks(object drinks)
-        {
-            var newItem = new BasketItemModel()
-            {
-                ItemId = this.id,
-                ItemName = this.name,
-                ItemPrice = this.price,
-                ItemSize = this.size,
-                ItemPhoto = this.photo,
-                ItemCount = 1
-            };
-            var existingItem = BasketViewModel.OrderItems.FirstOrDefault(item =>
-                item.ItemName == newItem.ItemName && item.ItemSize == newItem.ItemSize);
-            if (existingItem != null)
-            {
-                existingItem.ItemCount++;
-            }
-            else
-            {
-                BasketViewModel.OrderItems.Add(newItem);
-            }
-            OnGlobalPropertyChanged(nameof(BasketViewModel.OrderItems));
-        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+            if (propertyName == nameof(Size))
+            {
+                OnPropertyChanged(nameof(Drink));
+            }
+        }
         private static event PropertyChangedEventHandler GlobalPropertyChanged = delegate { }; //update static property
         protected static void OnGlobalPropertyChanged(string propertyName)
         {

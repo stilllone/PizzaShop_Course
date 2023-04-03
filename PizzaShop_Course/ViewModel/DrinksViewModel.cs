@@ -21,58 +21,8 @@ namespace PizzaShop_Course.ViewModel
         {
             DrinksDBConnection drinksModel = new DrinksDBConnection();
             Drinks = drinksModel.GetDrinks();
-            //AddDrinksToBasket = new RelayCommand(AddDrinks);
-            //DeleteDrinksFromBasket = new RelayCommand(DeleteDrinks);
+            AddDrinksToBasket = new RelayCommand(AddDrinks);
         }
-        //#region prop
-        //public int Id
-        //{
-        //    get => drink.Id;
-        //    set
-        //    {
-        //        drink.Id = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-        //public string Name
-        //{
-        //    get => drink.Name;
-        //    set
-        //    {
-        //        drink.Name = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-        //public double Price
-        //{
-        //    get => drink.Price;
-        //    set
-        //    {
-        //        drink.Price = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        //public byte[] Photo
-        //{
-        //    get => drink.Photo;
-        //    set
-        //    {
-        //        drink.Photo = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        //public string Size
-        //{
-        //    get => drink.Size;
-        //    set
-        //    {
-        //        drink.Size = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-        //#endregion
         private ObservableCollection<DrinksModel> drinks;
         public ObservableCollection<DrinksModel> Drinks
         {
@@ -81,6 +31,41 @@ namespace PizzaShop_Course.ViewModel
             {
                 drinks = value;
                 OnPropertyChanged(nameof(Drinks));
+            }
+        }
+        public ICommand AddDrinksToBasket
+        {
+            get => new RelayCommand(AddDrinks);
+            set
+            {
+                AddDrinksToBasket?.Execute(value);
+            }
+        }
+        private void AddDrinks(object drinks)
+        {
+            var selectedItem = drinks as DrinksModel;
+            if (selectedItem != null)
+            {
+                var newItem = new BasketItemModel()
+                {
+                    ItemId = selectedItem.Id,
+                    ItemName = selectedItem.Name,
+                    ItemPrice = selectedItem.Price,
+                    ItemSize = selectedItem.Size,
+                    ItemPhoto = selectedItem.Photo,
+                    ItemCount = 1
+                };
+                var existingItem = BasketViewModel.OrderItems.FirstOrDefault(item =>
+                                item.ItemName == newItem.ItemName && item.ItemSize == newItem.ItemSize);
+                if (existingItem != null)
+                {
+                    existingItem.ItemCount++;
+                }
+                else
+                {
+                    BasketViewModel.OrderItems.Add(newItem);
+                }
+                OnGlobalPropertyChanged(nameof(BasketViewModel.OrderItems));
             }
         }
     }

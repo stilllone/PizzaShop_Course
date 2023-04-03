@@ -40,7 +40,7 @@
                                         <Label Content="Size: "/>
                                         <ComboBox ItemsSource="{Binding PizzaSize}" SelectedIndex="0" SelectedItem="{Binding Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="80"/>
                                         <Label Content="{Binding Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                        <Button Content="Add" Command="{Binding AddPizzaToBasket}" Height="25" Width="80"/>
+                                        <Button Content="Add" Command="{Binding DataContext.AddPizzasToBasket, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Pizza, UpdateSourceTrigger=PropertyChanged}" Width="110"  Height="25"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>

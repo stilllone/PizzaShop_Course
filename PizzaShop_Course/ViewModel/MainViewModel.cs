@@ -136,7 +136,6 @@ namespace PizzaShop_Course.ViewModel
                 }
             }
         }
-
         public ICommand NavigateCommand { get => new RelayCommand<Type>(NavigateTo); }
         private void Navigate(UserControl view)
         {

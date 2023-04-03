@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaShop_Course", "PizzaShop_Course\PizzaShop_Course.csproj", "{457FF4D3-058D-4F64-A522-0E4F31C56652}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUserBasketAndOrder", "TestUserBasketAndOrder\TestUserBasketAndOrder.csproj", "{3D43BDF4-F60D-4246-BF38-A5BCE971262A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{457FF4D3-058D-4F64-A522-0E4F31C56652}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{457FF4D3-058D-4F64-A522-0E4F31C56652}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{457FF4D3-058D-4F64-A522-0E4F31C56652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D43BDF4-F60D-4246-BF38-A5BCE971262A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D43BDF4-F60D-4246-BF38-A5BCE971262A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D43BDF4-F60D-4246-BF38-A5BCE971262A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D43BDF4-F60D-4246-BF38-A5BCE971262A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
