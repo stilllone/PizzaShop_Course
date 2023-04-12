@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -142,8 +143,18 @@ namespace PizzaShop_Course.ViewModel.Customer
             {
                 if (email != value)
                 {
-                    email = value;
-                    OnPropertyChanged(nameof(Email));
+                    Regex regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+                    bool isValidEmail = regex.IsMatch(value);
+
+                    if (isValidEmail)
+                    {
+                        email = value;
+                        OnPropertyChanged(nameof(Email));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid email address");
+                    }
                 }
             }
         }
@@ -159,18 +170,23 @@ namespace PizzaShop_Course.ViewModel.Customer
             user.FirstName = this.FirstName;
             user.LastName = this.LastName;
             user.Email = this.Email;
+            user.Number = this.Number;
+            if (Email == null && Number == null)
+            {
+                MessageBox.Show("Invalid number or Email");
+                return user = null;
+            }
             user.Photo = this.Photo;
             user.ChangeRoots = this.ChangeRoots;
             return user;
-            
         }
-        private void SaveUser(object parameter)
+        private bool SaveUser(object parameter)
         {
-            userDBConnection.CreateUser(CreateUserModel());
+            return userDBConnection.CreateUser(CreateUserModel());
         }
         private void AuthorizeUser(object parameter)
         {
-            UserViewModel.CurrentUser = userDBConnection.AuthenticateUser(CreateUserModel().Login, CreateUserModel().Password);
+            UserViewModel.CurrentUser = userDBConnection.AuthenticateUser(Login, Password);
             if (CreateUserModel == null)
             {
                 UserViewModel.IsAuthorized = false;
@@ -193,18 +209,24 @@ namespace PizzaShop_Course.ViewModel.Customer
         {
             try
             {
-                SaveUser(CreateUserModel());
-                AuthorizeUser(null);
-                var result = MessageBox.Show("Congratulations, you are registered", "Registration Successful", MessageBoxButton.OK);
+                if (SaveUser(CreateUserModel()) != false)
                 {
-                    if (result == MessageBoxResult.OK)
+                    AuthorizeUser(null);
+                    var result = MessageBox.Show("Congratulations, you are registered", "Registration Successful", MessageBoxButton.OK);
                     {
-                        var regWindow = parameter as Window;
-                        if (regWindow != null)
+                        if (result == MessageBoxResult.OK)
                         {
-                            regWindow.Close();
+                            var regWindow = parameter as Window;
+                            if (regWindow != null)
+                            {
+                                regWindow.Close();
+                            }
                         }
                     }
+                }
+                else
+                {
+                    
                 }
             }
             catch (Exception ex)

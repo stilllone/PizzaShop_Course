@@ -6,8 +6,8 @@
              xmlns:viewconverters="clr-namespace:PizzaShop_Course.ViewConverters"
              xmlns:vm="clr-namespace:PizzaShop_Course.ViewModel"
              xmlns:local="clr-namespace:PizzaShop_Course.View"
-             mc:Ignorable="d">
-    <Border Background="#FFFFF7" Height="20" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Width="170">
+             mc:Ignorable="d" Width="Auto">
+    <Border Background="#FFFFF7" Height="20" BorderThickness="1" BorderBrush="LightGray" CornerRadius="7" Width="Auto">
         <Border.Triggers>
             <EventTrigger RoutedEvent="Loaded">
                 <BeginStoryboard>
@@ -18,6 +18,6 @@
                 </BeginStoryboard>
             </EventTrigger>
         </Border.Triggers>
-        <TextBlock Text="{Binding NotificationText}" />
+        <TextBlock Text="{Binding NotificationText}" TextWrapping="Wrap"/>
     </Border>
 </UserControl>

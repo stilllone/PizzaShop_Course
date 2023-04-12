@@ -11,9 +11,8 @@
         <vm:PizzasViewModel/>
     </UserControl.DataContext>
     <Grid>
-        
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
 
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <TextBlock Text="Pizzas" Margin="10" FontSize="22" FontWeight="Medium"/>
                 <StackPanel Margin="20,0">

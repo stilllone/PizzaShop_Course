@@ -88,13 +88,7 @@ namespace PizzaShop_Course.ViewModel
                 if (isLoggedIn == true)
                 {
                     Navigate(us);
-                }
-                else
-                {
-                    UserControl pizzaView = new PizzasView();
-                    Navigate(pizzaView);
-                }
-                Debug.WriteLine("IsLoggedIn Changed: " + isLoggedIn);
+                };
                 OnPropertyChanged(nameof(IsLoggedIn));
             }
         } 

@@ -45,7 +45,7 @@ namespace PizzaShop_Course.Model
             set
             {
                 id = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Id));
             }
         }
         private string name;
@@ -126,11 +126,6 @@ namespace PizzaShop_Course.Model
             {
                 OnPropertyChanged(nameof(Drink));
             }
-        }
-        private static event PropertyChangedEventHandler GlobalPropertyChanged = delegate { }; //update static property
-        protected static void OnGlobalPropertyChanged(string propertyName)
-        {
-            GlobalPropertyChanged(null, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

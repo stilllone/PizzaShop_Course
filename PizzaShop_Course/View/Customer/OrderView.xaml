@@ -11,8 +11,6 @@
         <cvm:OrderViewModel/>
     </UserControl.DataContext>
     <Grid>
-        
-        
         <StackPanel Margin="112,0,0,0" VerticalAlignment="Center"  HorizontalAlignment="Left" Height="359">
             <Label Content="City"/>
             <ComboBox Width="91" ItemsSource="{Binding Cities}" SelectedItem="{Binding City}"/>

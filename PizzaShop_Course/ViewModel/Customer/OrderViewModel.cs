@@ -1,4 +1,5 @@
-﻿using PizzaShop_Course.DataProvider;
+﻿using MySql.Data.MySqlClient;
+using PizzaShop_Course.DataProvider;
 using PizzaShop_Course.Interfaces.Enums;
 using PizzaShop_Course.Model;
 using PizzaShop_Course.ViewModel.Administrator;
@@ -29,7 +30,7 @@ namespace PizzaShop_Course.ViewModel.Customer
         }
         private void AddOrder(object parameter)
         {
-            if (UserViewModel.CurrentUser == null)
+            if (UserViewModel.CurrentUser.Login == null && UserViewModel.CurrentUser.Password == null)
             {
                 SendMessage("You need to authorize");
             }
@@ -51,15 +52,23 @@ namespace PizzaShop_Course.ViewModel.Customer
                         Floor = (int)this.floor,
                         HouseNumber = this.house
                     };
+                    if(order == null)
+                    {
+                        throw new Exception();
+                    }
                     BasketDBConnection dataAccessLayer = new BasketDBConnection();
                     dataAccessLayer.AddOrder(order, BasketViewModel.OrderItems);
                     MessageBox.Show("Order added successfully!");
                     ClearItems();
                 }
-                catch (Exception ex)
+                catch (MySqlException ex)
                 {
                     Debug.WriteLine($"Exeption: {ex}");
-                    SendMessage("Something went wrong");
+                    SendMessage("Something went wrong with our DB");
+                }
+                catch (Exception ex)
+                {
+                    SendMessage("Something wrong with your order or data");
                 }
             }
             else

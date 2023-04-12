@@ -17,7 +17,7 @@ namespace PizzaShop_Course.DataProvider
         {
             _connection = SqlDBConnection.GetDBConnection();
         }
-        public void CreateUser(UserModel user)
+        public bool CreateUser(UserModel user)
         {
             var connection = _connection;
             connection.Open();
@@ -46,8 +46,10 @@ namespace PizzaShop_Course.DataProvider
                 {
                     Debug.WriteLine("Sql exception: ", ex);
                 }
+                return false;
             }
             connection.Close();
+            return true;
         }
 
         public UserModel AuthenticateUser(string login, string password)
@@ -89,8 +91,9 @@ namespace PizzaShop_Course.DataProvider
         {
             var connection = SqlDBConnection.GetDBConnection();
             connection.Open();
-            var query = "UPDATE users SET change_roots = @change_roots, first_name = @first_name, last_name = @last_name, photo = @photo, pass = @password, email = @email, phone_number = @phone WHERE id = @id";
+            var query = "UPDATE users SET change_roots = @change_roots, first_name = @first_name, last_name = @last_name, photo = @photo, pass = @password, email = @email, phone_number = @phone, id = @id WHERE login = @login";
             MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@login", user.Login);
             command.Parameters.AddWithValue("@change_roots", user.ChangeRoots);
             command.Parameters.AddWithValue("@first_name", user.FirstName);
             command.Parameters.AddWithValue("@last_name", user.LastName);
@@ -108,7 +111,6 @@ namespace PizzaShop_Course.DataProvider
             connection.Open();
             var query = "UPDATE users SET first_name = @first_name, last_name = @last_name, photo = @photo, pass = @password, email = @email, phone_number = @phone WHERE id = @id";
             MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@change_roots", user.ChangeRoots);
             command.Parameters.AddWithValue("@first_name", user.FirstName);
             command.Parameters.AddWithValue("@last_name", user.LastName);
             command.Parameters.AddWithValue("@photo", user.Photo);

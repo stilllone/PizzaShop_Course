@@ -5,25 +5,73 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PizzaShop_Course.View.Administrator"
              xmlns:adminvm="clr-namespace:PizzaShop_Course.ViewModel.Administrator"
+             xmlns:viewconverter="clr-namespace:PizzaShop_Course.ViewConverters"
              mc:Ignorable="d" 
              d:DesignHeight="359" d:DesignWidth="800">
+    <UserControl.Resources>
+        <viewconverter:PizzaToVisibilityConverter x:Key="pizzaToVisibilityConverter"/>
+    </UserControl.Resources>
     <UserControl.DataContext>
         <adminvm:AddFoodViewModel/>
     </UserControl.DataContext>
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment="Left" Margin="150,0,0,0" Width="282">
-                <ComboBox Margin="0,20,0,0" ItemsSource="{Binding CBItems}" SelectedItem="{Binding CurrentItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox x:Name="sl" Margin="0,20,0,0" ItemsSource="{Binding CBItems}" SelectedItem="{Binding CurrentItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Name: "/>
                 <TextBox Text="{Binding Name}"/>
                 <Label Content="Photo: "/>
                 <Button  Width="90" Height="25" Content="Select Photo" Command="{Binding SelectPhotoCommand}" />
                 <Label Content="Price: "/>
                 <TextBox Text="{Binding Price, Mode=TwoWay}" PreviewTextInput="Price_PreviewTextInput"/>
-                <Label Content="Ingridients:"/>
-                <TextBox TextWrapping="Wrap" Text="{Binding Ingredients}" Visibility="{Binding ItemVisibility}"/>
-                <Label Content="Mass:" Visibility="{Binding ItemVisibility, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Text="{Binding Mass, Mode=TwoWay}" Visibility="{Binding ItemVisibility, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Ingridients:">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=sl, Path=SelectedItem}" Value="Drink">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <TextBox TextWrapping="Wrap" Text="{Binding Ingredients}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=sl, Path=SelectedItem}" Value="Drink">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <Label Content="Mass:">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=sl, Path=SelectedItem}" Value="Drink">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <TextBox Text="{Binding Mass, Mode=TwoWay}">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=sl, Path=SelectedItem}" Value="Drink">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
                 <Button Content="Add" Margin="0,10,0,0" Command="{Binding AddFood}" Width="90" Height="25"/>
             </StackPanel>
         </ScrollViewer>

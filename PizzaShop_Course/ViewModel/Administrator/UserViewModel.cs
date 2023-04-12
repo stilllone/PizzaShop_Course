@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using PizzaShop_Course.View.Customer;
 using System.ComponentModel.DataAnnotations;
 using PizzaShop_Course.ViewModel.Validation;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PizzaShop_Course.ViewModel.Administrator
 {
@@ -27,6 +29,9 @@ namespace PizzaShop_Course.ViewModel.Administrator
         public static event UserChangedEventHandler UserChanged;
         public delegate void AuthorizeInfChangedEventHandler(object sender, bool newStatus);
         public static event AuthorizeInfChangedEventHandler AuthorizeChanged;
+
+        private const string PasswordRegexPattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+        private readonly Regex passwordRegex = new Regex(PasswordRegexPattern);
 
         public UserViewModel()
         {
@@ -96,7 +101,6 @@ namespace PizzaShop_Course.ViewModel.Administrator
             {
                 user = value;
                 UserChanged?.Invoke(null, user);
-                Debug.WriteLine("User changed, " + CurrentUser.FirstName);
             }
         }
         private ImageSource userPhoto;
@@ -215,7 +219,11 @@ namespace PizzaShop_Course.ViewModel.Administrator
             get { return user.Password; }
             set
             {
-                if (user.Password != value)
+                if (!passwordRegex.IsMatch(value))
+                {
+                    EventAggregator.Instance.NotificationEvent.Publish("Invalid password. Password must be at least 8 characters long and contain only Latin letters.");
+                }
+                else if (user.Password != value)
                 {
                     user.Password = value;
                     OnPropertyChanged(nameof(Password));
@@ -253,15 +261,16 @@ namespace PizzaShop_Course.ViewModel.Administrator
         public ICommand LogOutCommand => new RelayCommand(LogOut);
         private void AuthorizeUser(object parameter)
         {
-            CurrentUser = userDBConnection.AuthenticateUser(user.Login, user.Password);
-            user = CurrentUser; 
-            if (user == null)
+            var possibleUser = userDBConnection.AuthenticateUser(user.Login, user.Password);
+            
+            if (possibleUser == null)
             {
                 IsAuthorized = false;
                 EventAggregator.Instance.NotificationEvent.Publish("Uncorrect input data");
             }
             else
             {
+                CurrentUser = possibleUser; 
                 IsAuthorized = true;
             }
             OnPropertyChanged(nameof(IsAuthorized));
@@ -276,7 +285,14 @@ namespace PizzaShop_Course.ViewModel.Administrator
 
         private void SaveUser(object parameter)
         {
-            userDBConnection.CreateUser(user);
+            try
+            {
+                userDBConnection.CreateUser(user);
+            }
+            catch
+            {
+                EventAggregator.Instance.NotificationEvent.Publish("You can't do this");
+            }
         }
 
         private void UpdateUser(object parameter)

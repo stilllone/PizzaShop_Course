@@ -60,45 +60,33 @@ namespace PizzaShop_Course.ViewModel.Administrator
             this.pizzasDB = new PizzasDBConnection();
             this.drinksDB = new DrinksDBConnection();
             SelectPhotoCommand = new RelayCommand(SelectPhoto);
-            AddFood = new RelayCommand(AddFoodToDB);
         }
 
-        public ICommand AddFood { get; }
+        public ICommand AddFood { get => new RelayCommand(AddFoodToDB); }
         private void AddFoodToDB(object parameter)
         {
             if (CurrentItem == FoodItems.Pizza)
             {
                 PizzasModel pizza = new PizzasModel() { Name = name, Ingredients = ingridients, Size = size, Price = price, Mass = mass, Photo = photo };
                 pizzasDB.CreatePizza(pizza);
-                Name = null; Ingredients = null; Size = null; Price = 0; Mass = 0; Photo = null;
+                SetNullProperty();
 
             }
             else if (CurrentItem == FoodItems.Drink)
             {
                 DrinksModel drink = new DrinksModel() { Name = name, Photo = photo, Price = price, Size = size };
                 drinksDB.CreateDrinks(drink);
-                Name = null; Ingredients = null; Size = null; Price = 0; Mass = 0; Photo = null;
+                SetNullProperty();
             }
         }
-        //private void AddPizzaToDB(object parameter)
-        //{
-        //    PizzasModel pizza = new PizzasModel() { Name = name, Ingredients = ingridients, Size = size, Price = price, Mass = mass, Photo = photo };
-        //    pizzasDB.CreatePizza(pizza);
-        //}
-        #region prop
-        private string itemVisibility;
-        public string ItemVisibility
+
+
+        private void SetNullProperty()
         {
-            get => itemVisibility;
-            set
-            {
-                if (CurrentItem == FoodItems.Pizza)
-                    itemVisibility = "Visible";
-                else if(CurrentItem == FoodItems.Drink)
-                    itemVisibility = "Hidden";
-                OnPropertyChanged(nameof(ItemVisibility));
-            }
+            Name = null; Ingredients = null; Size = null; Price = 0; Mass = 0; Photo = null;
         }
+        #region prop
+        
         private string name;
         public string Name
         {

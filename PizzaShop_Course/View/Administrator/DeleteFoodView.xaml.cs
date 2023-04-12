@@ -15,24 +15,14 @@ using System.Windows.Shapes;
 
 namespace PizzaShop_Course.View.Administrator
 {
-    
-    public partial class AddFoodView : UserControl
+    /// <summary>
+    /// Interaction logic for DeleteFoodView.xaml
+    /// </summary>
+    public partial class DeleteFoodView : UserControl
     {
-        public AddFoodView()
+        public DeleteFoodView()
         {
             InitializeComponent();
-        }
-        private void Price_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!char.IsDigit(e.Text[0]) && e.Text[0] != ',')
-            {
-                e.Handled = true;
-            }
-
-            if (e.Text[0] == ',' && ((TextBox)sender).Text.Contains(","))
-            {
-                e.Handled = true;
-            }
         }
     }
 }

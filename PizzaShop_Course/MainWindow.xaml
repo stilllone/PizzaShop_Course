@@ -43,7 +43,9 @@
             <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Orientation="Vertical" >
                 <Button Width="70" Height="30" Content="AdminView" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AdministationView}"
                         Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
-                <Button Width="70" Height="30" Content="Add" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AddFoodView}"
+                <Button Width="70" Height="30" Content="AddFood" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AddFoodView}"
+                        Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
+                <Button Width="70" Height="30" Content="DeleteFood" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:DeleteFoodView}"
                         Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
                 <Button  Style="{StaticResource AuthorizationButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}"
                         Width="70" Margin="0 200 0 0" Height="30"/>

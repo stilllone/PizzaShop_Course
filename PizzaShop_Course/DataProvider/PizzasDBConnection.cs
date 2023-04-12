@@ -64,5 +64,21 @@ namespace PizzaShop_Course.DataProvider
             command.ExecuteNonQuery();
             connection.Close();
         }
+
+        public void DeletePizza(int id)
+        {
+            var connection = _connection;
+            connection.Open();
+            string query = "DELETE FROM pizzas WHERE id = @pizzaId;";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@pizzaId", id);
+
+            int rowsAffected = command.ExecuteNonQuery();
+            if (rowsAffected == 0)
+            {
+                EventAggregator.Instance.NotificationEvent.Publish($"No pizza with ID {id} found in database.");
+            }
+            connection.Close();
+        }
     }
 }

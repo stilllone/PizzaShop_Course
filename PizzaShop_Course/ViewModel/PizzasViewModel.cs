@@ -19,7 +19,6 @@ namespace PizzaShop_Course.ViewModel
         {
             PizzasDBConnection pizzasDBConnection = new PizzasDBConnection();
             Pizzas = pizzasDBConnection.GetPizzas();
-            AddPizzasToBasket = new RelayCommand(AddPizza);
         } 
 
         private ObservableCollection<PizzasModel> pizzas;
