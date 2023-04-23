@@ -13,7 +13,6 @@
         <vm:UserViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Image Style="{StaticResource BackgroundImage}"/>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,74,0,0">
             <Label Content="First Name"/>
             <TextBox Text="{Binding CurrentUser.FirstName}" Margin="5,0"/>

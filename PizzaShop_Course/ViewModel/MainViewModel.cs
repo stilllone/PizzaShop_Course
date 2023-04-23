@@ -100,23 +100,67 @@ namespace PizzaShop_Course.ViewModel
         {
             IsLoggedIn = UserViewModel.IsAuthorized;
         }
-        #region commands
+        #region switches
         public ICommand ToggleHamburgerCommand { get; }
-
-        private bool _isHamburgerOpen;
+        private bool isHamburgerOpen;
         public bool IsHamburgerOpen
         {
-            get { return _isHamburgerOpen; }
+            get { return isHamburgerOpen; }
             set
             {
-                if (_isHamburgerOpen != value)
+                if (isHamburgerOpen != value)
                 {
-                    _isHamburgerOpen = value;
+                    isHamburgerOpen = value;
                     OnPropertyChanged(nameof(IsHamburgerOpen));
                 }
             }
         }
 
+        private bool isDarkTheme;
+        public bool IsDarkTheme
+        {
+            get { return isDarkTheme; }
+            set
+            {
+                if (isDarkTheme != value)
+                {
+                    isDarkTheme = value;
+                    UpdateTheme();
+                    OnPropertyChanged(nameof(IsDarkTheme));
+                }
+            }
+        }
+
+        private void UpdateTheme()
+        {
+            ResourceDictionary newThemeDictionary;
+            if (IsDarkTheme)
+            {
+                newThemeDictionary = new ResourceDictionary { Source = new Uri("Styles/Dark.xaml", UriKind.Relative) };
+            }
+            else
+            {
+                newThemeDictionary = new ResourceDictionary { Source = new Uri("Styles/Light.xaml", UriKind.Relative) };
+            }
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(newThemeDictionary);
+        }
+
+        private bool themeString;
+        public bool ThemeString
+        {
+            get { return themeString; }
+            set
+            {
+                if (themeString != value)
+                {
+                    themeString = value;
+                    OnPropertyChanged(nameof(ThemeString));
+                }
+            }
+        }
+        #endregion
+        #region navigate
         private UserControl _currentView = new PizzasView();
         public UserControl CurrentView
         {

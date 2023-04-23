@@ -11,7 +11,6 @@
         <adminvm:UserViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Image Style="{StaticResource BackgroundImage}" Margin="443,0,0,0"/>
         <Label VerticalAlignment="Top" Content="Login:" Width="70" Height="30" Margin="193,99,537,0"/>
         <TextBox VerticalAlignment="Top" Text="{Binding Login}" Height="20" Width="200" Margin="275,103,325,0"/>
         <Label VerticalAlignment="Top" Content="Password:" Width="70" Height="30" Margin="193,145,537,0"/>

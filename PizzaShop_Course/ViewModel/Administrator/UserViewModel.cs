@@ -37,7 +37,14 @@ namespace PizzaShop_Course.ViewModel.Administrator
         {
             userDBConnection = new UserDBConnection();
             User = CurrentUser;
-            CurrentUser.PropertyChanged += OnCurrentUserPropertyChanged;
+            try
+            {
+                CurrentUser.PropertyChanged += OnCurrentUserPropertyChanged;
+            }
+            catch (NullReferenceException ex)
+            {
+                Debug.WriteLine("Ошибка NullReferenceException: {0}", ex.Message);
+            }
         }
         #region property
         private void OnCurrentUserPropertyChanged(object sender, PropertyChangedEventArgs e)

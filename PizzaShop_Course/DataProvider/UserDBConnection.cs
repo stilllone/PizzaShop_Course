@@ -38,7 +38,7 @@ namespace PizzaShop_Course.DataProvider
             }
             catch (MySqlException ex)
             {
-                if (ex.Number == 1062) 
+                if (ex.Number == 1062)
                 {
                     EventAggregator.Instance.NotificationEvent.Publish("Login already exists");
                 }
@@ -48,7 +48,11 @@ namespace PizzaShop_Course.DataProvider
                 }
                 return false;
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+                
+            }
             return true;
         }
 

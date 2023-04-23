@@ -162,20 +162,34 @@ namespace PizzaShop_Course.ViewModel.Customer
         public ICommand CreateUserAndAuthorizeCommand { get => new RelayCommand<object>(CreateAndAuthorize); }
         private UserModel CreateUserModel()
         {
+            
+            if (FirstName == null)
+            {
+                EventAggregator.Instance.NotificationEvent.Publish("Input FirstName");
+                return null;
+            }
+            else if (LastName == null)
+            {
+                EventAggregator.Instance.NotificationEvent.Publish("Input LastName");
+                return null;
+            }
+            else if (Login == null && Password == null)
+            {
+                EventAggregator.Instance.NotificationEvent.Publish("Input correct Login and pasword");
+                return null;
+            }
+            else if (Email == null && Number == null)
+            {
+                EventAggregator.Instance.NotificationEvent.Publish("Invalid number or Email");
+                return null;
+            }
             var user = new UserModel();
             user.Login = this.Login;
             user.Password = this.Password;
-            if (Login == null && Password == null)
-                return user = null;
             user.FirstName = this.FirstName;
             user.LastName = this.LastName;
             user.Email = this.Email;
             user.Number = this.Number;
-            if (Email == null && Number == null)
-            {
-                MessageBox.Show("Invalid number or Email");
-                return user = null;
-            }
             user.Photo = this.Photo;
             user.ChangeRoots = this.ChangeRoots;
             return user;
@@ -223,10 +237,6 @@ namespace PizzaShop_Course.ViewModel.Customer
                             }
                         }
                     }
-                }
-                else
-                {
-                    
                 }
             }
             catch (Exception ex)

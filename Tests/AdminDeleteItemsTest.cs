@@ -21,12 +21,17 @@ namespace Tests
         {
             //arrange
             deleteFoodVM.CurrentItem = FoodItems.Drink;
-            DrinksModel itemToDelete = drinksDB.GetDrinks()[1];
+            if (drinksDB.GetDrinks().Count != 0)
+            {
+                DrinksModel itemToDelete = drinksDB.GetDrinks()[0];
 
-            //act
-            deleteFoodVM.Delete.Execute(itemToDelete);
-            //assert
-            Assert.IsFalse(drinksDB.GetDrinks().Any(drink => drink.Id == itemToDelete.Id));
+                //act
+                deleteFoodVM.Delete.Execute(itemToDelete);
+                //assert
+                Assert.IsFalse(drinksDB.GetDrinks().Any(drink => drink.Id == itemToDelete.Id));
+            }
+            else
+                Assert.Fail();
         }
         [WpfTestMethod]
         public void DeleteDrinksWithIncorrectId()

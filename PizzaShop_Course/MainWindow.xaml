@@ -12,6 +12,61 @@
         Title="MainWindow" MinHeight="450" MinWidth="815" Height="450" Width="815">
     <Window.Resources>
         <viewconverters:ButtonVisibilityConverter x:Key="ButtonVisibilityConverter"/>
+        <Style TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Viewbox>
+                        <Border x:Name="togleBorder1" CornerRadius="10"
+                            Background="#FFFFFFFF"
+                            Width="40" Height="20">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0.5" Direction="0" Opacity="0.3" />
+                            </Border.Effect>
+                            <Ellipse x:Name="Ellipse" Fill="#FFFFF7" Stretch="Uniform"
+                                 Margin="2 1 2 1"
+                                 Stroke="Gray" StrokeThickness="0.2"
+                                 HorizontalAlignment="Stretch">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.3" Direction="260" />
+                                </Ellipse.Effect>
+                            </Ellipse>
+                        </Border>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="Checked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="togleBorder1"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#3C162F"
+                                                    Duration="0:0:0.1" />
+                                    <ThicknessAnimation Storyboard.TargetName="Ellipse"
+                                                        Storyboard.TargetProperty="Margin"
+                                                        To="20 1 2 1"
+                                                        Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="togleBorder1"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#FFFFF7"
+                                                    Duration="0:0:0.1" />
+                                    <ThicknessAnimation Storyboard.TargetName="Ellipse"
+                                                        Storyboard.TargetProperty="Margin"
+                                                        To="2 1 2 1"
+                                                        Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     </Window.Resources>
     <Window.DataContext>
         <viewmodel:MainViewModel/>
@@ -33,11 +88,10 @@
         <Grid Grid.ColumnSpan="2" Grid.Row="1">
             <ContentControl Panel.ZIndex="1" Content="{Binding NotificationView}" Width="200" Height="30" VerticalAlignment="Top" Margin="605,0,0,310"/>
             <ContentControl Content="{Binding CurrentView}"/>
-            
         </Grid>
         <Button Panel.ZIndex="1" Content="☰" x:Name="HamburgerButton" Height="30" Width="30"  Margin="0,13,2,0" VerticalAlignment="Top"
                 Command="{Binding ToggleHamburgerCommand}" Grid.Column="1" HorizontalAlignment="Right"/>
-        <Border Panel.ZIndex="0" Style="{StaticResource NavMenu}" x:Name="HamburgerMenuPanel" Grid.Column="0" Grid.Row="1"
+        <Border  Grid.Column="0" Grid.Row="1"
               Visibility="{Binding IsHamburgerOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
 
             <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Orientation="Vertical" >
@@ -49,6 +103,7 @@
                         Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
                 <Button  Style="{StaticResource AuthorizationButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}"
                         Width="70" Margin="0 200 0 0" Height="30"/>
+                <ToggleButton Height="20" Width="70" IsChecked="{Binding IsDarkTheme}" Content="{Binding ThemeString}" />
             </StackPanel>
         </Border>
     </Grid>

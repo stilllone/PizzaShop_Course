@@ -1,6 +1,7 @@
 using PizzaShop_Course.Model;
 using PizzaShop_Course.ViewModel;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Tests
 {
@@ -32,10 +33,7 @@ namespace Tests
         MainViewModel mainViewModel = new MainViewModel();
         BasketViewModel basketViewModel = new BasketViewModel();
 
-        [WpfTestMethod]
-        public void TestMethod1()
-        {
-        }
+        
         [WpfTestMethod]
         public void Test_AddPizzaToOrder_WhenAlreadyHaveOne()
         {

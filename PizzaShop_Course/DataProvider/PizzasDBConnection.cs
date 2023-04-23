@@ -12,40 +12,34 @@ namespace PizzaShop_Course.DataProvider
 {
     public class PizzasDBConnection
     {
-        private readonly MySqlConnection _connection;
-
-        public PizzasDBConnection()
-        {
-            _connection = SqlDBConnection.GetDBConnection();
-        }
+        private readonly MySqlConnection _connection = SqlDBConnection.GetDBConnection();
 
         public ObservableCollection<PizzasModel> GetPizzas()
         {
             ObservableCollection<PizzasModel> pizzas = new ObservableCollection<PizzasModel>();
-            using (var connection = _connection)
+            var connection = _connection;
+            MySqlCommand command = new MySqlCommand("SELECT * FROM pizzas", connection);
+            connection.Open();
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                MySqlCommand command = new MySqlCommand("SELECT * FROM pizzas", connection);
-                connection.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                byte[] photoBytes = null;
+                if (!reader.IsDBNull(reader.GetOrdinal("photo")))
                 {
-                    byte[] photoBytes = null;
-                    if (!reader.IsDBNull(reader.GetOrdinal("photo")))
-                    {
-                        photoBytes = (byte[])reader["photo"];
-                    }
-                    pizzas.Add(new PizzasModel()
-                    {
-                        Id = reader.GetInt32("id"),
-                        Name = reader.GetString("food_name"),
-                        Ingredients = reader.GetString("ingridients"),
-                        Mass = reader.GetInt32("mass"),
-                        Photo = photoBytes,
-                        Price = (double)reader.GetDouble("price")
-                    });
+                    photoBytes = (byte[])reader["photo"];
                 }
-                reader.Close();
+                pizzas.Add(new PizzasModel()
+                {
+                    Id = reader.GetInt32("id"),
+                    Name = reader.GetString("food_name"),
+                    Ingredients = reader.GetString("ingridients"),
+                    Mass = reader.GetInt32("mass"),
+                    Photo = photoBytes,
+                    Price = (double)reader.GetDouble("price")
+                });
             }
+            reader.Close();
+
             return pizzas;
         }
         public void CreatePizza(PizzasModel pizza)
