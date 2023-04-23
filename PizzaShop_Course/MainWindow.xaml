@@ -86,7 +86,7 @@
         
         <view:NavigationBar HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="0,13,0,12" Width="605"/>
         <Grid Grid.ColumnSpan="2" Grid.Row="1">
-            <ContentControl Panel.ZIndex="1" Content="{Binding NotificationView}" Width="200" Height="30" VerticalAlignment="Top" Margin="605,0,0,310"/>
+            <ContentControl Panel.ZIndex="1" Content="{Binding NotificationView}" VerticalAlignment="Top" Margin="605,0,0,310"/>
             <ContentControl Content="{Binding CurrentView}"/>
         </Grid>
         <Button Panel.ZIndex="1" Content="☰" x:Name="HamburgerButton" Height="30" Width="30"  Margin="0,13,2,0" VerticalAlignment="Top"

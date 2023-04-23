@@ -8,7 +8,6 @@ namespace PizzaShop_Course.Model
 {
     public class BasketItemModel : PropertyBase
     {
-        
         public int ItemId { get; set; }
         public byte[] ItemPhoto { get; set; }
         public string ItemName { get; set; }
