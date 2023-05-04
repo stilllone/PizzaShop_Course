@@ -21,18 +21,18 @@
                         <ItemsControl ItemsSource="{Binding Drinks}" Height="309">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Margin="10" Width="130" BorderBrush="White" Height="220">
+                                    <Border Margin="10" Width="130" BorderThickness="1" CornerRadius="10" BorderBrush="{StaticResource BorderBrushColor}" Height="205">
                                         <StackPanel>
-                                            <Border Width="100" Height="100"  CornerRadius="5" Margin="5">
+                                            <Border Width="100" Height="100" BorderThickness="1" CornerRadius="5" Margin="5">
                                                 <Border.Effect>
-                                                    <DropShadowEffect ShadowDepth="1" Color="White"/>
+                                                    <DropShadowEffect ShadowDepth="1"/>
                                                 </Border.Effect>
                                                 <Border.Background>
                                                     <ImageBrush ImageSource="{Binding Photo}"/>
                                                 </Border.Background>
                                             </Border>
-                                            <TextBlock Text="{Binding Name}" Margin="5,0,0,0" Height="Auto" TextWrapping="Wrap"/>
-                                            <TextBlock Text="{Binding Price}"/>
+                                            <TextBlock Text="{Binding Name}" Margin="5,0,0,0" Height="Auto" TextWrapping="Wrap" Width="110"/>
+                                            <TextBlock Text="{Binding Price}" Width="105"/>
                                             <Button Content="Delete" Command="{Binding DataContext.Delete, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding Drink, UpdateSourceTrigger=PropertyChanged}"  Width="110"  Height="25"/>
                                         </StackPanel>
                                     </Border>
@@ -63,9 +63,9 @@
                                 <DataTemplate>
                                     <Border Margin="10" Width="130" Height="300">
                                         <StackPanel>
-                                            <Border Margin="10" Width="130" Height="500">
+                                            <Border Margin="10" BorderThickness="1" Width="130" CornerRadius="10" Height="270">
                                                 <StackPanel>
-                                                    <Border Width="100" Height="100" CornerRadius="5" Margin="5">
+                                                    <Border Width="100" Height="100" BorderThickness="1" CornerRadius="5" Margin="5">
                                                         <Border.Effect>
                                                             <DropShadowEffect ShadowDepth="1"/>
                                                         </Border.Effect>

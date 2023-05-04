@@ -14,7 +14,5 @@ namespace PizzaShop_Course.Interfaces
         int Id { get; set; }
         string Name { get; set; }
         double Price { get; set; }
-
-        
     }
 }

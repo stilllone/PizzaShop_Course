@@ -24,9 +24,9 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Margin="10" Width="130" Height="280">
+                                <Border Margin="10" BorderThickness="1" Width="130" CornerRadius="10" Height="270">
                                     <StackPanel>
-                                        <Border Width="100" Height="100" CornerRadius="5" Margin="5">
+                                        <Border Width="100" Height="100" BorderThickness="1" CornerRadius="5" Margin="5">
                                             <Border.Effect>
                                                 <DropShadowEffect ShadowDepth="1"/>
                                             </Border.Effect>

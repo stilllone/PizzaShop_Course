@@ -69,15 +69,13 @@
     
     <Style TargetType="Label">
         <Setter Property="Foreground" Value="{StaticResource FirstColor}"/>
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontStyle" Value="Italic"/>
-        <Setter Property="FontFamily" Value="Californian FB"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
     </Style>
     <Style TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource FirstColor}"/>
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontStyle" Value="Italic"/>
-        <Setter Property="FontFamily" Value="Californian FB"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
     </Style>
     <Style TargetType="ScrollViewer">
         <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
@@ -101,7 +99,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontStyle" Value="Italic"/>
-        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -172,7 +170,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontStyle" Value="Italic"/>
-        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -243,7 +241,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
         <Setter Property="FontStyle" Value="Normal"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Template">
@@ -308,6 +306,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource BorderBrushColor}"/>
         <Setter Property="BorderThickness" Value="0,0,0,1"/>
         <Setter Property="Foreground" Value="{StaticResource FirstColor}"/>
+        <Setter Property="CaretBrush" Value="White"/>
     </Style>
 
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
@@ -347,7 +346,7 @@
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
-        <Setter Property="FontFamily" Value="Californian FB"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
@@ -438,7 +437,7 @@
     <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Foreground" Value="{StaticResource FirstColor}"/>
-        <Setter Property="FontFamily" Value="Californian FB"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="Template">
             <Setter.Value>

@@ -19,19 +19,19 @@
                         
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Margin="10" Width="130" BorderBrush="White" Height="220">
+                                <Border Margin="10" Width="130" BorderThickness="1" CornerRadius="10" BorderBrush="{StaticResource BorderBrushColor}" Height="205">
                                     <StackPanel>
-                                        <Border Width="100" Height="100"  CornerRadius="5" Margin="5">
+                                        <Border Width="100" Height="100" BorderThickness="1" CornerRadius="5" Margin="5">
                                             <Border.Effect>
-                                                <DropShadowEffect ShadowDepth="1" Color="White"/>
+                                                <DropShadowEffect ShadowDepth="1"/>
                                             </Border.Effect>
                                             <Border.Background>
                                                 <ImageBrush ImageSource="{Binding Photo}"/>
                                             </Border.Background>
                                         </Border>
-                                        <TextBlock Text="{Binding Name}" Margin="5,0,0,0" Height="Auto" TextWrapping="Wrap"/>
-                                        <ComboBox ItemsSource="{Binding DrinksSize}" SelectedIndex="0" SelectedItem="{Binding Size}"/>
-                                        <TextBlock Text="{Binding Price}"/>
+                                        <TextBlock Text="{Binding Name}" Margin="5,0,0,0" Height="Auto" TextWrapping="Wrap" Width="104"/>
+                                        <ComboBox ItemsSource="{Binding DrinksSize}" SelectedIndex="0" SelectedItem="{Binding Size}" Width="111"/>
+                                        <TextBlock Text="{Binding Price}" Width="118"/>
                                         <Button Content="Add" Command="{Binding DataContext.AddDrinksToBasket, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Drink, UpdateSourceTrigger=PropertyChanged}"  Width="110"  Height="25"/>
                                     </StackPanel>
                                 </Border>

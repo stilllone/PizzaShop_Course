@@ -39,7 +39,7 @@ namespace PizzaShop_Course.DataProvider
                 });
             }
             reader.Close();
-
+            connection.Close();
             return pizzas;
         }
         public void CreatePizza(PizzasModel pizza)

@@ -54,7 +54,7 @@ namespace Tests
         {
             //arrange
             deleteFoodVM.CurrentItem = FoodItems.Pizza;
-            PizzasModel itemToDelete = pizzasDB.GetPizzas()[3];
+            PizzasModel itemToDelete = pizzasDB.GetPizzas()[2];
             //act
             deleteFoodVM.Delete.Execute(itemToDelete);
             //assert

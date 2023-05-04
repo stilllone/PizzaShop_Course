@@ -38,12 +38,11 @@ namespace PizzaShop_Course.DataProvider
                         Id = reader.GetInt32("id"),
                         Name = reader.GetString("food_name"),
                         Photo = photoBytes,
-                        Price = reader.GetDouble("price"),
-                        
+                        Price = reader.GetDouble("price")
                     });
                 }
                 reader.Close();
-            }
+            } 
             return drinks;
         }
         public void CreateDrinks(DrinksModel drink)

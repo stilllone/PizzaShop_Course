@@ -70,16 +70,16 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 PizzasModel pizza = new PizzasModel() { Name = name, Ingredients = ingridients, Size = size, Price = price, Mass = mass, Photo = photo };
                 pizzasDB.CreatePizza(pizza);
                 SetNullProperty();
-
+                EventAggregator.Instance.NotificationEvent.Publish("Pizza was added");
             }
             else if (CurrentItem == FoodItems.Drink)
             {
                 DrinksModel drink = new DrinksModel() { Name = name, Photo = photo, Price = price, Size = size };
                 drinksDB.CreateDrinks(drink);
                 SetNullProperty();
+                EventAggregator.Instance.NotificationEvent.Publish("Drink was added");
             }
         }
-
 
         private void SetNullProperty()
         {

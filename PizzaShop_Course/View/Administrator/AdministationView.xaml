@@ -14,9 +14,9 @@
         <ScrollViewer  VerticalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment="Left" Margin="150,0,0,0" Width="310">
                 <Label  Content="Id:" />
-                <TextBox  Text="{Binding Id}" />
+                <TextBox  Text="{Binding Id, Mode=TwoWay}" />
                 <Label  Content="Change Roots:" />
-                <CheckBox IsChecked="{Binding ChangeRoots}" />
+                <CheckBox BorderThickness="1" IsChecked="{Binding ChangeRoots,Mode=OneWay}" />
                 <Label  Content="First Name:" />
                 <TextBox  Text="{Binding FirstName}" />
                 <Label  Content="Last Name:" />
@@ -32,7 +32,7 @@
                 <TextBox  Text="{Binding Email}" TextChanged="EmailTextBox_TextChanged" />
                 <Label  Content="Phone number:" />
                 <TextBox  Text="{Binding Number}" TextChanged="PhoneTextBox_TextChanged" MaxLength="13" />
-                <WrapPanel ItemWidth="60" Orientation="Horizontal">
+                <WrapPanel ItemWidth="100" Orientation="Horizontal" HorizontalAlignment="Stretch">
                     <Button Content="Create" Margin="10,10" Command="{Binding SaveCommand}" />
                     <Button Content="Update" Margin="10,10" Command="{Binding UpdateCommand}"/>
                     <Button Content="Delete" Margin="10,10" Command="{Binding DeleteCommand}"/>

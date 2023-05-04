@@ -9,7 +9,8 @@
         xmlns:viewmodel="clr-namespace:PizzaShop_Course.ViewModel"
         xmlns:viewAdmin="clr-namespace:PizzaShop_Course.View.Administrator"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="450" MinWidth="815" Height="450" Width="815">
+        Title="PizzaShop" WindowChrome.IsHitTestVisibleInChrome="True"  MinWidth="815" Height="450" Width="815">
+
     <Window.Resources>
         <viewconverters:ButtonVisibilityConverter x:Key="ButtonVisibilityConverter"/>
         <Style TargetType="{x:Type ToggleButton}">
@@ -79,7 +80,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="125"/>
-            <ColumnDefinition Width="680"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <view:UserWindow Grid.Column="0" Grid.Row="0"/>
 
@@ -94,17 +95,23 @@
         <Border  Grid.Column="0" Grid.Row="1"
               Visibility="{Binding IsHamburgerOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-            <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Orientation="Vertical" >
-                <Button Width="70" Height="30" Content="AdminView" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AdministationView}"
-                        Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
-                <Button Width="70" Height="30" Content="AddFood" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AddFoodView}"
-                        Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
-                <Button Width="70" Height="30" Content="DeleteFood" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:DeleteFoodView}"
-                        Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
-                <Button  Style="{StaticResource AuthorizationButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}"
+            <DockPanel LastChildFill="True" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+                <StackPanel DockPanel.Dock="Bottom" Margin="10" x:Name="idk">
+                    <Button  Style="{StaticResource AuthorizationButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:AuthorizationView}"
                         Width="70" Margin="0 200 0 0" Height="30"/>
-                <ToggleButton Height="20" Width="70" IsChecked="{Binding IsDarkTheme}" Content="{Binding ThemeString}" />
-            </StackPanel>
+                    <Label Content="Theme" Margin="9 10 0 0"/>
+                    <ToggleButton Height="20" Width="70" VerticalAlignment="Bottom" IsChecked="{Binding IsDarkTheme}" Content="{Binding ThemeString}" />
+                </StackPanel>
+                <StackPanel>
+                <Button Width="70" Height="30" Content="AdminView" Margin="0 10 0 0" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AdministationView}"
+                        Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                <Button Width="70" Height="30" Content="AddFood" Margin="0 10 0 0" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:AddFoodView}"
+                        Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
+                <Button Width="70" Height="30" Content="DeleteFood" Margin="0 10 0 0" Command="{Binding NavigateCommand}" CommandParameter="{x:Type viewAdmin:DeleteFoodView}"
+                        Visibility="{Binding User.ChangeRoots, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
+                </StackPanel>
+                
+            </DockPanel>
         </Border>
     </Grid>
 </Window>

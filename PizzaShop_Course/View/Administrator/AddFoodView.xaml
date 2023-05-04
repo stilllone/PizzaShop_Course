@@ -40,6 +40,10 @@
                     <TextBox.Style>
                         <Style TargetType="TextBox">
                             <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="LightGray"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="Foreground" Value="{StaticResource FirstColor}"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ElementName=sl, Path=SelectedItem}" Value="Drink">
                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -62,8 +66,13 @@
                 </Label>
                 <TextBox Text="{Binding Mass, Mode=TwoWay}">
                     <TextBox.Style>
-                        <Style TargetType="{x:Type TextBox}">
+                        <Style TargetType="TextBox">
                             <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="LightGray"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="CaretBrush" Value="{StaticResource BorderBrushColor}"/>
+                            <Setter Property="Foreground" Value="{StaticResource FirstColor}"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ElementName=sl, Path=SelectedItem}" Value="Drink">
                                     <Setter Property="Visibility" Value="Collapsed"/>
