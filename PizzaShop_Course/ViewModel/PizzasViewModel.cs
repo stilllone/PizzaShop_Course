@@ -1,4 +1,5 @@
-﻿using PizzaShop_Course.DataProvider;
+﻿using MySql.Data.MySqlClient;
+using PizzaShop_Course.DataProvider;
 using PizzaShop_Course.Interfaces.Enums;
 using PizzaShop_Course.Model;
 using System;
@@ -15,11 +16,16 @@ namespace PizzaShop_Course.ViewModel
 {
     public class PizzasViewModel : PropertyBase
     {
+        private readonly PizzasDBConnection pizzasDBConnection;
         public PizzasViewModel()
         {
-            PizzasDBConnection pizzasDBConnection = new PizzasDBConnection();
-            Pizzas = pizzasDBConnection.GetPizzas();
-        } 
+            pizzasDBConnection = new PizzasDBConnection();
+            Task.Run(()=> GetPizzasCollectionAsync());
+        }
+        private ObservableCollection<PizzasModel> GetPizzasCollectionAsync()
+        {
+            return Pizzas = pizzasDBConnection.GetPizzas();
+        }
 
         private ObservableCollection<PizzasModel> pizzas;
         public ObservableCollection<PizzasModel> Pizzas

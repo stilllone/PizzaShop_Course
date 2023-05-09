@@ -21,7 +21,7 @@
                         <ItemsControl ItemsSource="{Binding Drinks}" Height="309">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Margin="10" Width="130" BorderThickness="1" CornerRadius="10" BorderBrush="{StaticResource BorderBrushColor}" Height="205">
+                                    <Border Margin="10" Width="120" BorderThickness="1" CornerRadius="10" BorderBrush="{StaticResource BorderBrushColor}" Height="205">
                                         <StackPanel>
                                             <Border Width="100" Height="100" BorderThickness="1" CornerRadius="5" Margin="5">
                                                 <Border.Effect>
@@ -31,9 +31,9 @@
                                                     <ImageBrush ImageSource="{Binding Photo}"/>
                                                 </Border.Background>
                                             </Border>
-                                            <TextBlock Text="{Binding Name}" Margin="5,0,0,0" Height="Auto" TextWrapping="Wrap" Width="110"/>
-                                            <TextBlock Text="{Binding Price}" Width="105"/>
-                                            <Button Content="Delete" Command="{Binding DataContext.Delete, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding Drink, UpdateSourceTrigger=PropertyChanged}"  Width="110"  Height="25"/>
+                                            <TextBlock Text="{Binding Name}" Margin="5 5 0 0" Height="Auto" TextWrapping="Wrap" Width="110"/>
+                                            <TextBlock Text="{Binding Price}" Margin="5 5 0 0" Width="105"/>
+                                            <Button Content="Delete" Margin="0 5 0 0" Command="{Binding DataContext.Delete, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding Drink, UpdateSourceTrigger=PropertyChanged}"  Width="110"  Height="25"/>
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>
@@ -52,37 +52,32 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <TextBlock Text="Pizzas" Margin="10" FontSize="22" FontWeight="Medium"/>
-                    <StackPanel Margin="20,0">
-                        <ItemsControl x:Name="ListViewProducts" ItemsSource="{Binding Pizzas}" Height="309">
+                    <StackPanel Margin="20 0">
+                        <ItemsControl ItemsSource="{Binding Pizzas}" Height="309">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="10" Width="120" BorderThickness="1" CornerRadius="10" BorderBrush="{StaticResource BorderBrushColor}" Height="205">
+                                        <StackPanel>
+                                            <Border Width="100" Height="100" BorderThickness="1" CornerRadius="5" Margin="5">
+                                                <Border.Effect>
+                                                    <DropShadowEffect ShadowDepth="1"/>
+                                                </Border.Effect>
+                                                <Border.Background>
+                                                    <ImageBrush ImageSource="{Binding Photo}"/>
+                                                </Border.Background>
+                                            </Border>
+                                            <TextBlock Text="{Binding Name}" Margin="5 5 0 0" Height="Auto" TextWrapping="Wrap" Width="110"/>
+                                            <TextBlock Text="{Binding Price}" Margin="5 5 0 0" Width="105"/>
+                                                    <Button Content="Delete" Command="{Binding DataContext.Delete, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding Pizza, UpdateSourceTrigger=PropertyChanged}"  Width="110"  Height="25"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="10" Width="130" Height="300">
-                                        <StackPanel>
-                                            <Border Margin="10" BorderThickness="1" Width="130" CornerRadius="10" Height="270">
-                                                <StackPanel>
-                                                    <Border Width="100" Height="100" BorderThickness="1" CornerRadius="5" Margin="5">
-                                                        <Border.Effect>
-                                                            <DropShadowEffect ShadowDepth="1"/>
-                                                        </Border.Effect>
-                                                        <Border.Background>
-                                                            <ImageBrush ImageSource="{Binding Photo}"/>
-                                                        </Border.Background>
-                                                    </Border>
-                                                    <Label Content="{Binding Name}"/>
-                                                    <TextBlock TextWrapping="Wrap" Margin="5,0,0,0" Text="{Binding Ingredients}"  Height="Auto"/>
-                                                    <Label Content="{Binding Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                                    <Button Content="Delete" Command="{Binding DataContext.Delete, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding Pizza, UpdateSourceTrigger=PropertyChanged}"  Width="110"  Height="25"/>
-                                                </StackPanel>
-                                            </Border>
-                                        </StackPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </StackPanel>
                 </StackPanel>

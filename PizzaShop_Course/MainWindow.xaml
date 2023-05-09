@@ -9,7 +9,7 @@
         xmlns:viewmodel="clr-namespace:PizzaShop_Course.ViewModel"
         xmlns:viewAdmin="clr-namespace:PizzaShop_Course.View.Administrator"
         mc:Ignorable="d"
-        Title="PizzaShop" WindowChrome.IsHitTestVisibleInChrome="True"  MinWidth="815" Height="450" Width="815">
+        Title="PizzaShop" WindowChrome.IsHitTestVisibleInChrome="True" MinHeight="470" MinWidth="815" Height="450" Width="815">
 
     <Window.Resources>
         <viewconverters:ButtonVisibilityConverter x:Key="ButtonVisibilityConverter"/>

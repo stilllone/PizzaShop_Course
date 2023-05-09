@@ -80,7 +80,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
                         try
                         {
                             pizzasDB.DeletePizza(pizza.Id);
-                            RefreshPizza();
+                            EventAggregator.Instance.NotificationEvent.Publish("Pizza was deleted");
                         }
                         catch (MySqlException ex)
                         {
@@ -95,7 +95,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
                         try
                         {
                             drinksDB.DeleteDrinks(drink.Id);
-                            
+                            EventAggregator.Instance.NotificationEvent.Publish("Drink was deleted");
                         }
                         catch (MySqlException ex)
                         {

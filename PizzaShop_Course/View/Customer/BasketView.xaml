@@ -14,21 +14,21 @@
             <ItemsControl ItemsSource="{Binding OrderItems}" MinHeight="330">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Margin="10" Width="150" Height="250">
+                        <Border Margin="10" Width="150" BorderThickness="1" CornerRadius="15" Height="250">
                             <StackPanel>
-                                <Border Width="100" Height="100" CornerRadius="5" Margin="5">
+                                <Border Width="100" Height="100" BorderThickness="1" CornerRadius="5" Margin="5">
                                     <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="1"/>
+                                        <DropShadowEffect ShadowDepth="0.5"/>
                                     </Border.Effect>
                                     <Border.Background>
                                         <ImageBrush ImageSource="{Binding ItemPhoto}"/>
                                     </Border.Background>
                                 </Border>
-                                <Label Content="{Binding ItemName}"/>
-                                <Label Content="{Binding ItemPrice}"/>
-                                <Label Content="{Binding ItemSize}"/>
-                                <Label Content="{Binding ItemCount}"/>
-                                <Button Content="Delete" Command="{Binding DataContext.Delete, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
+                                <Label Margin="5 0 0 0" Content="{Binding ItemName}"/>
+                                <Label Margin="5 0 0 0" Content="{Binding ItemPrice}"/>
+                                <Label Margin="5 0 0 0" Content="{Binding ItemSize}"/>
+                                <Label Margin="5 0 0 0" Content="{Binding ItemCount}"/>
+                                <Button Content="Delete" Width="100" Command="{Binding DataContext.Delete, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>

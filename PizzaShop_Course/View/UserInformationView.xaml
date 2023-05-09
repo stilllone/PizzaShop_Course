@@ -26,6 +26,10 @@
             <TextBlock Text="{Binding PhotoPath}"/>
             <Button Content="Select Photo" Command="{Binding SelectPhotoCommand}" Width="120" Height="30" />
         </StackPanel>
+        <StackPanel Margin="271,74,400,225">
+            <Label Content="Password"/>
+            <TextBox Text="{Binding CurrentUser.Password}" TextChanged="EmailTextBox_TextChanged" Margin="5 0"/>
+        </StackPanel>
         <Button Content="Log Out" Command="{Binding LogOutCommand}" Width="70" Height="30" Margin="600,270,0,0" HorizontalAlignment="Left"/>
         <Button Width="70" Height="30" Content="Edit" Command="{Binding UpdateCommand}" HorizontalAlignment="Left" Margin="500,270,0,0"/>
     </Grid>

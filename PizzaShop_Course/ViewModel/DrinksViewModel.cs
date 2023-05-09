@@ -15,13 +15,15 @@ namespace PizzaShop_Course.ViewModel
 {
     public class DrinksViewModel : PropertyBase
     {
-
-        //private DrinksModel drink;
+        private readonly DrinksDBConnection  drinksDBConnection;
         public DrinksViewModel()
         {
-            DrinksDBConnection drinksModel = new DrinksDBConnection();
-            Drinks = drinksModel.GetDrinks();
-            AddDrinksToBasket = new RelayCommand(AddDrinks);
+            drinksDBConnection = new DrinksDBConnection();
+            Task.Run(() => GetDrinksCollectionAsync());
+        }
+        private ObservableCollection<DrinksModel> GetDrinksCollectionAsync()
+        {
+            return Drinks = drinksDBConnection.GetDrinks();
         }
         private ObservableCollection<DrinksModel> drinks;
         public ObservableCollection<DrinksModel> Drinks

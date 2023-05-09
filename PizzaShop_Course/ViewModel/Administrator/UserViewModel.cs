@@ -220,7 +220,8 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 }
             }
         }
-
+        [Required(ErrorMessage = "Password is required.")]
+        [CustomValidation(typeof(EmailValidation), "IsValid", ErrorMessage = "Password is not valid.")]
         public string Password
         {
             get { return user.Password; }
@@ -230,7 +231,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 {
                     EventAggregator.Instance.NotificationEvent.Publish("Invalid password. Password must be at least 8 characters long and contain only Latin letters.");
                 }
-                else if (user.Password != value)
+                if (user.Password != value)
                 {
                     user.Password = value;
                     OnPropertyChanged(nameof(Password));
@@ -295,6 +296,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
             try
             {
                 userDBConnection.CreateUser(user);
+                EventAggregator.Instance.NotificationEvent.Publish("User was added");
             }
             catch
             {
@@ -310,10 +312,9 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 userDBConnection.UpdateByUser(user);
         }
         
-
         private void DeleteUser(object parameter)
         {
-            userDBConnection.DeleteUser(user.Id);
+            userDBConnection.DeleteUser((int)parameter);
         }
         
         private void SelectPhoto(object parameter)

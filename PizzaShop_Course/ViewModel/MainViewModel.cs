@@ -22,7 +22,6 @@ namespace PizzaShop_Course.ViewModel
 {
     public class MainViewModel : PropertyBase
     {
-        
         public MainViewModel()
         {
             ToggleHamburgerCommand = new RelayCommand(param => IsHamburgerOpen = !IsHamburgerOpen);
@@ -32,8 +31,7 @@ namespace PizzaShop_Course.ViewModel
             UserViewModel.AuthorizeChanged += OnAuthorizeChanged;
             EventAggregator.Instance.NotificationEvent.Subscribe(ShowNotification);
         }
-        
-       
+ 
         private UserModel user;
         public UserModel User
         {
@@ -88,7 +86,12 @@ namespace PizzaShop_Course.ViewModel
                 if (isLoggedIn == true)
                 {
                     Navigate(us);
-                };
+                }
+                else if(isLoggedIn == false) 
+                {
+                    UserControl pizzaview = new PizzasView();
+                    Navigate(pizzaview);
+                }
                 OnPropertyChanged(nameof(IsLoggedIn));
             }
         } 

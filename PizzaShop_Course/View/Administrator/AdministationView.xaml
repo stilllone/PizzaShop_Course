@@ -35,7 +35,7 @@
                 <WrapPanel ItemWidth="100" Orientation="Horizontal" HorizontalAlignment="Stretch">
                     <Button Content="Create" Margin="10,10" Command="{Binding SaveCommand}" />
                     <Button Content="Update" Margin="10,10" Command="{Binding UpdateCommand}"/>
-                    <Button Content="Delete" Margin="10,10" Command="{Binding DeleteCommand}"/>
+                    <Button Content="Delete" Margin="10,10" Command="{Binding DeleteCommand}" CommandParameter="{Binding Id}"/>
                 </WrapPanel>
             </StackPanel>
         </ScrollViewer>
