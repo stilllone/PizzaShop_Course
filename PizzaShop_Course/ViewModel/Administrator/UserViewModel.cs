@@ -278,12 +278,13 @@ namespace PizzaShop_Course.ViewModel.Administrator
             }
             else
             {
-                CurrentUser = possibleUser; 
+                CurrentUser = possibleUser;
                 IsAuthorized = true;
+                OnPropertyChanged(nameof(IsAuthorized));
+                OnPropertyChanged(nameof(AuthorizeCommand));
+                OnPropertyChanged(nameof(CurrentUser));
             }
-            OnPropertyChanged(nameof(IsAuthorized));
-            OnPropertyChanged(nameof(AuthorizeCommand));
-            OnPropertyChanged(nameof(CurrentUser));
+
         }
         public ICommand SaveCommand { get => new RelayCommand(SaveUser); }
         public ICommand UpdateCommand { get => new RelayCommand(UpdateUser); }
@@ -328,8 +329,7 @@ namespace PizzaShop_Course.ViewModel.Administrator
         }
         private void LogOut(object parameter)
         {
-            CurrentUser = null;
-            user = CurrentUser;
+            CurrentUser = user = new UserModel();
             IsAuthorized = false;
         }
         private void CreateRegistrationWindow(object parameter)

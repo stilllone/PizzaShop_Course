@@ -20,6 +20,8 @@ namespace PizzaShop_Course.ViewModel.Customer
     public class UserRegistrationViewModel : PropertyBase
     {
         private UserDBConnection userDBConnection;
+        private const string PasswordRegexPattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+        private readonly Regex passwordRegex = new Regex(PasswordRegexPattern);
         public UserRegistrationViewModel()
         {
             userDBConnection = new UserDBConnection();
@@ -121,11 +123,17 @@ namespace PizzaShop_Course.ViewModel.Customer
             }
         }
         private string password;
+        [Required(ErrorMessage = "Password is required.")]
+        [CustomValidation(typeof(EmailValidation), "IsValid", ErrorMessage = "Password is not valid.")]
         public string Password
         {
             get { return password; }
             set
             {
+                if (!passwordRegex.IsMatch(value))
+                {
+                    EventAggregator.Instance.NotificationEvent.Publish("Invalid password. Password must be at least 8 characters long and contain only Latin letters.");
+                }
                 if (password != value)
                 {
                     password = value;
@@ -143,18 +151,8 @@ namespace PizzaShop_Course.ViewModel.Customer
             {
                 if (email != value)
                 {
-                    Regex regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-                    bool isValidEmail = regex.IsMatch(value);
-
-                    if (isValidEmail)
-                    {
-                        email = value;
-                        OnPropertyChanged(nameof(Email));
-                    }
-                    else
-                    {
-                        MessageBox.Show("Invalid email address");
-                    }
+                    email = value;
+                    OnPropertyChanged(nameof(Email));
                 }
             }
         }

@@ -18,7 +18,7 @@ namespace PizzaShop_Course.DataProvider
             _connection = SqlDBConnection.GetDBConnection();
         }
 
-        public ObservableCollection<DrinksModel> GetDrinks()
+        public async Task<ObservableCollection<DrinksModel>> GetDrinksAsync()
         {
             ObservableCollection<DrinksModel> drinks = new ObservableCollection<DrinksModel>();
             using (var connection = _connection)

@@ -20,11 +20,11 @@ namespace PizzaShop_Course.ViewModel
         public PizzasViewModel()
         {
             pizzasDBConnection = new PizzasDBConnection();
-            Task.Run(()=> GetPizzasCollectionAsync());
+            _ = GetPizzasCollectionAsync();
         }
-        private ObservableCollection<PizzasModel> GetPizzasCollectionAsync()
+        private async Task GetPizzasCollectionAsync()
         {
-            return Pizzas = pizzasDBConnection.GetPizzas();
+            Pizzas = await pizzasDBConnection.GetPizzasAsync();
         }
 
         private ObservableCollection<PizzasModel> pizzas;

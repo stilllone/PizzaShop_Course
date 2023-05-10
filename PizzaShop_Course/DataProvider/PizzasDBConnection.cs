@@ -14,7 +14,7 @@ namespace PizzaShop_Course.DataProvider
     {
         private readonly MySqlConnection _connection = SqlDBConnection.GetDBConnection();
 
-        public ObservableCollection<PizzasModel> GetPizzas()
+        public async Task<ObservableCollection<PizzasModel>> GetPizzasAsync()
         {
             ObservableCollection<PizzasModel> pizzas = new ObservableCollection<PizzasModel>();
             var connection = _connection;

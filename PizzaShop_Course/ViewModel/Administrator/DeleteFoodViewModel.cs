@@ -22,11 +22,19 @@ namespace PizzaShop_Course.ViewModel.Administrator
             this.pizzasDB = new PizzasDBConnection();
             this.drinksDB = new DrinksDBConnection();
             PizzasDBConnection pizzasDBConnection = new PizzasDBConnection();
-            Pizzas = pizzasDBConnection.GetPizzas();
+            _ = GetPizzasCollectionAsync();
             DrinksDBConnection drinksModel = new DrinksDBConnection();
-            Drinks = drinksModel.GetDrinks();
+            _ = GetDrinksCollectionsAsync();
         }
 
+        private async Task GetPizzasCollectionAsync()
+        {
+            Pizzas = await pizzasDB.GetPizzasAsync();
+        }
+        private async Task GetDrinksCollectionsAsync()
+        {
+            Drinks = await drinksDB.GetDrinksAsync();
+        }
         private ObservableCollection<DrinksModel> drinks;
         public ObservableCollection<DrinksModel> Drinks
         {
@@ -116,18 +124,18 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 }
                 else if (CurrentItem == FoodItems.Pizza)
                 {
-                    RefreshPizza();
+                    RefreshPizzaAsync();
                 }
             }
         }
-        private void RefreshPizza()
+        private async Task RefreshPizzaAsync()
         {
-            Pizzas = new ObservableCollection<PizzasModel>(pizzasDB.GetPizzas());
+            Pizzas = await pizzasDB.GetPizzasAsync();
             OnPropertyChanged(nameof(Pizzas));
         }
-        private void RefreshDrink()
+        private async Task RefreshDrink()
         {
-            Drinks = new ObservableCollection<DrinksModel>(drinksDB.GetDrinks());
+            Drinks = await drinksDB.GetDrinksAsync();
             OnPropertyChanged(nameof(Drinks));
         }
     }

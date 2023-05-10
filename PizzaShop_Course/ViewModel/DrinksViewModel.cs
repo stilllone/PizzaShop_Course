@@ -21,9 +21,9 @@ namespace PizzaShop_Course.ViewModel
             drinksDBConnection = new DrinksDBConnection();
             Task.Run(() => GetDrinksCollectionAsync());
         }
-        private ObservableCollection<DrinksModel> GetDrinksCollectionAsync()
+        private async Task GetDrinksCollectionAsync()
         {
-            return Drinks = drinksDBConnection.GetDrinks();
+            Drinks = await drinksDBConnection.GetDrinksAsync();
         }
         private ObservableCollection<DrinksModel> drinks;
         public ObservableCollection<DrinksModel> Drinks
