@@ -11,7 +11,15 @@
         <cvm:OrderViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <StackPanel Margin="112,0,0,0" VerticalAlignment="Center"  HorizontalAlignment="Left" Height="359">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <local:BasketView Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <StackPanel Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
             <Label Content="City"/>
             <ComboBox Width="91" ItemsSource="{Binding Cities}" SelectedItem="{Binding City}"/>
             <Label Content="Street"/>
@@ -24,9 +32,8 @@
             <TextBox Text="{Binding Flat}"/>
             <Label Content="Floor"/>
             <TextBox Text="{Binding Floor}"/>
-            
             <Button Content="Finally Order" Height="40" Width="93" Command="{Binding AddOrderCommand}" Margin="0,30,0,0"/>
         </StackPanel>
-        <local:BasketView Panel.ZIndex="0" Margin="440,0,0,0"/>
+        
     </Grid>
 </UserControl>
