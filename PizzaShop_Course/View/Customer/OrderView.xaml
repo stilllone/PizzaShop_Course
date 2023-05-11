@@ -6,20 +6,20 @@
              xmlns:local="clr-namespace:PizzaShop_Course.View.Customer"
              xmlns:cvm="clr-namespace:PizzaShop_Course.ViewModel.Customer"
              mc:Ignorable="d"
-             Height="359" Width="800">
+             MinHeight="359" MinWidth="800">
     <UserControl.DataContext>
         <cvm:OrderViewModel/>
     </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" MinHeight="200"/>
         </Grid.RowDefinitions>
-        <local:BasketView Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <StackPanel Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
+        <local:BasketView Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+        <StackPanel Grid.Column="0" Margin="15 0 0 0" HorizontalAlignment="Left">
             <Label Content="City"/>
             <ComboBox Width="91" ItemsSource="{Binding Cities}" SelectedItem="{Binding City}"/>
             <Label Content="Street"/>
