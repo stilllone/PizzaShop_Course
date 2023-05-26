@@ -229,7 +229,11 @@ namespace PizzaShop_Course.ViewModel.Administrator
             {
                 if (!passwordRegex.IsMatch(value))
                 {
-                    EventAggregator.Instance.NotificationEvent.Publish("Invalid password. Password must be at least 8 characters long and contain only Latin letters.");
+                    if (!string.IsNullOrEmpty(user.Login) || !string.IsNullOrEmpty(user.Password))
+                    {
+                        EventAggregator.Instance.NotificationEvent.Publish("Invalid password. Password must be at least 8 characters long and contain only Latin letters.");
+                    }
+                    
                 }
                 if (user.Password != value)
                 {
@@ -270,11 +274,13 @@ namespace PizzaShop_Course.ViewModel.Administrator
         private void AuthorizeUser(object parameter)
         {
             var possibleUser = userDBConnection.AuthenticateUser(user.Login, user.Password);
-            
             if (possibleUser == null)
             {
                 IsAuthorized = false;
-                EventAggregator.Instance.NotificationEvent.Publish("Uncorrect input data");
+                if (!string.IsNullOrEmpty(user.Login) || !string.IsNullOrEmpty(user.Password))
+                {
+                    EventAggregator.Instance.NotificationEvent.Publish("Incorrect input data");
+                }
             }
             else
             {
@@ -284,7 +290,6 @@ namespace PizzaShop_Course.ViewModel.Administrator
                 OnPropertyChanged(nameof(AuthorizeCommand));
                 OnPropertyChanged(nameof(CurrentUser));
             }
-
         }
         public ICommand SaveCommand { get => new RelayCommand(SaveUser); }
         public ICommand UpdateCommand { get => new RelayCommand(UpdateUser); }

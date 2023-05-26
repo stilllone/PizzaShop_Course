@@ -1,107 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="PizzaShop_Course.Model.PizzasModel">
-    <Position X="3.75" Y="2" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>gIADAIAAIQAAgCAAIIAAACwAgAAEAAEAAAABAACAAgA=</HashCode>
-      <FileName>Model\PizzasModel.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="PizzaShop_Course.Interfaces.AbsFood">
-    <Position X="4.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interfaces\AbsFood.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PizzaShop_Course.Model.DrinksModel">
-    <Position X="7.25" Y="2" Width="2.25" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAADAAAAIQgAgCAIIIAAAAwAgAAEAAAAAAAAAAQAAgA=</HashCode>
-      <FileName>Model\DrinksModel.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="PizzaShop_Course.Model.OrderModel">
-    <Position X="10" Y="1.5" Width="3" />
-    <TypeIdentifier>
-      <HashCode>CAACAAAABAAAAAgIAAAAEAAAQEAQQBAAAAIAAAAAABA=</HashCode>
-      <FileName>Model\OrderModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PizzaShop_Course.Model.UserModel">
-    <Position X="13.75" Y="1" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAACAEAAICBAQCAwAEAAEAAAAAAAAAACAAAQCgAAEgg=</HashCode>
-      <FileName>Model\UserModel.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="PizzaShop_Course.Model.BasketItemModel">
-    <Position X="13.25" Y="4.75" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAEAAEABAABAAAAgAAAAAAAAEAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\BasketItemModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PizzaShop_Course.ViewModel.PizzasViewModel">
-    <Position X="18" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAEIAAABAAAAAAA=</HashCode>
-      <FileName>ViewModel\PizzasViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PizzaShop_Course.ViewModel.NotificationViewModel">
-    <Position X="16" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgAAAAACAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ViewModel\NotificationViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PizzaShop_Course.ViewModel.MainViewModel">
-    <Position X="19.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AACJAAACgAAJQAAACwGACABAJAAQAAAIQgASAgAAAwI=</HashCode>
-      <FileName>ViewModel\MainViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PizzaShop_Course.ViewModel.DrinksViewModel">
-    <Position X="9.5" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAhAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ViewModel\DrinksViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PizzaShop_Course.ViewModel.BasketViewModel">
-    <Position X="16" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAQAAAAEAAAAAAQAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ViewModel\BasketViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PizzaShop_Course.ViewModel.Customer.UserRegistrationViewModel">
-    <Position X="22" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAMAAIChAQCAwCEAAEAAAIAAQAAEKAAAQCgAEEgo=</HashCode>
-      <FileName>ViewModel\Customer\UserRegistrationViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PizzaShop_Course.ViewModel.Customer.OrderViewModel">
-    <Position X="18" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>EAFAAAAhAAAAAAgYACAIGAAAQAAAAgAAAEIAEAACABA=</HashCode>
-      <FileName>ViewModel\Customer\OrderViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="PizzaShop_Course.ViewModel.Administrator.UserViewModel">
-    <Position X="11.5" Y="5.75" Width="1.5" />
+    <Position X="17" Y="3" Width="6" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
     <NestedTypes>
       <Delegate Name="PizzaShop_Course.ViewModel.Administrator.UserViewModel.UserChangedEventHandler" Collapsed="true">
         <TypeIdentifier>
@@ -120,33 +24,15 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PizzaShop_Course.ViewModel.Administrator.DeleteFoodViewModel">
-    <Position X="7.25" Y="6.25" Width="1.5" />
+    <Position X="11.25" Y="4.5" Width="4" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AgBAACAAAAgACAAIAAAAAEAAAEFAAAEAAIABAAAAAAA=</HashCode>
+      <HashCode>AgBAACAAAAgACAAIAAAAAEABAAFAAAEAAIAJAAAAACA=</HashCode>
       <FileName>ViewModel\Administrator\DeleteFoodViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="PizzaShop_Course.ViewModel.Administrator.AddFoodViewModel">
-    <Position X="0.5" Y="1.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>goBBAAAAIQAAiCAQAIAAAGQAIABFAAAAAAAAAACAFAQ=</HashCode>
-      <FileName>ViewModel\Administrator\AddFoodViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Interface Name="PizzaShop_Course.Interfaces.IHumanDataAuthorization" Collapsed="true">
-    <Position X="11.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAQAAAAAAA=</HashCode>
-      <FileName>Interfaces\IHumanDataAuthorization.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="PizzaShop_Course.Interfaces.IHumanInformation" Collapsed="true">
-    <Position X="8" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAEAAAAAAACAAAAAAEAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
-      <FileName>Interfaces\IHumanInformation.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Enum Name="PizzaShop_Course.Interfaces.Enums.FoodSize" Collapsed="true">
     <Position X="17.25" Y="1" Width="1.5" />
     <TypeIdentifier>
