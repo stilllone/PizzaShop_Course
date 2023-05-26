@@ -81,11 +81,11 @@ namespace PizzaShop_Course.Model
                 }
                 else if (Size == FoodSize.small.ToString())
                 {
-                    Price = firstValueOfPrice * 1.15;
+                    Price = Math.Round(firstValueOfPrice * 1.15, 2);
                 }
                 else
                 {
-                    Price = firstValueOfPrice * 1.25;
+                    Price = Math.Round(firstValueOfPrice * 1.25, 2);
                 }
                 OnPropertyChanged(nameof(Size));
             }

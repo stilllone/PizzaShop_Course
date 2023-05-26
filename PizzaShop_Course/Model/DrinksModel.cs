@@ -66,7 +66,6 @@ namespace PizzaShop_Course.Model
             get => price;
             set
             {
-                
                 price = value;
                 OnPropertyChanged(nameof(Price));
                 if (firstValueOfPrice == 0)
@@ -101,12 +100,12 @@ namespace PizzaShop_Course.Model
                 }
                 else if (Size == FoodSize.small.ToString())
                 {
-                    Price = firstValueOfPrice * 1.15;
+                    Price = Math.Round(firstValueOfPrice * 1.15,2);
                     OnPropertyChanged(nameof(Price));
                 }
                 else
                 {
-                    Price = firstValueOfPrice * 1.25;
+                    Price = Math.Round(firstValueOfPrice * 1.25,2);
                     OnPropertyChanged(nameof(Price));
                 }
                 OnPropertyChanged(nameof(Size));
